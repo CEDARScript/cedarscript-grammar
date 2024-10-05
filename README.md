@@ -2,44 +2,37 @@
 
 ## A SQL-like language for code analysis and transformations
 
-CEDARScript is a SQL-like language designed to concisely express code manipulations
-and help LLMs examine and understand codebases.
+CEDARScript is a SQL-like language designed to concisely express:
+1. **Code manipulations and refactorings** (if you know what you want to change in your code);
+2. **Queries** to quickly get to know a large code base without having to read all contents of all files.
 
-It can improve how AI coding assistants interact with codebases and communicate their code modification intentions.
-
-Expressing code changes in CEDARScript can significantly reduce token usage when an LLM code assistant wants to change the code base in response to a user request.
+It can be used to improve how AI coding assistants interact with codebases, learn about your code and communicate their code modification intentions while keeping token usage _low_.
 This efficiency allows for more complex operations within token limits.
 
-Its aim is to facilitate code analysis, manipulation, and refactoring tasks. It provides a standardized way to express complex code modification and analysis operations, making it easier for AI-assisted development tools to understand and execute these tasks.
-With CEDARScript, AI assistants could evolve from error-prone search/replace operations to more reliable coding partners, understanding and transforming code at the semantic level.
+It provides a standardized way to express complex code modification and analysis operations, making it easier for AI-assisted development tools to understand and execute these tasks.
 
 ## Key Features:
 
-- Reduced token usage via semantic-level code transformations, not character-by-character matching;
-- Scalable to larger codebases with minimal token usage; 
-- Avoid wasted time and tokens on failed search/replace operations caused by misplaced spaces or typos; 
 - SQL-like syntax for intuitive code querying and manipulation; 
-- High-level abstractions for complex refactoring operations; 
-- Perform project-wide refactorings with a single, concise command 
-- Language-agnostic design for versatile code analysis 
-- CEDARScript read operations return results in XML format for easier parsing and processing by LLM systems.
-
-## Features
-
-- SQL-like syntax for code manipulation                                                                                                                              
-- Support for creating, updating, and deleting files                                                                                                                 
-- Ability to select and modify specific parts of code                                                                                                                
-- Relative indentation for maintaining proper code structure
+- Language-agnostic design for versatile code analysis;
+- Reduced token usage via semantic-level code transformations, not character-by-character matching;
+- Scalable to larger codebases with minimal token usage;
+- Perform project-wide refactorings with a single, concise command;
+- Avoid wasted time and tokens on failed search/replace operations caused by misplaced spaces, indentation or other typos; 
+- Relative indentation for more easily maintaining proper code structure;
+- Ability to get or modify targeted parts of code;
+- High-level abstractions for complex refactoring operations via refactoring languages (currently supports Rope syntax);
+- Query operations return results in XML format for easier parsing and processing by LLM systems.
 
 ## Usage
 
 CEDARScript can be used to:
 
-1. Create new files                                                                                                                                                  
-2. Update existing code                                                                                                                                              
-3. Delete code or entire files                                                                                                                                       
-4. Move code within or between files                                                                                                                                 
-5. Select and examine parts of the codebase
+1. Create new files;
+2. Update existing code;
+3. Delete parts of code or entire files;
+4. Move code within or between files in a single command;
+5. Select and examine parts of the codebase;
 
 ## Examples
 
