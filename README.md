@@ -2,9 +2,11 @@
 
 ## A SQL-like language for code analysis and transformations
 
-CEDARScript is a SQL-like language designed to concisely express:
-1. **Code manipulations and refactorings** (if you know what you want to change in your code);
-2. **Queries** to quickly get to know a large code base without having to read all contents of all files.
+CEDARScript is a SQL-like language designed to concisely:
+1. **Express code manipulations and refactorings** (if you know what you want to change in your code);
+   - The CEDARScript runtime can edit any file in the code base according to the commands it reads
+3. **Perform code analysis** to quickly get to know a large code base without having to read all contents of all files.
+   - The CEDARScript runtime searches through the whole code base and only returns the desired results
 
 It can be used to improve how AI coding assistants interact with codebases, learn about your code and communicate their code modification intentions while keeping token usage _low_.
 This efficiency allows for more complex operations within token limits.
