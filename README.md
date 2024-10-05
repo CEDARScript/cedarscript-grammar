@@ -41,11 +41,9 @@ CEDARScript can be used to:
 4. Move code within or between files                                                                                                                                 
 5. Select and examine parts of the codebase
 
-## Example
+## Examples
 
-5. Select and examine parts of the codebase
-
-## Example
+Quick example:
 
 ```sql
 UPDATE FUNCTION
@@ -55,3 +53,5 @@ MOVE WHOLE
 INSERT BEFORE LINE "def get_config(self):"
   RELATIVE INDENTATION 0;
 ```
+
+There are [many more examples](test/corpus) to look at...
