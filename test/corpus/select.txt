@@ -1,0 +1,261 @@
+==================
+SELECT File Names and Paths
+==================
+
+SELECT FILE NAMES FROM PROJECT;
+SELECT FILE PATHS FROM DIRECTORY "/src";
+SELECT FILE NAMES FROM DIRECTORY "/lib" MAX DEPTH 2;
+SELECT FILE PATHS FROM PROJECT WHERE NAME LIKE "*.js";
+SELECT FILE NAMES FROM DIRECTORY "/test" WHERE PATH = "/test/unit" LIMIT 10;
+
+---
+
+(source_file
+  (select_command
+    (select_filenamespaths_target)
+    (multifile_clause))
+  (command_separator)
+  (select_command
+    (select_filenamespaths_target)
+    (multifile_clause
+      (string
+        (single_quoted_string))))
+  (command_separator)
+  (select_command
+    (select_filenamespaths_target)
+    (multifile_clause
+      (string
+        (single_quoted_string))
+      (maxdepth_clause
+        (number))))
+  (command_separator)
+  (select_command
+    (select_filenamespaths_target)
+    (multifile_clause)
+    (where_clause
+      (condition
+        (conditions_left)
+        (operator)
+        (string
+          (single_quoted_string)))))
+  (command_separator)
+  (select_command
+    (select_filenamespaths_target)
+    (multifile_clause
+      (string
+        (single_quoted_string)))
+    (where_clause
+      (condition
+        (conditions_left)
+        (operator)
+        (string
+          (single_quoted_string))))
+    (limit_clause
+      (number)))
+  (command_separator))
+
+==================
+SELECT Other Targets from Single File
+==================
+
+SELECT FILE CONTENTS FROM FILE "/main.js";
+SELECT CLASS NAMES FROM FILE "/classes.py" WHERE NAME LIKE "Test*";
+SELECT FUNCTION SIGNATURES FROM FILE "/utils.ts" LIMIT 5;
+SELECT VARIABLE CONTENTS FROM FILE "/config.json" WHERE NAME = "API_KEY";
+SELECT IDENTIFIERS FROM FILE "/constants.h";
+
+---
+
+(source_file
+  (select_command
+    (select_other_target)
+    (singlefile_clause
+      (string
+        (single_quoted_string))))
+  (command_separator)
+  (select_command
+    (select_other_target)
+    (singlefile_clause
+      (string
+        (single_quoted_string)))
+    (where_clause
+      (condition
+        (conditions_left)
+        (operator)
+        (string
+          (single_quoted_string)))))
+  (command_separator)
+  (select_command
+    (select_other_target)
+    (singlefile_clause
+      (string
+        (single_quoted_string)))
+    (limit_clause
+      (number)))
+  (command_separator)
+  (select_command
+    (select_other_target)
+    (singlefile_clause
+      (string
+        (single_quoted_string)))
+    (where_clause
+      (condition
+        (conditions_left)
+        (operator)
+        (string
+          (single_quoted_string)))))
+  (command_separator)
+  (select_command
+    (select_other_target)
+    (singlefile_clause
+      (string
+        (single_quoted_string))))
+  (command_separator))
+
+==================
+SELECT Other Targets from Multiple Files
+==================
+
+SELECT FILE CONTENTS FROM PROJECT WHERE PATH LIKE "*/src/*";
+SELECT CLASS CONTENTS FROM DIRECTORY "/src" MAX DEPTH 3;
+SELECT FUNCTION NAMES FROM PROJECT WHERE NAME LIKE "test_*" LIMIT 20;
+SELECT VARIABLE NAMES FROM DIRECTORY "/config" WHERE PATH = "/config/production";
+SELECT IDENTIFIERS FROM PROJECT MAX DEPTH 5 WHERE NAME LIKE "*Controller";
+
+---
+
+(source_file
+  (select_command
+    (select_other_target)
+    (multifile_clause)
+    (where_clause
+      (condition
+        (conditions_left)
+        (operator)
+        (string
+          (single_quoted_string)))))
+  (command_separator)
+  (select_command
+    (select_other_target)
+    (multifile_clause
+      (string
+        (single_quoted_string))
+      (maxdepth_clause
+        (number))))
+  (command_separator)
+  (select_command
+    (select_other_target)
+    (multifile_clause)
+    (where_clause
+      (condition
+        (conditions_left)
+        (operator)
+        (string
+          (single_quoted_string))))
+    (limit_clause
+      (number)))
+  (command_separator)
+  (select_command
+    (select_other_target)
+    (multifile_clause
+      (string
+        (single_quoted_string)))
+    (where_clause
+      (condition
+        (conditions_left)
+        (operator)
+        (string
+          (single_quoted_string)))))
+  (command_separator)
+  (select_command
+    (select_other_target)
+    (multifile_clause
+      (maxdepth_clause
+        (number)))
+    (where_clause
+      (condition
+        (conditions_left)
+        (operator)
+        (string
+          (single_quoted_string)))))
+  (command_separator))
+
+==================
+Edge Cases and Combinations
+==================
+
+SELECT FILE NAMES FROM PROJECT WHERE PATH LIKE "*/test/*.js";
+SELECT FUNCTION CONTENTS FROM FILE "/app.py" WHERE NAME = "main" LIMIT 1;
+SELECT CLASS NAMES FROM DIRECTORY "/src" MAX DEPTH 10 WHERE PATH LIKE "*/models/*" LIMIT 50;
+SELECT VARIABLE CONTENTS FROM PROJECT WHERE NAME LIKE "DEBUG_*" LIMIT 100;
+SELECT IDENTIFIERS FROM FILE "/large_file.cpp" WHERE NAME LIKE "*_t" LIMIT 1000;
+
+---
+
+(source_file
+  (select_command
+    (select_filenamespaths_target)
+    (multifile_clause)
+    (where_clause
+      (condition
+        (conditions_left)
+        (operator)
+        (string
+          (single_quoted_string)))))
+  (command_separator)
+  (select_command
+    (select_other_target)
+    (singlefile_clause
+      (string
+        (single_quoted_string)))
+    (where_clause
+      (condition
+        (conditions_left)
+        (operator)
+        (string
+          (single_quoted_string))))
+    (limit_clause
+      (number)))
+  (command_separator)
+  (select_command
+    (select_other_target)
+    (multifile_clause
+      (string
+        (single_quoted_string))
+      (maxdepth_clause
+        (number)))
+    (where_clause
+      (condition
+        (conditions_left)
+        (operator)
+        (string
+          (single_quoted_string))))
+    (limit_clause
+      (number)))
+  (command_separator)
+  (select_command
+    (select_other_target)
+    (multifile_clause)
+    (where_clause
+      (condition
+        (conditions_left)
+        (operator)
+        (string
+          (single_quoted_string))))
+    (limit_clause
+      (number)))
+  (command_separator)
+  (select_command
+    (select_other_target)
+    (singlefile_clause
+      (string
+        (single_quoted_string)))
+    (where_clause
+      (condition
+        (conditions_left)
+        (operator)
+        (string
+          (single_quoted_string))))
+    (limit_clause
+      (number)))
+  (command_separator))

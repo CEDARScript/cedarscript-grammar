@@ -1,0 +1,209 @@
+==================
+Basic CREATE Operations
+==================
+
+CREATE FILE r"C:\new-file.txt" WITH CONTENT 'new'
+CREATE FILE "C:\\note.txt" WITH CONTENT "Note"
+CREATE FILE '/log/app.log' WITH CONTENT '''
+Log 'a' '' x
+''';
+
+---
+
+(source_file
+  (create_command
+    (singlefile_clause
+      (string
+        (raw_string)))
+    (content_clause
+      (string
+        (single_quoted_string))))
+  (create_command
+    (singlefile_clause
+      (string
+        (single_quoted_string
+          (escape_sequence))))
+    (content_clause
+      (string
+        (single_quoted_string))))
+  (create_command
+    (singlefile_clause
+      (string
+        (single_quoted_string)))
+    (content_clause
+      (string
+        (multi_line_string))))
+  (command_separator))
+
+
+==================
+CREATE with Multiline Content
+==================
+
+CREATE FILE "/src/example.js" WITH CONTENT '''
+function hello() {
+    console.log("Hello, '' world!", "", 'a "" b');
+}
+''';
+
+CREATE FILE "/app/config.yaml" WITH CONTENT '''
+@0:database:
+@1:host: localhost
+@1:port: 5432
+''';
+
+CREATE FILE "/etc/motd" WITH CONTENT '''
+Welcome!
+''';
+
+---
+
+(source_file
+  (create_command
+    (singlefile_clause
+      (string
+        (single_quoted_string)))
+    (content_clause
+      (string
+        (multi_line_string))))
+  (command_separator)
+  (create_command
+    (singlefile_clause
+      (string
+        (single_quoted_string)))
+    (content_clause
+      (string
+        (multi_line_string))))
+  (command_separator)
+  (create_command
+    (singlefile_clause
+      (string
+        (single_quoted_string)))
+    (content_clause
+      (string
+        (multi_line_string))))
+  (command_separator))
+
+==================
+CREATE with Special Characters
+==================
+
+CREATE FILE "/path/with spaces/and-symbols/file!@#.txt" WITH CONTENT "Content with special chars: !@#$%^&*()";
+CREATE FILE r"\tmp\unicode_file_名前.txt" WITH CONTENT "This file has Unicode characters in its name";
+CREATE FILE "/root/quotes_file.json" WITH CONTENT "{\"key\": \"value with \\\"quotes\\\"\"}";
+
+---
+
+(source_file
+  (create_command
+    (singlefile_clause
+      (string
+        (single_quoted_string)))
+    (content_clause
+      (string
+        (single_quoted_string))))
+  (command_separator)
+  (create_command
+    (singlefile_clause
+      (string
+        (raw_string)))
+    (content_clause
+      (string
+        (single_quoted_string))))
+  (command_separator)
+  (create_command
+    (singlefile_clause
+      (string
+        (single_quoted_string)))
+    (content_clause
+      (string
+        (single_quoted_string
+          (escape_sequence)
+          (escape_sequence)
+          (escape_sequence)
+          (escape_sequence)
+          (escape_sequence)
+          (escape_sequence)
+          (escape_sequence)
+          (escape_sequence)))))
+  (command_separator))
+
+
+==================
+CREATE Edge Cases
+==================
+
+CREATE FILE "/" WITH CONTENT "Attempting to create root";
+CREATE FILE "." WITH CONTENT "Current directory file";
+CREATE FILE ".." WITH CONTENT "Parent directory file";
+CREATE FILE "/very/long/path/that/might/exceed/usual/limits/in/some/systems/file.txt" WITH CONTENT "Testing very long paths";
+CREATE FILE "/dev/null" WITH CONTENT "Writing to device file";
+CREATE FILE "/tmp/empty_file.txt" WITH CONTENT "";
+CREATE FILE r"\app\large_content.txt" WITH CONTENT '''
+This is a very large content string that goes on for multiple lines.
+It contains various characters and symbols: !@#$%^&*()_+-={}[]|\\:;"'<>,.?/
+It also includes some Unicode characters: ñ, é, ü, ç, ß, 你好, こんにちは, Привет
+The purpose is to test the parser's ability to handle large multiline strings and ''quotes''
+... (imagine this going on for many more lines)
+''';
+
+---
+
+(source_file
+  (create_command
+    (singlefile_clause
+      (string
+        (single_quoted_string)))
+    (content_clause
+      (string
+        (single_quoted_string))))
+  (command_separator)
+  (create_command
+    (singlefile_clause
+      (string
+        (single_quoted_string)))
+    (content_clause
+      (string
+        (single_quoted_string))))
+  (command_separator)
+  (create_command
+    (singlefile_clause
+      (string
+        (single_quoted_string)))
+    (content_clause
+      (string
+        (single_quoted_string))))
+  (command_separator)
+  (create_command
+    (singlefile_clause
+      (string
+        (single_quoted_string)))
+    (content_clause
+      (string
+        (single_quoted_string))))
+  (command_separator)
+  (create_command
+    (singlefile_clause
+      (string
+        (single_quoted_string)))
+    (content_clause
+      (string
+        (single_quoted_string))))
+  (command_separator)
+  (create_command
+    (singlefile_clause
+      (string
+        (single_quoted_string)))
+    (content_clause
+      (string
+        (single_quoted_string))))
+  (command_separator)
+  (create_command
+    (singlefile_clause
+      (string
+        (raw_string)))
+    (content_clause
+      (string
+        (multi_line_string
+          (escape_sequence)))))
+  (command_separator))
