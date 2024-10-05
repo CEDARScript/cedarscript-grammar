@@ -47,7 +47,7 @@ CEDARScript can be used to:
 
 ## Example
 
-```CEDARScript
+```sql
 UPDATE FUNCTION
   FROM FILE "functional.py"
   WHERE NAME = "_conform_to_reference_input"
