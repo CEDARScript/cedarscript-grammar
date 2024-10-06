@@ -1,3 +1,5 @@
+.DS_*
+
 # Rust artifacts
 Cargo.lock
 target/
