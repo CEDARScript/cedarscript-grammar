@@ -1,0 +1,74 @@
+==================
+Delete Single File
+==================
+
+RM FILE "/tmp/unnecessary_file.txt";
+RM FILE "/var/log/old_logs/app_2022.log";
+RM FILE "C:\\Windows\\Temp\\temp_file_123.tmp";
+
+---
+
+(source_file
+  (rm_file_command
+    (singlefile_clause
+      (string
+        (single_quoted_string))))
+  (command_separator)
+  (rm_file_command
+    (singlefile_clause
+      (string
+        (single_quoted_string))))
+  (command_separator)
+  (rm_file_command
+    (singlefile_clause
+      (string
+        (single_quoted_string
+          (escape_sequence)
+          (escape_sequence)
+          (escape_sequence)))))
+  (command_separator))
+
+
+==================
+Delete with Complex Paths and Names
+==================
+
+RM FILE "/very/long/path/with spaces/and-symbols/file_name_!@#$%^&*().txt";
+
+---
+
+(source_file
+  (rm_file_command
+    (singlefile_clause
+      (string
+        (single_quoted_string))))
+  (command_separator))
+
+
+==================
+Delete Edge Cases
+==================
+
+RM FILE "/";
+RM FILE ".";
+RM FILE "..";
+
+---
+
+(source_file
+  (rm_file_command
+    (singlefile_clause
+      (string
+        (single_quoted_string))))
+  (command_separator)
+  (rm_file_command
+    (singlefile_clause
+      (string
+        (single_quoted_string))))
+  (command_separator)
+  (rm_file_command
+    (singlefile_clause
+      (string
+        (single_quoted_string))))
+  (command_separator))
+

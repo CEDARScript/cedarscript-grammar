@@ -1,0 +1,878 @@
+==================
+UPDATE Single File
+==================
+
+-- Remarks
+UPDATE FILE "/path/to/file.js"
+REPLACE LINE "old" WITH CONTENT "new line content";
+
+UPDATE FILE "/app/main.py"
+INSERT AFTER LINE "def main():" OFFSET 1
+WITH CONTENT "@1:print('Hello, World!')"
+
+UPDATE FILE "/app/main.py"
+INSERT INSIDE FUNCTION "func1" OFFSET 1 BOTTOM
+WITH CONTENT "@1:print('Hello, World!')";
+
+UPDATE FILE "/config/settings.json"
+REPLACE SEGMENT
+    STARTING AT LINE "\"database\": {" OFFSET 1
+    ENDING BEFORE LINE "}"
+WITH CONTENT '''
+    "host": "localhost",
+    "port": 5432,
+    "user": "admin"
+''';
+
+UPDATE FILE "/config/settings.json"
+REPLACE SEGMENT
+    STARTING AT LINE "\"database\": {" OFFSET 1
+    ENDING BEFORE LINE "}"
+WITH FILE "my/file" SEGMENT
+    STARTING AT LINE "\"database\": {" OFFSET 1
+    ENDING BEFORE LINE "}"
+    RELATIVE INDENTATION 2;
+
+UPDATE FILE "file"
+DELETE LINE "line"
+
+UPDATE FILE "file"
+DELETE VARIABLE "var1";
+
+UPDATE FILE "file"
+DELETE FUNCTION "fun";
+
+UPDATE FILE "file"
+DELETE CLASS "cls1";
+
+UPDATE FILE "file"
+DELETE SEGMENT
+    STARTING AT LINE "\"database\": {" OFFSET 1
+    ENDING BEFORE LINE "}"
+
+---
+
+(source_file
+  (comment)
+  (update_command
+    (singlefile_clause
+      (string
+        (single_quoted_string)))
+    (replace_mos_clause
+      (marker_or_segment
+        (marker
+          (lineMarker
+            (string
+              (single_quoted_string))))))
+    (content_clause
+      (string
+        (single_quoted_string))))
+  (command_separator)
+  (update_command
+    (singlefile_clause
+      (string
+        (single_quoted_string)))
+    (insert_clause
+      (relpos_bai
+        (relpos_beforeafter
+          (marker
+            (lineMarker
+              (string
+                (single_quoted_string))
+              (offset_clause
+                (number)))))))
+    (content_clause
+      (string
+        (single_quoted_string))))
+  (update_command
+    (singlefile_clause
+      (string
+        (single_quoted_string)))
+    (insert_clause
+      (relpos_bai
+        (relpos_inside
+          (identifierMarker
+            (string
+              (single_quoted_string))
+            (offset_clause
+              (number))))))
+    (content_clause
+      (string
+        (single_quoted_string))))
+  (command_separator)
+  (update_command
+    (singlefile_clause
+      (string
+        (single_quoted_string)))
+    (replace_mos_clause
+      (marker_or_segment
+        (segment
+          (relpos_segment_start
+            (relpos_at
+              (lineMarker
+                (string
+                  (single_quoted_string
+                    (escape_sequence)
+                    (escape_sequence)))
+                (offset_clause
+                  (number)))))
+          (relpos_segment_end
+            (relpos_beforeafter
+              (marker
+                (lineMarker
+                  (string
+                    (single_quoted_string)))))))))
+    (content_clause
+      (string
+        (multi_line_string))))
+  (command_separator)
+  (update_command
+    (singlefile_clause
+      (string
+        (single_quoted_string)))
+    (replace_mos_clause
+      (marker_or_segment
+        (segment
+          (relpos_segment_start
+            (relpos_at
+              (lineMarker
+                (string
+                  (single_quoted_string
+                    (escape_sequence)
+                    (escape_sequence)))
+                (offset_clause
+                  (number)))))
+          (relpos_segment_end
+            (relpos_beforeafter
+              (marker
+                (lineMarker
+                  (string
+                    (single_quoted_string)))))))))
+    (content_from_segment
+      (singlefile_clause
+        (string
+          (single_quoted_string)))
+      (marker_or_segment
+        (segment
+          (relpos_segment_start
+            (relpos_at
+              (lineMarker
+                (string
+                  (single_quoted_string
+                    (escape_sequence)
+                    (escape_sequence)))
+                (offset_clause
+                  (number)))))
+          (relpos_segment_end
+            (relpos_beforeafter
+              (marker
+                (lineMarker
+                  (string
+                    (single_quoted_string))))))))
+      (relative_indentation
+        (number))))
+  (command_separator)
+  (update_command
+    (singlefile_clause
+      (string
+        (single_quoted_string)))
+    (update_delete_mos_clause
+      (marker_or_segment
+        (marker
+          (lineMarker
+            (string
+              (single_quoted_string)))))))
+  (update_command
+    (singlefile_clause
+      (string
+        (single_quoted_string)))
+    (update_delete_mos_clause
+      (marker_or_segment
+        (marker
+          (identifierMarker
+            (string
+              (single_quoted_string)))))))
+  (command_separator)
+  (update_command
+    (singlefile_clause
+      (string
+        (single_quoted_string)))
+    (update_delete_mos_clause
+      (marker_or_segment
+        (marker
+          (identifierMarker
+            (string
+              (single_quoted_string)))))))
+  (command_separator)
+  (update_command
+    (singlefile_clause
+      (string
+        (single_quoted_string)))
+    (update_delete_mos_clause
+      (marker_or_segment
+        (marker
+          (identifierMarker
+            (string
+              (single_quoted_string)))))))
+  (command_separator)
+  (update_command
+    (singlefile_clause
+      (string
+        (single_quoted_string)))
+    (update_delete_mos_clause
+      (marker_or_segment
+        (segment
+          (relpos_segment_start
+            (relpos_at
+              (lineMarker
+                (string
+                  (single_quoted_string
+                    (escape_sequence)
+                    (escape_sequence)))
+                (offset_clause
+                  (number)))))
+          (relpos_segment_end
+            (relpos_beforeafter
+              (marker
+                (lineMarker
+                  (string
+                    (single_quoted_string)))))))))))
+
+
+==================
+UPDATE Function/Class From File
+==================
+
+UPDATE FUNCTION
+FROM FILE "/src/utils.js"
+WHERE
+    NAME = "calculateTotal"
+REPLACE BODY
+WITH CONTENT '''
+  return items.reduce((sum, item) => sum + item.price, 0);
+''';
+
+UPDATE FUNCTION
+FROM FILE "/src/utils.js"
+WHERE
+    NAME = "calculateTotal"
+REPLACE WHOLE
+WITH CONTENT '''
+...
+''';
+
+UPDATE CLASS
+  FROM FILE "/lib/helpers.py"
+  WHERE NAME LIKE "Validate*" OFFSET 2
+  INSERT
+    BEFORE LINE "return" OFFSET 1
+  WITH CONTENT "@1:something..."
+
+UPDATE FUNCTION
+  FROM FILE "/lib/helpers.py"
+  WHERE NAME LIKE "validate*" OFFSET 2
+  DELETE WHOLE
+
+UPDATE FUNCTION
+  FROM FILE "/lib/helpers.py"
+  WHERE NAME LIKE "validate*" OFFSET 2
+  DELETE BODY
+
+UPDATE FUNCTION
+  FROM FILE "/lib/helpers.py"
+  WHERE NAME LIKE "validate*" OFFSET 2
+  DELETE LINE "line inside function"
+
+UPDATE FUNCTION
+  FROM FILE "/lib/helpers.py"
+  WHERE NAME LIKE "validate*" OFFSET 2
+DELETE SEGMENT
+    STARTING AT LINE "\"database\": {" OFFSET 1
+    ENDING BEFORE LINE "}"
+
+---
+
+(source_file
+  (update_command
+    (identifier_from_file
+      (singlefile_clause
+        (string
+          (single_quoted_string)))
+      (where_clause
+        (condition
+          (conditions_left)
+          (operator)
+          (string
+            (single_quoted_string)))))
+    (replace_region_clause
+      (region_field))
+    (content_clause
+      (string
+        (multi_line_string))))
+  (command_separator)
+  (update_command
+    (identifier_from_file
+      (singlefile_clause
+        (string
+          (single_quoted_string)))
+      (where_clause
+        (condition
+          (conditions_left)
+          (operator)
+          (string
+            (single_quoted_string)))))
+    (replace_region_clause
+      (region_field))
+    (content_clause
+      (string
+        (multi_line_string))))
+  (command_separator)
+  (update_command
+    (identifier_from_file
+      (singlefile_clause
+        (string
+          (single_quoted_string)))
+      (where_clause
+        (condition
+          (conditions_left)
+          (operator)
+          (string
+            (single_quoted_string))))
+      (offset_clause
+        (number)))
+    (insert_clause
+      (relpos_bai
+        (relpos_beforeafter
+          (marker
+            (lineMarker
+              (string
+                (single_quoted_string))
+              (offset_clause
+                (number)))))))
+    (content_clause
+      (string
+        (single_quoted_string))))
+  (update_command
+    (identifier_from_file
+      (singlefile_clause
+        (string
+          (single_quoted_string)))
+      (where_clause
+        (condition
+          (conditions_left)
+          (operator)
+          (string
+            (single_quoted_string))))
+      (offset_clause
+        (number)))
+    (update_delete_region_clause
+      (region_field)))
+  (update_command
+    (identifier_from_file
+      (singlefile_clause
+        (string
+          (single_quoted_string)))
+      (where_clause
+        (condition
+          (conditions_left)
+          (operator)
+          (string
+            (single_quoted_string))))
+      (offset_clause
+        (number)))
+    (update_delete_region_clause
+      (region_field)))
+  (update_command
+    (identifier_from_file
+      (singlefile_clause
+        (string
+          (single_quoted_string)))
+      (where_clause
+        (condition
+          (conditions_left)
+          (operator)
+          (string
+            (single_quoted_string))))
+      (offset_clause
+        (number)))
+    (update_delete_region_clause
+      (region_field
+        (marker_or_segment
+          (marker
+            (lineMarker
+              (string
+                (single_quoted_string))))))))
+  (update_command
+    (identifier_from_file
+      (singlefile_clause
+        (string
+          (single_quoted_string)))
+      (where_clause
+        (condition
+          (conditions_left)
+          (operator)
+          (string
+            (single_quoted_string))))
+      (offset_clause
+        (number)))
+    (update_delete_region_clause
+      (region_field
+        (marker_or_segment
+          (segment
+            (relpos_segment_start
+              (relpos_at
+                (lineMarker
+                  (string
+                    (single_quoted_string
+                      (escape_sequence)
+                      (escape_sequence)))
+                  (offset_clause
+                    (number)))))
+            (relpos_segment_end
+              (relpos_beforeafter
+                (marker
+                  (lineMarker
+                    (string
+                      (single_quoted_string))))))))))))
+
+
+==================
+UPDATE Move Segment
+==================
+
+UPDATE FILE "/src/component.tsx"
+MOVE SEGMENT
+STARTING AT LINE "import React" OFFSET 0
+ENDING BEFORE LINE "function Component"
+INSERT AFTER LINE "export default Component;";
+
+UPDATE FUNCTION
+FROM FILE "/app/views.py"
+WHERE NAME = "index"
+MOVE SEGMENT
+STARTING AFTER LINE "def index():" OFFSET 1
+ENDING BEFORE LINE "return"
+INSERT BEFORE LINE "return" OFFSET 1;
+
+---
+
+(source_file
+  (update_command
+    (singlefile_clause
+      (string
+        (single_quoted_string)))
+    (update_move_mos_clause
+      (marker_or_segment
+        (segment
+          (relpos_segment_start
+            (relpos_at
+              (lineMarker
+                (string
+                  (single_quoted_string))
+                (offset_clause
+                  (number)))))
+          (relpos_segment_end
+            (relpos_beforeafter
+              (marker
+                (lineMarker
+                  (string
+                    (single_quoted_string))))))))
+      (update_move_clause_destination
+        (insert_clause
+          (relpos_bai
+            (relpos_beforeafter
+              (marker
+                (lineMarker
+                  (string
+                    (single_quoted_string))))))))))
+  (command_separator)
+  (update_command
+    (identifier_from_file
+      (singlefile_clause
+        (string
+          (single_quoted_string)))
+      (where_clause
+        (condition
+          (conditions_left)
+          (operator)
+          (string
+            (single_quoted_string)))))
+    (update_move_region_clause
+      (region_field
+        (marker_or_segment
+          (segment
+            (relpos_segment_start
+              (relpos_beforeafter
+                (marker
+                  (lineMarker
+                    (string
+                      (single_quoted_string))
+                    (offset_clause
+                      (number))))))
+            (relpos_segment_end
+              (relpos_beforeafter
+                (marker
+                  (lineMarker
+                    (string
+                      (single_quoted_string)))))))))
+      (update_move_clause_destination
+        (insert_clause
+          (relpos_bai
+            (relpos_beforeafter
+              (marker
+                (lineMarker
+                  (string
+                    (single_quoted_string))
+                  (offset_clause
+                    (number))))))))))
+  (command_separator))
+
+
+==================
+UPDATE Move BODY / WHOLE / LINE
+==================
+
+UPDATE FUNCTION
+FROM FILE "/app/views.py"
+WHERE NAME = "index"
+MOVE WHOLE
+INSERT BEFORE CLASS "TopClass" OFFSET 1;
+
+UPDATE FUNCTION
+FROM FILE "/app/views.py"
+WHERE NAME = "index"
+MOVE BODY
+INSERT INSIDE FUNCTION "otherFunc" OFFSET 2 BOTTOM
+
+UPDATE FUNCTION
+FROM FILE "/app/views.py"
+WHERE NAME = "index"
+MOVE LINE "a line"
+INSERT AFTER LINE "XXX"
+
+---
+
+(source_file
+  (update_command
+    (identifier_from_file
+      (singlefile_clause
+        (string
+          (single_quoted_string)))
+      (where_clause
+        (condition
+          (conditions_left)
+          (operator)
+          (string
+            (single_quoted_string)))))
+    (update_move_region_clause
+      (region_field)
+      (update_move_clause_destination
+        (insert_clause
+          (relpos_bai
+            (relpos_beforeafter
+              (marker
+                (identifierMarker
+                  (string
+                    (single_quoted_string))
+                  (offset_clause
+                    (number))))))))))
+  (command_separator)
+  (update_command
+    (identifier_from_file
+      (singlefile_clause
+        (string
+          (single_quoted_string)))
+      (where_clause
+        (condition
+          (conditions_left)
+          (operator)
+          (string
+            (single_quoted_string)))))
+    (update_move_region_clause
+      (region_field)
+      (update_move_clause_destination
+        (insert_clause
+          (relpos_bai
+            (relpos_inside
+              (identifierMarker
+                (string
+                  (single_quoted_string))
+                (offset_clause
+                  (number)))))))))
+  (update_command
+    (identifier_from_file
+      (singlefile_clause
+        (string
+          (single_quoted_string)))
+      (where_clause
+        (condition
+          (conditions_left)
+          (operator)
+          (string
+            (single_quoted_string)))))
+    (update_move_region_clause
+      (region_field
+        (marker_or_segment
+          (marker
+            (lineMarker
+              (string
+                (single_quoted_string))))))
+      (update_move_clause_destination
+        (insert_clause
+          (relpos_bai
+            (relpos_beforeafter
+              (marker
+                (lineMarker
+                  (string
+                    (single_quoted_string)))))))))))
+
+==================
+UPDATE Replace With Segment
+==================
+
+UPDATE FILE "/src/index.js"
+REPLACE LINE "SS"
+WITH FILE "/src/template.js"
+SEGMENT
+STARTING AT LINE "// START TEMPLATE"
+ENDING BEFORE LINE "// END TEMPLATE"
+
+UPDATE FUNCTION
+FROM FILE "/lib/math.py"
+WHERE NAME = "calculate_average"
+REPLACE BODY
+WITH SEGMENT
+STARTING AFTER LINE "def efficient_average(numbers):"
+ENDING AT LINE "return";
+
+---
+
+(source_file
+  (update_command
+    (singlefile_clause
+      (string
+        (single_quoted_string)))
+    (replace_mos_clause
+      (marker_or_segment
+        (marker
+          (lineMarker
+            (string
+              (single_quoted_string))))))
+    (content_from_segment
+      (singlefile_clause
+        (string
+          (single_quoted_string)))
+      (marker_or_segment
+        (segment
+          (relpos_segment_start
+            (relpos_at
+              (lineMarker
+                (string
+                  (single_quoted_string)))))
+          (relpos_segment_end
+            (relpos_beforeafter
+              (marker
+                (lineMarker
+                  (string
+                    (single_quoted_string))))))))))
+  (update_command
+    (identifier_from_file
+      (singlefile_clause
+        (string
+          (single_quoted_string)))
+      (where_clause
+        (condition
+          (conditions_left)
+          (operator)
+          (string
+            (single_quoted_string)))))
+    (replace_region_clause
+      (region_field))
+    (content_from_segment
+      (marker_or_segment
+        (segment
+          (relpos_segment_start
+            (relpos_beforeafter
+              (marker
+                (lineMarker
+                  (string
+                    (single_quoted_string))))))
+          (relpos_segment_end
+            (relpos_at
+              (lineMarker
+                (string
+                  (single_quoted_string)))))))))
+  (command_separator))
+
+
+==================
+UPDATE PROJECT
+==================
+
+UPDATE PROJECT
+  REFACTOR LANGUAGE "rope"
+  WITH PATTERN '''
+<rope-line pattern expression>
+'''
+  WITH GOAL '''
+<rope-like goal expression>
+''';
+
+---
+
+(source_file
+  (update_command
+    (update_project_clause
+      (refactor_language_field
+        (string
+          (single_quoted_string)))
+      (pattern_field
+        (string
+          (multi_line_string)))
+      (goal_field
+        (string
+          (multi_line_string)))))
+  (command_separator))
+
+
+==================
+UPDATE Edge Cases and Combinations
+==================
+
+UPDATE FILE "/very/long/path/to/file/with/many/directories/example.txt"
+REPLACE SEGMENT
+STARTING BEFORE LINE "Section 1" OFFSET 5
+ENDING AFTER LINE "End of Section 1" OFFSET 10
+WITH CONTENT '''
+@0:This is a very long
+@1:multiline content
+@-1:with "quotes" and other 'special' chars
+@2:like \ backslashes and   multiple   spaces
+''';
+
+UPDATE FUNCTION FROM FILE "/src/complex_file.js" WHERE NAME LIKE "*Controller"
+MOVE SEGMENT
+STARTING AT LINE "constructor(" OFFSET 0
+ENDING BEFORE LINE "}"
+INSERT AFTER LINE "methods: {" OFFSET 1;
+
+UPDATE FILE "/config.json"
+REPLACE SEGMENT
+STARTING AT LINE "\"environment\": {"
+ENDING AFTER LINE "}"
+WITH FILE "/default_config.json"
+SEGMENT
+  STARTING AT LINE "\"environment\": {"
+  ENDING AFTER LINE"}";
+
+---
+
+(source_file
+  (update_command
+    (singlefile_clause
+      (string
+        (single_quoted_string)))
+    (replace_mos_clause
+      (marker_or_segment
+        (segment
+          (relpos_segment_start
+            (relpos_beforeafter
+              (marker
+                (lineMarker
+                  (string
+                    (single_quoted_string))
+                  (offset_clause
+                    (number))))))
+          (relpos_segment_end
+            (relpos_beforeafter
+              (marker
+                (lineMarker
+                  (string
+                    (single_quoted_string))
+                  (offset_clause
+                    (number)))))))))
+    (content_clause
+      (string
+        (multi_line_string
+          (ERROR
+            (UNEXPECTED ' '))))))
+  (command_separator)
+  (update_command
+    (identifier_from_file
+      (singlefile_clause
+        (string
+          (single_quoted_string)))
+      (where_clause
+        (condition
+          (conditions_left)
+          (operator)
+          (string
+            (single_quoted_string)))))
+    (update_move_region_clause
+      (region_field
+        (marker_or_segment
+          (segment
+            (relpos_segment_start
+              (relpos_at
+                (lineMarker
+                  (string
+                    (single_quoted_string))
+                  (offset_clause
+                    (number)))))
+            (relpos_segment_end
+              (relpos_beforeafter
+                (marker
+                  (lineMarker
+                    (string
+                      (single_quoted_string)))))))))
+      (update_move_clause_destination
+        (insert_clause
+          (relpos_bai
+            (relpos_beforeafter
+              (marker
+                (lineMarker
+                  (string
+                    (single_quoted_string))
+                  (offset_clause
+                    (number))))))))))
+  (command_separator)
+  (update_command
+    (singlefile_clause
+      (string
+        (single_quoted_string)))
+    (replace_mos_clause
+      (marker_or_segment
+        (segment
+          (relpos_segment_start
+            (relpos_at
+              (lineMarker
+                (string
+                  (single_quoted_string
+                    (escape_sequence)
+                    (escape_sequence))))))
+          (relpos_segment_end
+            (relpos_beforeafter
+              (marker
+                (lineMarker
+                  (string
+                    (single_quoted_string)))))))))
+    (content_from_segment
+      (singlefile_clause
+        (string
+          (single_quoted_string)))
+      (marker_or_segment
+        (segment
+          (relpos_segment_start
+            (relpos_at
+              (lineMarker
+                (string
+                  (single_quoted_string
+                    (escape_sequence)
+                    (escape_sequence))))))
+          (relpos_segment_end
+            (relpos_beforeafter
+              (marker
+                (lineMarker
+                  (string
+                    (single_quoted_string))))))))))
+  (command_separator))

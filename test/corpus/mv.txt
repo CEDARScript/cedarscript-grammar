@@ -1,0 +1,157 @@
+==================
+Basic MV Operations
+==================
+
+MV FILE "src/old-file.js" TO "src/new-file.js";
+MV FILE "config/development.json" TO "config/production.json";
+MV FILE "temp/log.txt" TO "logs/app_2023-09-23.log";
+
+---
+
+(source_file
+  (mv_file_command
+    (singlefile_clause
+      (string
+        (single_quoted_string)))
+    (to_value_clause
+      (string
+        (single_quoted_string))))
+  (command_separator)
+  (mv_file_command
+    (singlefile_clause
+      (string
+        (single_quoted_string)))
+    (to_value_clause
+      (string
+        (single_quoted_string))))
+  (command_separator)
+  (mv_file_command
+    (singlefile_clause
+      (string
+        (single_quoted_string)))
+    (to_value_clause
+      (string
+        (single_quoted_string))))
+  (command_separator))
+
+
+==================
+MV with Complex Paths
+==================
+
+MV FILE "/very/long/path/to/source/file.txt" TO "/another/very/long/path/to/destination/file.txt";
+MV FILE "/home/user/documents/report.docx" TO "/home/user/Dropbox/shared_docs/final_report.docx";
+
+---
+
+(source_file
+  (mv_file_command
+    (singlefile_clause
+      (string
+        (single_quoted_string)))
+    (to_value_clause
+      (string
+        (single_quoted_string))))
+  (command_separator)
+  (mv_file_command
+    (singlefile_clause
+      (string
+        (single_quoted_string)))
+    (to_value_clause
+      (string
+        (single_quoted_string))))
+  (command_separator))
+
+==================
+MV with Special Characters
+==================
+
+MV FILE "/path/with spaces/and symbols!/@#/file.txt" TO "/new path/with-different_symbols&^%/file.txt";
+MV FILE "/root/file_with_unicode_チ.txt" TO "/users/さようなら.txt";
+MV FILE "/tmp/file\"with\"quotes.json" TO "/data/escaped\\backslashes.json";
+
+---
+
+(source_file
+  (mv_file_command
+    (singlefile_clause
+      (string
+        (single_quoted_string)))
+    (to_value_clause
+      (string
+        (single_quoted_string))))
+  (command_separator)
+  (mv_file_command
+    (singlefile_clause
+      (string
+        (single_quoted_string)))
+    (to_value_clause
+      (string
+        (single_quoted_string))))
+  (command_separator)
+  (mv_file_command
+    (singlefile_clause
+      (string
+        (single_quoted_string
+          (escape_sequence)
+          (escape_sequence))))
+    (to_value_clause
+      (string
+        (single_quoted_string
+          (escape_sequence)))))
+  (command_separator))
+
+
+==================
+MV Edge Cases
+==================
+
+MV FILE "/" TO "/root_backup";
+MV FILE "/file_without_extension" TO "/with_extension.txt";
+MV FILE "/source/./current/././file.txt" TO "/destination/../final/file.txt";
+MV FILE "/case_sensitive/File.txt" TO "/case_sensitive/file.txt";
+MV FILE "/home/user/.hidden_file" TO "/home/user/visible_file";
+
+---
+
+(source_file
+  (mv_file_command
+    (singlefile_clause
+      (string
+        (single_quoted_string)))
+    (to_value_clause
+      (string
+        (single_quoted_string))))
+  (command_separator)
+  (mv_file_command
+    (singlefile_clause
+      (string
+        (single_quoted_string)))
+    (to_value_clause
+      (string
+        (single_quoted_string))))
+  (command_separator)
+  (mv_file_command
+    (singlefile_clause
+      (string
+        (single_quoted_string)))
+    (to_value_clause
+      (string
+        (single_quoted_string))))
+  (command_separator)
+  (mv_file_command
+    (singlefile_clause
+      (string
+        (single_quoted_string)))
+    (to_value_clause
+      (string
+        (single_quoted_string))))
+  (command_separator)
+  (mv_file_command
+    (singlefile_clause
+      (string
+        (single_quoted_string)))
+    (to_value_clause
+      (string
+        (single_quoted_string))))
+  (command_separator))
