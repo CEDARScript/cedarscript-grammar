@@ -52,7 +52,13 @@ INSERT BEFORE LINE "def get_config(self):"
 There are [many more examples](test/corpus) to look at...
 
 
-# See Also
+# Related
 
-1. [.QL](https://en.wikipedia.org/wiki/.QL)
-2. [JQL (Java Query Language)](https://github.com/fmbenhassine/jql) - This tool makes it possible to query Java source code with SQL. It's designed for Java code analysis and linting.
+1. [.QL](https://en.wikipedia.org/wiki/.QL) - Object-oriented query language that enables querying Java source code using SQL-like syntax;
+2. [JQL (Java Query Language)](https://github.com/fmbenhassine/jql) - Allows querying Java source code with SQL. It's designed for Java code analysis and linting;
+3. [Joern](https://github.com/joernio/joern) - While primarily focused on C/C++, Joern is an open-source code analysis platform that uses a custom graph database to store code property graphs. It allows querying code using a Scala-based domain-specific language; 
+
+
+# Unrelated
+
+1. Cedar language
