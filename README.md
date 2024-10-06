@@ -52,6 +52,8 @@ There are [many more examples](test/corpus) to look at...
 
 ## ONBOARDING
 
+An LLM (or a human) will be able to use the commands below to get to know a new codebase:
+
 ```sql
 -- Read contents of CONVENTIONS.md
 SELECT CONVENTIONS
