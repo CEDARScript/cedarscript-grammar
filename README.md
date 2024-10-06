@@ -80,4 +80,4 @@ FROM ONBOARDING
 
 # Unrelated
 
-1. Cedar language
+1. [Cedar Policy Language] (https://www.cedarpolicy.com/)
