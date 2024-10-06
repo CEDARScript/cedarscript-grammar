@@ -5,7 +5,7 @@
 CEDARScript is a SQL-like language designed to concisely:
 1. **Express code manipulations and refactorings** (if you know what you want to change in your code);
   - The CEDARScript runtime can edit any file in the code base according to the commands it reads
-3. **Perform code analysis** to quickly get to know a large code base without having to read all contents of all files.
+2. **Perform code analysis** to quickly get to know a large code base without having to read all contents of all files.
   - The CEDARScript runtime searches through the whole code base and only returns the desired results
 
 ## Usage
@@ -53,7 +53,7 @@ There are [many more examples](test/corpus) to look at...
 
 1. [.QL](https://en.wikipedia.org/wiki/.QL) - Object-oriented query language that enables querying Java source code using SQL-like syntax;
 2. [JQL (Java Query Language)](https://github.com/fmbenhassine/jql) - Allows querying Java source code with SQL. It's designed for Java code analysis and linting;
-3. [Joern](https://github.com/joernio/joern) - While primarily focused on C/C++, Joern is an open-source code analysis platform that uses a custom graph database to store code property graphs. It allows querying code using a Scala-based domain-specific language;
+3. [Joern](https://github.com/joernio/joern) - While primarily focused on C/C++, Joern is an open-source code analysis platform that uses a custom graph database to store code property graphs. It allows querying code using a Scala-based domain-specific language; 
 
 
 # Unrelated
