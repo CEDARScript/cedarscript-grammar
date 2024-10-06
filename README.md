@@ -48,6 +48,20 @@ INSERT BEFORE LINE "def get_config(self):"
 
 There are [many more examples](test/corpus) to look at...
 
+# Planned Features
+
+## ONBOARDING
+
+```sql
+-- Read contents of CONVENTIONS.md
+SELECT CONVENTIONS
+FROM ONBOARDING;
+
+-- Read about conventions and also the overal project architecture
+SELECT *
+FROM ONBOARDING
+
+```
 
 # Related
 
