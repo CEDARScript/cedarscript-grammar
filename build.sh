@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-ts() { tree-sitter-macos-arm64 "$@" ;}
+ts() ( cd target && tree-sitter-macos-arm64 "$@" ;)
 
 playground() {
   while true; do
@@ -16,18 +16,20 @@ playground() {
   ts playground
 }
 
+mkdir -p target
+cp grammar.js target/
+
 ts generate -l -b && \
 ts build --wasm && \
+cp -a test target && \
 ts test || { playground; exit 1 ;}
 
-mkdir -p ../vendor && \
-rm -f libtree-sitter-cedar.* ../vendor/libtree-sitter-cedar.* && \
-cc -c -I./src src/parser.c && cc -dynamiclib -o libtree-sitter-cedar.dylib parser.o && \
-mv libtree-sitter-cedar.dylib ../vendor/libtree-sitter-cedar.dylib && \
+mkdir -p vendor && \
+rm -f target/libtree-sitter-cedar.* vendor/libtree-sitter-cedar.* && \
+(cd target && cc -c -I./src src/parser.c && cc -dynamiclib -o libtree-sitter-cedar.dylib parser.o) && \
+mv target/libtree-sitter-cedar.dylib vendor/ && \
 docker build -t tree-sitter-cedar-builder . && \
 docker cp $(docker create tree-sitter-cedar-builder):/libtree-sitter-cedar.so \
-  ../vendor/libtree-sitter-cedar.so || exit
-
-git add ../vendor/*
+  vendor/libtree-sitter-cedar.so || exit
 
 playground
