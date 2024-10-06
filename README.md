@@ -55,3 +55,4 @@ There are [many more examples](test/corpus) to look at...
 # See Also
 
 1. [.QL](https://en.wikipedia.org/wiki/.QL)
+2. [JQL (Java Query Language)](https://github.com/fmbenhassine/jql) - This tool makes it possible to query Java source code with SQL. It's designed for Java code analysis and linting.
