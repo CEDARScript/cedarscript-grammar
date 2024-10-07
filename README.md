@@ -13,11 +13,31 @@
 2. **Perform code analysis** to quickly get to know a large code base without having to read all contents of all files.
    - The CEDARScript runtime searches through the whole code base and only returns the desired results
 
+## Key Features:
+
+- **SQL-like syntax** for intuitive code querying and manipulation;
+- **Reduced token usage** via semantic-level code transformations, not character-by-character matching;
+    - **Scalable to larger codebases** with minimal token usage;
+    - **Project-wide refactorings** can be performed with a single, concise command
+    - Avoids wasted time and tokens on failed search/replace operations caused by misplaced spaces, indentations or typos;
+- **High-level abstractions** for complex refactoring operations via refactoring languages (currently supports Rope syntax);
+- **[Relative indentation](grammar.js#L301-L366)** for easily maintaining proper code structure;
+- Allows fetching or modifying targeted parts of code;
+- **Locations in code**: Doesn't use line numbers. Instead, offers [more resilient alternatives](grammar.js#L241-L297), like:
+    - **[Line](grammar.js#L243-L246)** markers. Ex:
+        - `LINE "if name == 'some name':"`
+    - **[Identifier](grammar.js#L248-L251)** markers (`VARIABLE`, `FUNCTION`, `CLASS`). Ex:
+        - `FUNCTION 'my_function'`
+- **Language-agnostic design** for versatile code analysis
+- **[Code analysis operations](grammar.js#L192-L219)** return results in XML format for easier parsing and processing by LLM (Large Language Model) systems.
+
 ## Projects using the CEDARScript Language
 
 1. [CEDARScript AST Parser (Python)](https://github.com/CEDARScript/cedarscript-ast-parser-python)
 2. [CEDARScript Editor](https://github.com/CEDARScript/cedarscript-editor-python)
-3. [CEDARScript Prompt Engineering](https://github.com/CEDARScript/cedarscript-llm-prompt-engineering) - Provides prompts that teach `CEDARScript` to LLMs
+3. [CEDARScript Prompt Engineering](https://github.com/CEDARScript/cedarscript-llm-prompt-engineering)
+   - Provides prompts that teach `CEDARScript` to LLMs
+   - Also includes real conversations held via Aider in which an LLM uses this language to propose code modifications
 4. [CEDARScript Integrations](https://github.com/CEDARScript/cedarscript-integrations) - Provides `CEDARScript` [_edit format_](https://aider.chat/docs/llms/editing-format.html) for [Aider](https://aider.chat/)
 
 ## How can CEDARScript be used?
@@ -39,24 +59,6 @@ IDEs can store the local history of files in CEDARScript format, and this can al
 - Code review systems for automated, in-depth code assessments
 - Automated code documentation and explanation tools
 - ...
-
-## Key Features:
-
-- **SQL-like syntax** for intuitive code querying and manipulation;
-- **Reduced token usage** via semantic-level code transformations, not character-by-character matching;
-  - **Scalable to larger codebases** with minimal token usage;
-  - **Project-wide refactorings** can be performed with a single, concise command
-  - Avoids wasted time and tokens on failed search/replace operations caused by misplaced spaces, indentations or typos;
-- **High-level abstractions** for complex refactoring operations via refactoring languages (currently supports Rope syntax);
-- **[Relative indentation](grammar.js#L301-L366)** for easily maintaining proper code structure;
-- Allows fetching or modifying targeted parts of code;
-- **Locations in code**: Doesn't use line numbers. Instead, offers [more resilient alternatives](grammar.js#L241-L297), like:
-  - **[Line](grammar.js#L243-L246)** markers. Ex:
-    - `LINE "if name == 'some name':"`
-  - **[Identifier](grammar.js#L248-L251)** markers (`VARIABLE`, `FUNCTION`, `CLASS`). Ex:
-    - `FUNCTION 'my_function'`
-- **Language-agnostic design** for versatile code analysis
-- **[Code analysis operations](grammar.js#L192-L219)** return results in XML format for easier parsing and processing by LLM (Large Language Model) systems.
 
 ## Examples
 
@@ -188,6 +190,7 @@ This approach could potentially enhance LLMs' ability to leverage external tools
 # See Also
 1. [OpenAI Fine-tuning](https://platform.openai.com/docs/guides/fine-tuning/common-use-cases)
 2. [llm-context.py](https://github.com/cyberchitta/llm-context.py)
+3. [`Gemini 1.5 PRO` improved performance (on par with Sonnet 3.5)](https://github.com/Aider-AI/aider/pull/1897#issue-2563049442)
 
 # Unrelated
 
