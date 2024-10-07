@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "cedarscript-grammar"
-version = "0.0.6"
+dynamic = ["version"]
 description = "CEDARScript grammar.js for tree-sitter"
 authors = [
     {name = "Elifarley", email = "cedarscript@orgecc.com"},
@@ -36,11 +36,12 @@ Homepage = "https://github.com/CEDARScript/cedarscript-grammar#readme"
 [tool.setuptools]
 packages = ["cedarscript_grammar"]
 
-[tool.setuptools.package-data]
-cedarscript_grammar = ["py.typed", "*.so", "*.dylib", "*.dll"]
-
 [tool.setuptools.dynamic]
 version = {attr = "cedarscript_grammar.__version__"}
+
+[tool.setuptools.package-data]
+"cedarscript_grammar" = ["py.typed", "*.so", "*.dylib", "*.dll"]
+
 
 [tool.black]
 line-length = 100
