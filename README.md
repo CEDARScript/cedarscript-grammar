@@ -2,18 +2,26 @@
 
 ## A SQL-like language for code analysis and transformations
 
-CEDARScript is a SQL-like language designed to concisely:
+`CEDARScript` is a SQL-like language designed to _concisely_:
 1. **Express code manipulations and refactorings** (if you know what you want to change in your code);
-  - The CEDARScript runtime can edit any file in the code base according to the commands it reads
+   - The CEDARScript runtime can edit any file in the code base according to the commands it reads
 2. **Perform code analysis** to quickly get to know a large code base without having to read all contents of all files.
-  - The CEDARScript runtime searches through the whole code base and only returns the desired results
+   - The CEDARScript runtime searches through the whole code base and only returns the desired results
 
 ## Usage
 
-CEDARScript can be used to improve how AI coding assistants interact with codebases, learn about your code, and communicate their code modification intentions while keeping token usage _low_.
+### Improving LLM <-> codebase interactions
+
+`CEDARScript` can be used as a way to standardize and improve how AI coding assistants interact with codebases, learn about your code, and communicate their code modification intentions while keeping token usage _low_.
 This efficiency allows for more complex operations within token limits.
 
-It provides a standardized way to express complex code modification and analysis operations, making it easier for AI-assisted development tools to understand and execute these tasks.
+It provides a concise way to express complex code modification and analysis operations, making it easier for AI-assisted development tools to understand and perform these tasks.
+
+### Use as a refactoring language / _diff_ format
+
+One can use `CEDARScript` to concisely and unambiguously represent code modifications at a higher level than a standard diff format can.
+
+IDEs can store the local history of files in CEDARScript format, and this can also be used for searches.
 
 ## Key Features:
 
@@ -72,6 +80,11 @@ FROM ONBOARDING
 
 ```
 
+# Future Work
+
+1. Select a model to fine-tune so that it natively understands `CEDARScript`;
+2. Provide language extensions that will improve how LLMs interact with other tools, APIs, and resource types;
+
 # Related
 
 1. [.QL](https://en.wikipedia.org/wiki/.QL) - Object-oriented query language that enables querying Java source code using SQL-like syntax;
@@ -79,6 +92,9 @@ FROM ONBOARDING
 3. [Joern](https://github.com/joernio/joern) - While primarily focused on C/C++, Joern is an open-source code analysis platform that uses a custom graph database to store code property graphs. It allows querying code using a Scala-based domain-specific language; 
 4. [Codebase Context Suite](https://agentic-insights.github.io/codebase-context-spec/) - A comprehensive tool for managing codebase context, generating prompts, and enhancing development workflows;
 5. [CONVENTIONS.md](https://aider.chat/docs/usage/conventions.html)
+
+# See Also
+1. [OpenAI Fine-tuning](https://platform.openai.com/docs/guides/fine-tuning/common-use-cases)
 
 # Unrelated
 
