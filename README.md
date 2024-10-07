@@ -196,4 +196,4 @@ This approach could potentially enhance LLMs' ability to leverage external tools
 
 # Unrelated
 
-1. [Cedar Policy Language](https://www.cedarpolicy.com/) (`CEDARScript` is _not_ a policy language)
+1. [Cedar Policy Language](https://www.cedarpolicy.com/) _('CEDARScript' is _not_ a policy language. 'Cedar' and 'CEDARScript' are totally unrelated.)_
