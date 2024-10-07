@@ -16,6 +16,8 @@
 ## Key Features:
 
 - **SQL-like syntax** for intuitive code querying and manipulation;
+- Shows improved results in refactoring benchmarks when compared to standard diff formats
+   - See [`Gemini 1.5 PRO` improved performance (on par with Sonnet 3.5)](https://github.com/Aider-AI/aider/pull/1897#issue-2563049442)
 - **Reduced token usage** via semantic-level code transformations, not character-by-character matching;
     - **Scalable to larger codebases** with minimal token usage;
     - **Project-wide refactorings** can be performed with a single, concise command
