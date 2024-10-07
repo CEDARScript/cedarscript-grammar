@@ -18,7 +18,7 @@
 1. [CEDARScript AST Parser (Python)](https://github.com/CEDARScript/cedarscript-ast-parser-python)
 2. [CEDARScript Editor](https://github.com/CEDARScript/cedarscript-editor-python)
 3. [CEDARScript Prompt Engineering](https://github.com/CEDARScript/cedarscript-llm-prompt-engineering) - Provides prompts that teach `CEDARScript` to LLMs
-4. [CEDARScript Integrations](https://github.com/CEDARScript/cedarscript-integrations) - Provides `CEDARScript` _edit format_ for [Aider](https://aider.chat/)
+4. [CEDARScript Integrations](https://github.com/CEDARScript/cedarscript-integrations) - Provides `CEDARScript` [_edit format_](https://aider.chat/docs/llms/editing-format.html) for [Aider](https://aider.chat/)
 
 ## How can CEDARScript be used?
 
