@@ -1,6 +1,9 @@
 # CEDARScript (Concise Examination, Development, And Refactoring Script)
 
 [![PyPI version](https://badge.fury.io/py/cedarscript-grammar.svg)](https://pypi.org/project/cedarscript-grammar/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Python Versions](https://img.shields.io/pypi/pyversions/cedarscript-grammar.svg)](https://pypi.org/project/cedarscript-grammar/)
+[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 
 ## A SQL-like language for code analysis and transformations
 
