@@ -1,4 +1,4 @@
-# CEDARScript (Concise Examination, Development, And Refactoring Script)
+# CEDARScript
 
 [![PyPI version](https://badge.fury.io/py/cedarscript-grammar.svg)](https://pypi.org/project/cedarscript-grammar/)
 [![Python Versions](https://img.shields.io/pypi/pyversions/cedarscript-grammar.svg)](https://pypi.org/project/cedarscript-grammar/)
@@ -7,13 +7,20 @@
 
 ## A SQL-like language for code analysis and transformations
 
-`CEDARScript` is a SQL-like language designed to _concisely_:
+`CEDARScript` (_Concise Examination, Development, And Refactoring Script_) is a **SQL**-like language designed to _concisely_:
 1. **Express code manipulations and refactorings** (if you know what you want to change in your code);
    - The CEDARScript runtime can edit any file in the code base according to the commands it reads
 2. **Perform code analysis** to quickly get to know a large code base without having to read all contents of all files.
    - The CEDARScript runtime searches through the whole code base and only returns the desired results
 
-## Usage
+## Projects using the CEDARScript Language
+
+1. [CEDARScript AST Parser (Python)](https://github.com/CEDARScript/cedarscript-ast-parser-python)
+2. [CEDARScript Editor](https://github.com/CEDARScript/cedarscript-editor-python)
+3. [CEDARScript Prompt Engineering](https://github.com/CEDARScript/cedarscript-llm-prompt-engineering) - Provides prompts that teach `CEDARScript` to LLMs
+4. [CEDARScript Integrations](https://github.com/CEDARScript/cedarscript-integrations) - Provides `CEDARScript` _edit format_ for [Aider](https://aider.chat/)
+
+## How can CEDARScript be used?
 
 ### Improving LLM <-> codebase interactions
 

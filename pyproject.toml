@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "cedarscript_grammar"
-version = "0.0.4"
+version = "0.0.5"
 description = "CEDARScript grammar.js for tree-sitter"
 authors = [
     {name = "Elifarley", email = "cedarscript@orgecc.com"},
