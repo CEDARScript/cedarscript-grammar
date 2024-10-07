@@ -4,7 +4,7 @@ from pathlib import Path
 
 from tree_sitter import Language
 
-__version__ = "0.0.3"
+__version__ = "0.0.4"
 __all__ = ("language",)
 
 _ROOT_DIR = Path(__file__).parent
