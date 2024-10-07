@@ -1,0 +1,57 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "cedarscript_grammar"
+version = "0.0.3"
+description = "CEDARScript grammar.js for tree-sitter"
+authors = [
+    {name = "Elifarley", email = "cedarscript@orgecc.com"},
+]
+readme = "README.md"
+license = {text = "MIT"}
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Topic :: Software Development :: Compilers",
+    "Topic :: Text Processing :: Linguistic",
+    "Typing :: Typed"
+]
+keywords = ["incremental", "parsing", "tree-sitter", "cedarscript", "shared-library", "dylib", "so", "python-binding"]
+requires-python = ">=3.9"
+dependencies = [
+    "tree-sitter~=0.21",
+]
+
+[project.urls]
+Homepage = "https://github.com/CEDARScript/cedarscript-grammar#readme"
+"Bug Tracker" = "https://github.com/CEDARScript/cedarscript-grammar/issues"
+
+[tool.setuptools]
+packages = ["cedarscript_grammar"]
+
+[tool.setuptools.package-data]
+cedarscript_grammar = ["py.typed", "*.so", "*.dylib", "*.dll"]
+
+[tool.setuptools.dynamic]
+version = {attr = "cedarscript_grammar.__version__"}
+
+[tool.black]
+line-length = 100
+target-version = ['py39']
+
+[tool.isort]
+profile = "black"
+line_length = 100
+
+[tool.mypy]
+python_version = "3.9"
+strict = true
+warn_return_any = true
+warn_unused_configs = true

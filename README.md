@@ -1,5 +1,7 @@
 # CEDARScript (Concise Examination, Development, And Refactoring Script)
 
+[![PyPI version](https://badge.fury.io/py/cedarscript-grammar.svg)](https://pypi.org/project/cedarscript-grammar/)
+
 ## A SQL-like language for code analysis and transformations
 
 `CEDARScript` is a SQL-like language designed to _concisely_:
