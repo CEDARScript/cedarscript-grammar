@@ -24,14 +24,14 @@ ts build --wasm && \
 cp -a test target && \
 ts test || { playground; exit 1 ;}
 
-rm -f target/libtree-sitter-cedar.* cedarscript_grammar/libtree-sitter-cedar.* && \
+rm -f target/libtree-sitter-cedar.* src/cedarscript_grammar/libtree-sitter-cedar.* && \
 (cd target && cc -c -I./src src/parser.c && cc -dynamiclib -o libtree-sitter-cedar.dylib parser.o) && \
-mv target/libtree-sitter-cedar.dylib cedarscript_grammar/ && \
+mv target/libtree-sitter-cedar.dylib src/cedarscript_grammar/ && \
 docker build -t tree-sitter-cedar-builder . && \
 docker cp $(docker create tree-sitter-cedar-builder):/libtree-sitter-cedar.so \
-  cedarscript_grammar/libtree-sitter-cedar.so || exit
+  src/cedarscript_grammar/libtree-sitter-cedar.so || exit
 
-ls -Falk cedarscript_grammar/lib*
-du -hs cedarscript_grammar/lib*
+ls -Falk src/cedarscript_grammar/lib*
+du -hs src/cedarscript_grammar/lib*
 
 playground

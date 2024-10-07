@@ -16,25 +16,25 @@ classifiers = [
     "Intended Audience :: Developers",
     "License :: OSI Approved :: MIT License",
     "Programming Language :: Python :: 3",
-    "Programming Language :: Python :: 3.9",
-    "Programming Language :: Python :: 3.10",
-    "Programming Language :: Python :: 3.11",
     "Topic :: Software Development :: Compilers",
     "Topic :: Text Processing :: Linguistic",
     "Typing :: Typed"
 ]
-keywords = ["incremental", "parsing", "tree-sitter", "cedarscript", "shared-library", "dylib", "so", "python-binding"]
-requires-python = ">=3.9"
+keywords = ["parser", "tree-sitter", "ast", "cedarscript", "code-editing", "refactoring", "code-analysis", "sql-like", "ai-assisted-development", "python-binding"]
+requires-python = ">=3.8"
 dependencies = [
     "tree-sitter~=0.21",
 ]
 
 [project.urls]
 Homepage = "https://github.com/CEDARScript/cedarscript-grammar#readme"
+Repository = "https://github.com/CEDARScript/cedarscript-grammar.git"
+Documentation = "https://github.com/CEDARScript/cedarscript-grammar#readme"
 "Bug Tracker" = "https://github.com/CEDARScript/cedarscript-grammar/issues"
 
 [tool.setuptools]
 packages = ["cedarscript_grammar"]
+package-dir = {"" = "src"}
 
 [tool.setuptools.dynamic]
 version = {attr = "cedarscript_grammar.__version__"}
@@ -52,7 +52,7 @@ profile = "black"
 line_length = 100
 
 [tool.mypy]
-python_version = "3.9"
+python_version = "3.8"
 strict = true
 warn_return_any = true
 warn_unused_configs = true
