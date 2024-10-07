@@ -63,27 +63,43 @@ There are [many more examples](test/corpus) to look at...
 
 # Planned Features
 
-## ONBOARDING
+## Onboarding Capabilities
 
-An LLM (or a human) will be able to use the commands below to get to know a new codebase:
+This capability is designed to help developers, AI assistants, and other tools quickly gain a comprehensive understanding of a project's structure, conventions, and context.
 
-```sql
--- Read contents of CONVENTIONS.md
-SELECT CONVENTIONS
-FROM ONBOARDING;
+### Key Onboarding Features
 
--- Read contents of codebase context files:
---   .context.md (primary, may be in json or yaml form)
---   .contextdocs.md
---   .contextignore
-SELECT CONTEXT
-FROM ONBOARDING;
+1. **Convention Discovery**:
+   CEDARScript can automatically extract coding conventions from designated files like `CONVENTIONS.md`:
 
--- Read all you should know about the current project
-SELECT *
-FROM ONBOARDING
+   ```sql
+   SELECT CONVENTIONS
+   FROM ONBOARDING;
+   ```
 
-```
+2. **Context Retrieval**:
+   Quickly access project context from files like `.context.md` or `.contextdocs.md`:
+
+   ```sql
+   SELECT CONTEXT
+   FROM ONBOARDING;
+   ```
+
+3. **Comprehensive Project Overview**:
+   Gather all essential project information in one query:
+
+   ```sql
+   SELECT *
+   FROM ONBOARDING;
+   ```
+
+### Future Enhancements
+
+Ideas to explore:
+
+- Automatic generation of project structure visualizations
+- Integration with version control history for context-aware onboarding
+- Customizable onboarding queries for specific project needs
 
 # Future Work
 
