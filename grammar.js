@@ -255,10 +255,15 @@ module.exports = grammar({
     */
     relpos_beforeafter: $ => field('relpos_beforeafter', seq(choice('BEFORE', 'AFTER'), $.marker)),
     /**
-    relpos_inside: Points to inside `identifierMarker` (its top or bottom region).
-    Use cases: When inserting content at the top or bottom of a function, class or file.
+    relpos_inside: Points to inside `identifierMarker` (either the body's TOP or BOTTOM region). The reference indentation level is the body's.
+    Syntax: INSIDE (FUNCTION|CLASS) "<name>" [OFFSET <offset>] (TOP|BOTTOM)
+    Use cases: When inserting content either at the TOP or BOTTOM of a function or class body.
+    Examples: <ul>
+    <li>INSIDE FUNCTION my_function OFFSET 1 BOTTOM -- at the BOTTOM of the function body</li>
+    <li>INSIDE FUNCTION my_function TOP -- at the TOP of the function body</li>
+    </ul>
     */
-    relpos_inside: $ => seq('INSIDE', field('inside', $.identifierMarker), optional(field('topOrBottom', choice('TOP', 'BOTTOM')))),
+    relpos_inside: $ => seq('INSIDE', field('inside', $.identifierMarker), field('topOrBottom', choice('TOP', 'BOTTOM'))),
     relpos_bai: $ => field('relpos_bai', choice($.relpos_beforeafter, $.relpos_inside)),
     /**
     relpos_at: points to a specific `lineMarker`
@@ -409,6 +414,7 @@ in the target code file.
         "'",
         repeat(choice(
           /[^'\\\n]/,
+          '--',
           $.escape_sequence
         )),
         "'"
@@ -417,6 +423,7 @@ in the target code file.
         '"',
         repeat(choice(
           /[^"\\\n]/,
+          '--',
           $.escape_sequence
         )),
         '"'
@@ -432,6 +439,7 @@ in the target code file.
           /[^"\\]/,
           '"',
           '""',
+          '--',
           $.escape_sequence
         )),
         '"""'
@@ -442,6 +450,7 @@ in the target code file.
           /[^'\\]/,
           "'",
           "''",
+          '--',
           $.escape_sequence
         )),
         "'''"
@@ -450,7 +459,10 @@ in the target code file.
 
     number: $ => /\d+/,
 
-    comment: $ => token(seq('--', /.*/)),
+    comment: $ => token(prec(-1, seq(
+      '--',
+      optional(/[^\n]+/)
+    ))),
 
     command_separator: $ => ';'
 
