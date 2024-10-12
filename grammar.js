@@ -457,7 +457,7 @@ in the target code file.
       )
     ),
 
-    number: $ => /\d+/,
+    number: $ => seq(optional('-'), /\d+/),
 
     comment: $ => token(prec(-1, seq(
       '--',
