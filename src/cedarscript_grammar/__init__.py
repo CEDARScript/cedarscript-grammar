@@ -1,8 +1,8 @@
 import logging
 import sys
-from pathlib import Path
 from ctypes import cdll, c_void_p
 from os import fspath
+from pathlib import Path
 
 from tree_sitter import Language
 
@@ -14,10 +14,10 @@ _ROOT_DIR = Path(__file__).parent
 
 def language() -> Language:
     """Load the tree-sitter library for CEDARScript."""
-    
+
     logger = logging.getLogger(__name__)
     logger.setLevel("DEBUG")
-    
+
     # Determine the appropriate library file based on the current architecture
     if sys.platform.startswith('darwin'):
         lib_name = 'libtree-sitter-cedar.dylib'

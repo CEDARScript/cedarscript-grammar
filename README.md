@@ -23,9 +23,9 @@
     - **Project-wide refactorings** can be performed with a single, concise command
     - Avoids wasted time and tokens on failed search/replace operations caused by misplaced spaces, indentations or typos;
 - **High-level abstractions** for complex refactoring operations via refactoring languages (currently supports Rope syntax);
-- **[Relative indentation](grammar.js#L301-L366)** for easily maintaining proper code structure;
+- **[Relative indentation](grammar.js#L306-L370)** for easily maintaining proper code structure;
 - Allows fetching or modifying targeted parts of code;
-- **Locations in code**: Doesn't use line numbers. Instead, offers [more resilient alternatives](grammar.js#L241-L297), like:
+- **Locations in code**: Doesn't use line numbers. Instead, offers [more resilient alternatives](grammar.js#L241-L300), like:
     - **[Line](grammar.js#L243-L246)** markers. Ex:
         - `LINE "if name == 'some name':"`
     - **[Identifier](grammar.js#L248-L251)** markers (`VARIABLE`, `FUNCTION`, `CLASS`). Ex:
