@@ -5,9 +5,9 @@ from os import fspath
 from pathlib import Path
 
 from tree_sitter import Language
+from ._version import __version__
 
-__version__ = "0.0.9"
-__all__ = ("language",)
+__all__ = ("language","__version__")
 
 _ROOT_DIR = Path(__file__).parent
 

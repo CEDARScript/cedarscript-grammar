@@ -1,5 +1,5 @@
 [build-system]
-requires = ["setuptools>=61.0", "wheel"]
+requires = ["setuptools>=61.0", "wheel", "setuptools_scm[toml]>=6.2"]
 build-backend = "setuptools.build_meta"
 
 [project]
@@ -33,11 +33,21 @@ Documentation = "https://github.com/CEDARScript/cedarscript-grammar#readme"
 "Bug Tracker" = "https://github.com/CEDARScript/cedarscript-grammar/issues"
 
 [tool.setuptools]
-packages = ["cedarscript_grammar"]
 package-dir = {"" = "src"}
 
-[tool.setuptools.dynamic]
-version = {attr = "cedarscript_grammar.__version__"}
+[tool.setuptools_scm]
+# To override version:
+# >>> SETUPTOOLS_SCM_PRETEND_VERSION=0.0.2 python -m build
+# To dry-run and see version:
+# >>> python -m setuptools_scm
+write_to = "src/cedarscript_grammar/_version.py"
+# Append .post{number of commits} to your version if there are commits after the last tag.
+version_scheme = "post-release"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+include = ["cedarscript_grammar"]
+namespaces = false
 
 [tool.setuptools.package-data]
 "cedarscript_grammar" = ["py.typed", "*.so", "*.dylib", "*.dll"]
