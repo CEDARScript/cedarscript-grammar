@@ -1,4 +1,5 @@
 .DS_*
+*/.DS_*
 
 # Rust artifacts
 Cargo.lock
