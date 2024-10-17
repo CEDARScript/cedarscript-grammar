@@ -184,9 +184,8 @@ module.exports = grammar({
     </params>
     */
     identifier_from_file: $ => seq(
-      choice('FUNCTION', 'CLASS'), 'FROM', $.singlefile_clause,
-      $.where_clause,
-      optional($.offset_clause)
+      $.identifierMarker, 'FROM', $.singlefile_clause,
+      optional($.where_clause)
     ),
 
     /**

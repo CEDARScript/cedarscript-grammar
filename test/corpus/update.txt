@@ -1,4 +1,34 @@
 ==================
+UPDATE PROJECT
+==================
+
+UPDATE PROJECT
+  REFACTOR LANGUAGE "rope"
+  WITH PATTERN '''
+<rope-line pattern expression>
+'''
+  WITH GOAL '''
+<rope-like goal expression>
+''';
+
+---
+
+(source_file
+  (update_command
+    (update_project_clause
+      (refactor_language_field
+        (string
+          (single_quoted_string)))
+      (pattern_field
+        (string
+          (multi_line_string)))
+      (goal_field
+        (string
+          (multi_line_string)))))
+  (command_separator))
+
+
+==================
 UPDATE Single File
 ==================
 
@@ -240,52 +270,43 @@ DELETE SEGMENT
 
 
 ==================
-UPDATE Function/Class From File
+UPDATE Function/Class From File w/o WHERE
 ==================
 
-UPDATE FUNCTION
+UPDATE FUNCTION "calculateTotal"
 FROM FILE "/src/utils.js"
-WHERE
-    NAME = "calculateTotal"
 REPLACE BODY
 WITH CONTENT '''
   return items.reduce((sum, item) => sum + item.price, 0);
 ''';
 
-UPDATE FUNCTION
+UPDATE FUNCTION "calculateTotal"
 FROM FILE "/src/utils.js"
-WHERE
-    NAME = "calculateTotal"
 REPLACE WHOLE
 WITH CONTENT '''
 ...
 ''';
 
-UPDATE CLASS
+UPDATE CLASS "Validate*" OFFSET 2
   FROM FILE "/lib/helpers.py"
-  WHERE NAME LIKE "Validate*" OFFSET 2
   INSERT
     BEFORE LINE "return" OFFSET 1
   WITH CONTENT "@1:something..."
 
-UPDATE FUNCTION
+UPDATE FUNCTION "validate*" OFFSET 2
   FROM FILE "/lib/helpers.py"
-  WHERE NAME LIKE "validate*" OFFSET 2
   DELETE WHOLE
 
-UPDATE FUNCTION
+UPDATE FUNCTION "validate*" OFFSET 2
   FROM FILE "/lib/helpers.py"
-  WHERE NAME LIKE "validate*" OFFSET 2
   DELETE BODY
 
-UPDATE FUNCTION
+UPDATE FUNCTION "validate*" OFFSET 2
   FROM FILE "/lib/helpers.py"
-  WHERE NAME LIKE "validate*" OFFSET 2
   DELETE LINE "line inside function"
 
-UPDATE FUNCTION
+UPDATE FUNCTION "validate*" OFFSET 2
   FROM FILE "/lib/helpers.py"
-  WHERE NAME LIKE "validate*" OFFSET 2
 DELETE SEGMENT
     STARTING AT LINE "\"database\": {" OFFSET 1
     ENDING BEFORE LINE "}"
@@ -295,15 +316,12 @@ DELETE SEGMENT
 (source_file
   (update_command
     (identifier_from_file
-      (singlefile_clause
+      (identifierMarker
         (string
           (single_quoted_string)))
-      (where_clause
-        (condition
-          (conditions_left)
-          (operator)
-          (string
-            (single_quoted_string)))))
+      (singlefile_clause
+        (string
+          (single_quoted_string))))
     (replace_region_clause
       (region_field))
     (content_clause
@@ -312,15 +330,12 @@ DELETE SEGMENT
   (command_separator)
   (update_command
     (identifier_from_file
-      (singlefile_clause
+      (identifierMarker
         (string
           (single_quoted_string)))
-      (where_clause
-        (condition
-          (conditions_left)
-          (operator)
-          (string
-            (single_quoted_string)))))
+      (singlefile_clause
+        (string
+          (single_quoted_string))))
     (replace_region_clause
       (region_field))
     (content_clause
@@ -329,17 +344,14 @@ DELETE SEGMENT
   (command_separator)
   (update_command
     (identifier_from_file
+      (identifierMarker
+        (string
+          (single_quoted_string))
+        (offset_clause
+          (number)))
       (singlefile_clause
         (string
-          (single_quoted_string)))
-      (where_clause
-        (condition
-          (conditions_left)
-          (operator)
-          (string
-            (single_quoted_string))))
-      (offset_clause
-        (number)))
+          (single_quoted_string))))
     (insert_clause
       (relpos_bai
         (relpos_beforeafter
@@ -354,47 +366,38 @@ DELETE SEGMENT
         (single_quoted_string))))
   (update_command
     (identifier_from_file
+      (identifierMarker
+        (string
+          (single_quoted_string))
+        (offset_clause
+          (number)))
       (singlefile_clause
         (string
-          (single_quoted_string)))
-      (where_clause
-        (condition
-          (conditions_left)
-          (operator)
-          (string
-            (single_quoted_string))))
-      (offset_clause
-        (number)))
+          (single_quoted_string))))
     (update_delete_region_clause
       (region_field)))
   (update_command
     (identifier_from_file
+      (identifierMarker
+        (string
+          (single_quoted_string))
+        (offset_clause
+          (number)))
       (singlefile_clause
         (string
-          (single_quoted_string)))
-      (where_clause
-        (condition
-          (conditions_left)
-          (operator)
-          (string
-            (single_quoted_string))))
-      (offset_clause
-        (number)))
+          (single_quoted_string))))
     (update_delete_region_clause
       (region_field)))
   (update_command
     (identifier_from_file
+      (identifierMarker
+        (string
+          (single_quoted_string))
+        (offset_clause
+          (number)))
       (singlefile_clause
         (string
-          (single_quoted_string)))
-      (where_clause
-        (condition
-          (conditions_left)
-          (operator)
-          (string
-            (single_quoted_string))))
-      (offset_clause
-        (number)))
+          (single_quoted_string))))
     (update_delete_region_clause
       (region_field
         (marker_or_segment
@@ -404,17 +407,14 @@ DELETE SEGMENT
                 (single_quoted_string))))))))
   (update_command
     (identifier_from_file
+      (identifierMarker
+        (string
+          (single_quoted_string))
+        (offset_clause
+          (number)))
       (singlefile_clause
         (string
-          (single_quoted_string)))
-      (where_clause
-        (condition
-          (conditions_left)
-          (operator)
-          (string
-            (single_quoted_string))))
-      (offset_clause
-        (number)))
+          (single_quoted_string))))
     (update_delete_region_clause
       (region_field
         (marker_or_segment
@@ -435,7 +435,6 @@ DELETE SEGMENT
                     (string
                       (single_quoted_string))))))))))))
 
-
 ==================
 UPDATE Move Segment
 ==================
@@ -446,9 +445,8 @@ STARTING AT LINE "import React" OFFSET 0
 ENDING BEFORE LINE "function Component"
 INSERT AFTER LINE "export default Component;";
 
-UPDATE FUNCTION
+UPDATE FUNCTION "index"
 FROM FILE "/app/views.py"
-WHERE NAME = "index"
 MOVE SEGMENT
 STARTING AFTER LINE "def index():" OFFSET 1
 ENDING BEFORE LINE "return"
@@ -488,15 +486,12 @@ INSERT BEFORE LINE "return" OFFSET 1;
   (command_separator)
   (update_command
     (identifier_from_file
-      (singlefile_clause
+      (identifierMarker
         (string
           (single_quoted_string)))
-      (where_clause
-        (condition
-          (conditions_left)
-          (operator)
-          (string
-            (single_quoted_string)))))
+      (singlefile_clause
+        (string
+          (single_quoted_string))))
     (update_move_region_clause
       (region_field
         (marker_or_segment
@@ -527,26 +522,22 @@ INSERT BEFORE LINE "return" OFFSET 1;
                     (number))))))))))
   (command_separator))
 
-
 ==================
 UPDATE Move BODY / WHOLE / LINE
 ==================
 
-UPDATE FUNCTION
+UPDATE FUNCTION "index"
 FROM FILE "/app/views.py"
-WHERE NAME = "index"
 MOVE WHOLE
 INSERT BEFORE CLASS "TopClass" OFFSET 1;
 
-UPDATE FUNCTION
+UPDATE FUNCTION "index"
 FROM FILE "/app/views.py"
-WHERE NAME = "index"
 MOVE BODY
 INSERT INSIDE FUNCTION "otherFunc" OFFSET 2 BOTTOM
 
-UPDATE FUNCTION
+UPDATE FUNCTION "index"
 FROM FILE "/app/views.py"
-WHERE NAME = "index"
 MOVE LINE "a line"
 INSERT AFTER LINE "XXX"
 
@@ -555,15 +546,12 @@ INSERT AFTER LINE "XXX"
 (source_file
   (update_command
     (identifier_from_file
-      (singlefile_clause
+      (identifierMarker
         (string
           (single_quoted_string)))
-      (where_clause
-        (condition
-          (conditions_left)
-          (operator)
-          (string
-            (single_quoted_string)))))
+      (singlefile_clause
+        (string
+          (single_quoted_string))))
     (update_move_region_clause
       (region_field)
       (update_move_clause_destination
@@ -579,15 +567,12 @@ INSERT AFTER LINE "XXX"
   (command_separator)
   (update_command
     (identifier_from_file
-      (singlefile_clause
+      (identifierMarker
         (string
           (single_quoted_string)))
-      (where_clause
-        (condition
-          (conditions_left)
-          (operator)
-          (string
-            (single_quoted_string)))))
+      (singlefile_clause
+        (string
+          (single_quoted_string))))
     (update_move_region_clause
       (region_field)
       (update_move_clause_destination
@@ -601,15 +586,12 @@ INSERT AFTER LINE "XXX"
                   (number)))))))))
   (update_command
     (identifier_from_file
-      (singlefile_clause
+      (identifierMarker
         (string
           (single_quoted_string)))
-      (where_clause
-        (condition
-          (conditions_left)
-          (operator)
-          (string
-            (single_quoted_string)))))
+      (singlefile_clause
+        (string
+          (single_quoted_string))))
     (update_move_region_clause
       (region_field
         (marker_or_segment
@@ -637,9 +619,8 @@ SEGMENT
 STARTING AT LINE "// START TEMPLATE"
 ENDING BEFORE LINE "// END TEMPLATE"
 
-UPDATE FUNCTION
+UPDATE FUNCTION "calculate_average"
 FROM FILE "/lib/math.py"
-WHERE NAME = "calculate_average"
 REPLACE BODY
 WITH SEGMENT
 STARTING AFTER LINE "def efficient_average(numbers):"
@@ -677,15 +658,12 @@ ENDING AT LINE "return";
                     (single_quoted_string))))))))))
   (update_command
     (identifier_from_file
-      (singlefile_clause
+      (identifierMarker
         (string
           (single_quoted_string)))
-      (where_clause
-        (condition
-          (conditions_left)
-          (operator)
-          (string
-            (single_quoted_string)))))
+      (singlefile_clause
+        (string
+          (single_quoted_string))))
     (replace_region_clause
       (region_field))
     (content_from_segment
@@ -704,37 +682,6 @@ ENDING AT LINE "return";
                   (single_quoted_string)))))))))
   (command_separator))
 
-
-==================
-UPDATE PROJECT
-==================
-
-UPDATE PROJECT
-  REFACTOR LANGUAGE "rope"
-  WITH PATTERN '''
-<rope-line pattern expression>
-'''
-  WITH GOAL '''
-<rope-like goal expression>
-''';
-
----
-
-(source_file
-  (update_command
-    (update_project_clause
-      (refactor_language_field
-        (string
-          (single_quoted_string)))
-      (pattern_field
-        (string
-          (multi_line_string)))
-      (goal_field
-        (string
-          (multi_line_string)))))
-  (command_separator))
-
-
 ==================
 UPDATE Edge Cases and Combinations
 ==================
@@ -747,10 +694,10 @@ WITH CONTENT '''
 @0:This is a very long
 @1:multiline content
 @-1:with "quotes" and other 'special' chars
-@2:like \ backslashes and   multiple   spaces
+@2:like backslashes and   multiple   spaces
 ''';
 
-UPDATE FUNCTION FROM FILE "/src/complex_file.js" WHERE NAME LIKE "*Controller"
+UPDATE FUNCTION "*Controller" FROM FILE "/src/complex_file.js"
 MOVE SEGMENT
 STARTING AT LINE "constructor(" OFFSET 0
 ENDING BEFORE LINE "}"
@@ -793,21 +740,16 @@ SEGMENT
                     (number)))))))))
     (content_clause
       (string
-        (multi_line_string
-          (ERROR
-            (UNEXPECTED ' '))))))
+        (multi_line_string))))
   (command_separator)
   (update_command
     (identifier_from_file
-      (singlefile_clause
+      (identifierMarker
         (string
           (single_quoted_string)))
-      (where_clause
-        (condition
-          (conditions_left)
-          (operator)
-          (string
-            (single_quoted_string)))))
+      (singlefile_clause
+        (string
+          (single_quoted_string))))
     (update_move_region_clause
       (region_field
         (marker_or_segment
