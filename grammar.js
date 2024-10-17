@@ -176,11 +176,11 @@ module.exports = grammar({
     // ---
 
     /**
-    Syntax: (FUNCTION|CLASS) FROM FILE "<path/to/file>" WHERE <where...> [OFFSET <offset>]
-    Use cases: Specify a function or class of a given file.
+    Syntax: (VARIABLE|FUNCTION|CLASS) "<name>" [OFFSET <offset>] FROM FILE "<path/to/file>"
+    Use cases: Specify an identifier in a given file.
     <params>
-    - `where...`: Identifies a function or class as the item of interest in the file.
-    - `offset`: Specifies how many items to skip. See details in `offset_clause`.
+    - `<name>`: Identifies the name of a variable, function or class as the item of interest in the file.
+    - `<offset>`: Specifies how many items to skip. Mandatory when there are 2 or more matching elements. See details in `offset_clause`.
     </params>
     */
     identifier_from_file: $ => seq(
@@ -288,12 +288,12 @@ module.exports = grammar({
     region_field: $ => field('region', choice(BODY_OR_WHOLE, $.marker_or_segment)),
 
     /**
-    Field `offset`: Integer to identify how many occurrences to skip. *MANDATORY* iff there are 2 or more occurrences.
+    Field `offset`: Integer to identify how many matches to skip. *MANDATORY* iff there are 2 or more matching elements.
     <examples>
-    <li>`OFFSET 0` is the default. It means to skip 0 items (so, points to the *1st* occurrence).</li>
-    <li>`OFFSET 1` skips 1 item, so points to the *2nd* occurrence</li>
-    <li>`OFFSET 2` skips 2 items, so points to the *3rd* occurrence</li>
-    <li>`OFFSET n` skips n items, thus specifies the (n+1)-th occurrence</li>
+    <li>`OFFSET 0` is the default when there's only one matching element. It means to skip 0 items (so, points to the *1st* match).</li>
+    <li>`OFFSET 1` skips 1 matches, so points to the *2nd* matches</li>
+    <li>`OFFSET 2` skips 2 matches, so points to the *3rd* matches</li>
+    <li>`OFFSET n` skips n matches, thus specifies the (n+1)-th matches</li>
     </examples>
     */
     offset_clause: $ => seq('OFFSET', field('offset', $.number)),

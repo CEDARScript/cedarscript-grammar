@@ -67,9 +67,8 @@ IDEs can store the local history of files in CEDARScript format, and this can al
 Quick example:
 
 ```sql
-UPDATE FUNCTION
+UPDATE FUNCTION "my_func"
   FROM FILE "functional.py"
-  WHERE NAME = "_conform_to_reference_input"
 MOVE WHOLE
 INSERT BEFORE LINE "def get_config(self):"
   RELATIVE INDENTATION 0;

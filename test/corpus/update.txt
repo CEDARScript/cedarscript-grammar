@@ -80,6 +80,10 @@ DELETE SEGMENT
     STARTING AT LINE "\"database\": {" OFFSET 1
     ENDING BEFORE LINE "}"
 
+UPDATE FILE "my_code.py" REPLACE FUNCTION "my_function" WITH CONTENT """
+def other_function(x):
+"""
+
 ---
 
 (source_file
@@ -266,8 +270,20 @@ DELETE SEGMENT
               (marker
                 (lineMarker
                   (string
-                    (single_quoted_string)))))))))))
-
+                    (single_quoted_string))))))))))
+  (update_command
+    (singlefile_clause
+      (string
+        (single_quoted_string)))
+    (replace_mos_clause
+      (marker_or_segment
+        (marker
+          (identifierMarker
+            (string
+              (single_quoted_string))))))
+    (content_clause
+      (string
+        (multi_line_string)))))
 
 ==================
 UPDATE Function/Class From File w/o WHERE
@@ -529,7 +545,8 @@ UPDATE Move BODY / WHOLE / LINE
 UPDATE FUNCTION "index"
 FROM FILE "/app/views.py"
 MOVE WHOLE
-INSERT BEFORE CLASS "TopClass" OFFSET 1;
+INSERT BEFORE CLASS "TopClass" OFFSET 1
+RELATIVE INDENTATION 2;
 
 UPDATE FUNCTION "index"
 FROM FILE "/app/views.py"
@@ -563,7 +580,9 @@ INSERT AFTER LINE "XXX"
                   (string
                     (single_quoted_string))
                   (offset_clause
-                    (number))))))))))
+                    (number)))))))
+        (relative_indentation
+          (number)))))
   (command_separator)
   (update_command
     (identifier_from_file
