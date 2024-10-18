@@ -240,7 +240,7 @@ module.exports = grammar({
     // <specifying-locations-in-code>
     /**
     lineMarker: Points to specific line via its trimmed contents.
-    Use `OFFSET <n>` to pinpoint which (if there are 2 or more with same content)
+    *NEVER* use an ambiguous line (one that appears 2 or more times) as reference. Instead, prefer a different, nearby line.
     */
     lineMarker: $ => seq('LINE', field('lineMarker', $.string), optional($.offset_clause)),
     /**
