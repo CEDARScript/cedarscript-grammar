@@ -13,6 +13,8 @@
 2. **Perform code analysis** to quickly get to know a large code base without having to read all contents of all files.
    - The CEDARScript runtime searches through the whole code base and only returns the desired results
 
+You can listen to a [_podcast_ about **CEDARScript** and AI coding assistants](https://open.spotify.com/show/4JAc8gphNlUspLV0XxjhQB)
+
 ## Key Features:
 
 - **SQL-like syntax** for intuitive code querying and manipulation;
