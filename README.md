@@ -26,7 +26,7 @@ relevant information or make changes.
       The librarian understands these abstract instructions and makes the precise edits across all relevant books, handling
       details like page layout and consistent formatting.
 
-This librarian (`CEDARScript`) allows you to work with your vast library of code at a _conceptual_ level,
+This magical librarian (`CEDARScript`) allows you to work with your vast library of code at a _conceptual_ level,
 making both understanding and modifying your codebase faster and more intuitive.
 It bridges the gap between your _**high-level intent**_ and the _nitty-gritty details_ of code structure,
 allowing you to focus on the '_what_' while it handles the '_how_' of code analysis and modification.
