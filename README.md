@@ -93,6 +93,13 @@ be able to learn CEDARScript. This has the potential to unlock locally-deployed 
 - **Language-agnostic design** for versatile code analysis
 - **[Code analysis operations](grammar.js#L192-L219)** return results in XML format for easier parsing and processing by LLM (Large Language Model) systems.
 
+## Supported Languages
+
+Currently, `CEDARScript` theoretically supports **Python, Kotlin, PHP, Rust, Go, C++, C, Java, Javascript, Lua, FORTRAN, Scala and C#**,
+but only **Python** has been tested so far.
+
+**Cobol** and **MatLab**: Initial queries for these languages are ready, but the Tree-Sitter parsers for them still need to be included.
+
 ## Projects using the CEDARScript Language
 
 1. [CEDARScript AST Parser (Python)](https://github.com/CEDARScript/cedarscript-ast-parser-python)
