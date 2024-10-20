@@ -12,19 +12,24 @@ Imagine a vast _library_ (`your codebase`) with millions of _books_ (`files`) ac
 Traditional code editing is like manually searching through each book, line by line, character by character, to find
 relevant information or make changes.
 
-**CEDARScript**, on the other hand, is like having a **magical librarian** with two superpowers:
+<details>
 
-1. **The Omniscient Cataloger** (`Code Analysis`):
-    - This librarian can instantly tell you where any piece of information is located across all books.
-    - Want to know every place where a specific _protagonist_ (`function`) is mentioned?
+<summary>**CEDARScript**, on the other hand, is like having a **magical librarian** with two superpowers:</summary>
+
+1. **_TurboKognition_ Boost** (`Code Analysis`):
+    - This librarian can act as an _Omniscient Cataloger_ that can instantly tell you where any piece of information is
+located across all books.
+    - Want to know every place where a specific _protagonist_ (`function`) is mentioned Or where he/she was born?
       Or find all the _chapters_ (`classes`) that discuss a particular _topic_ (`variable usage`)?
       The librarian provides this information immediately, without having to flip through pages (`waste precious tokens`)
-2. **The Magical Editor** (`Code Manipulation`):
+2. **The _GanzPunktGenau_ Editing Powers** (`Code Manipulation`):
     - When you want to make changes, instead of specifying exact page and line numbers, you can give high-level instructions.
       For example, _"Add this new paragraph after the first mention of 'dragons' in the fantasy section"_ or
       _"Move the chapter about 'time travel' to come before 'parallel universes' in all science fiction books."_
       The librarian understands these abstract instructions and makes the precise edits across all relevant books, handling
       details like page layout and consistent formatting.
+
+</details>
 
 This magical librarian (`CEDARScript`) allows you to work with your vast library of code at a _conceptual_ level,
 making both understanding and modifying your codebase faster and more intuitive.
