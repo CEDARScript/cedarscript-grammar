@@ -263,7 +263,7 @@ module.exports = grammar({
     /**
     relpos_at: points to a specific `lineMarker`
     */
-    relpos_at: $ => seq('AT', field('at', $.lineMarker)),
+    relpos_at: $ => seq('AT', field('at', $.marker)),
     /**
     relpos_segment_start: Points to start of segment
     */
@@ -339,9 +339,9 @@ module.exports = grammar({
 <p>Key points:</p>
 <ol>
 <li>Each line must start with `@N:` where `N` represents the indentation level</li>
-<li>Indentation level should change logically with code structure:
-   - Increment N when entering a new block (class body, function body, if statement, loop, etc.)
-   - Decrement N when exiting a block
+<li>Indentation level *MUST* change logically with code structure:
+   - *MUST* increment N when entering a new block (class body, function body, if statement, loop, etc.)
+   - *MUST* Decrement N when exiting a block
  </li>
 <li>The actual content follows immediately after the prefix (@N:)</li>
 </ol>
