@@ -5,7 +5,7 @@
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-## A SQL-like language for code analysis and transformations
+## A SQL-like language for efficient code analysis and transformations
 
 ### CEDARScript ELI5'ed
 Imagine a vast _library_ (`your codebase`) with millions of _books_ (`files`) across thousands of _shelves_ (`directories`).
@@ -32,16 +32,25 @@ It bridges the gap between your _**high-level intent**_ and the _nitty-gritty de
 allowing you to focus on the '_what_' while it handles the '_how_' of code analysis and modification.
 
 ### Overview
-`CEDARScript` (_Concise Examination, Development, And Refactoring Script_) is a **SQL**-like language designed for 
-efficient code analysis and manipulation. It offers two primary functions:
+`CEDARScript` (_Concise Examination, Development, And Refactoring Script_) is a **SQL**-like language designed to
+lower costs and improve the efficiency of AI code assistants. It enables offloading low-level code syntax and 
+structure concerns, such as indentation and line counting, from the LLMs.
+It aims to improve how AI coding assistants interact with codebases and communicate their code modification intentions
+by providing a _standardized and concise_ way to express complex code analysis and modification operations, making it easier for
+AI-assisted development tools to understand and execute these tasks.
+
+It offers two primary functions:
 1. **Code Analysis** to quickly get to know a large code base without having to read all contents of all files.
-   - The CEDARScript runtime searches through the whole code base and only returns the desired results;
+   - The CEDARScript runtime searches through the whole code base and only returns the relevant results,
+thus reducing the token traffic between the LLM and the user;
    - This can be used to more quickly understand key aspects of the codebase, search for all or specific _identifiers_ (classes, 
 methods, functions or variables) defined across ALL files of the project or in specific ones, etc.
    - Search results can include not only identifier definitions (in whole or only the signature or summary), 
 but also call-sites and usages of an identifier;
+     - These results can be useful not only when the LLM needs to read them, but also when the LLM wants to show some
+parts of the code to the user (_why send a function to the user if the LLM can simply [`SELECT`](grammar.js#L191-L224) it and have the CEDARScript runtime show the contents?_)
 2. **Code Manipulation and Refactoring**:
-   - The [CEDARScript runtime](https://github.com/CEDARScript/cedarscript-editor-python) _bears the brunt of file
+   - The [**CEDARScript runtime**](https://github.com/CEDARScript/cedarscript-editor-python) _bears the brunt of file
 editing_ by locating the exact line numbers and characters to change, which indentation levels to apply to each line and
 so on, allowing the _CEDARScript commands_ to focus instead on higher levels of abstraction, like 
 [identifier](grammar.js#L248-L251) names, [line](grammar.js#L243-L246) markers, relative 
