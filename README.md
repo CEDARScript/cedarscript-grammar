@@ -59,9 +59,10 @@ so on, allowing the _CEDARScript commands_ to focus instead on higher levels of 
 (`AFTER`, `BEFORE`, `INSIDE` a function, its `BODY`, at the `TOP` or `BOTTOM` of it...)
 
 ### Audio overview
-There are two 7-minute audio discussions you can listen to:
+There are a few 7-minute audio discussions you can listen to:
 1. [CEDARScript and AI coding assistants](https://open.spotify.com/show/4JAc8gphNlUspLV0XxjhQB)
 2. [CEDARScript's _TurboKognition_ and _GanzPunktGenau_ editing](https://open.spotify.com/episode/79xCOfrvMZJPenLdKJiNZj?si=Mo2ofU_lRYKwxRZoCPJn6Q)
+3. [Discusses an LLM chat held during a benchmark and some command examples](https://podcasters.spotify.com/pod/show/elifarley/episodes/CEDARScript-chat-during-a-benchmark-test--command-examples-e2ptlq4)
 
 ## Key Features:
 
