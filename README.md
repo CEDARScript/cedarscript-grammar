@@ -7,12 +7,48 @@
 
 ## A SQL-like language for code analysis and transformations
 
-`CEDARScript` (_Concise Examination, Development, And Refactoring Script_) is a **SQL**-like language designed to _concisely_:
-1. **Express code manipulations and refactorings** (if you know what you want to change in your code);
-   - The CEDARScript runtime can edit any file in the code base according to the commands it reads
-2. **Perform code analysis** to quickly get to know a large code base without having to read all contents of all files.
-   - The CEDARScript runtime searches through the whole code base and only returns the desired results
+### CEDARScript ELI5'ed
+Imagine a vast _library_ (`your codebase`) with millions of _books_ (`files`) across thousands of _shelves_ (`directories`).
+Traditional code editing is like manually searching through each book, line by line, character by character, to find
+relevant information or make changes.
 
+**CEDARScript**, on the other hand, is like having a **magical librarian** with two superpowers:
+
+1. **The Omniscient Cataloger** (`Code Analysis`):
+    - This librarian can instantly tell you where any piece of information is located across all books.
+    - Want to know every place where a specific _protagonist_ (`function`) is mentioned?
+      Or find all the _chapters_ (`classes`) that discuss a particular _topic_ (`variable usage`)?
+      The librarian provides this information immediately, without having to flip through pages (`waste precious tokens`)
+2. **The Magical Editor** (`Code Manipulation`):
+    - When you want to make changes, instead of specifying exact page and line numbers, you can give high-level instructions.
+      For example, _"Add this new paragraph after the first mention of 'dragons' in the fantasy section"_ or
+      _"Move the chapter about 'time travel' to come before 'parallel universes' in all science fiction books."_
+      The librarian understands these abstract instructions and makes the precise edits across all relevant books, handling
+      details like page layout and consistent formatting.
+
+This librarian (`CEDARScript`) allows you to work with your vast library of code at a _conceptual_ level,
+making both understanding and modifying your codebase faster and more intuitive.
+It bridges the gap between your _**high-level intent**_ and the _nitty-gritty details_ of code structure,
+allowing you to focus on the '_what_' while it handles the '_how_' of code analysis and modification.
+
+### Overview
+`CEDARScript` (_Concise Examination, Development, And Refactoring Script_) is a **SQL**-like language designed for 
+efficient code analysis and manipulation. It offers two primary functions:
+1. **Code Analysis** to quickly get to know a large code base without having to read all contents of all files.
+   - The CEDARScript runtime searches through the whole code base and only returns the desired results;
+   - This can be used to more quickly understand key aspects of the codebase, search for all or specific _identifiers_ (classes, 
+methods, functions or variables) defined across ALL files of the project or in specific ones, etc.
+   - Search results can include not only identifier definitions (in whole or only the signature or summary), 
+but also call-sites and usages of an identifier;
+2. **Code Manipulation and Refactoring**:
+   - The [CEDARScript runtime](https://github.com/CEDARScript/cedarscript-editor-python) _bears the brunt of file
+editing_ by locating the exact line numbers and characters to change, which indentation levels to apply to each line and
+so on, allowing the _CEDARScript commands_ to focus instead on higher levels of abstraction, like 
+[identifier](grammar.js#L248-L251) names, [line](grammar.js#L243-L246) markers, relative 
+[indentations](grammar.js#L306-L370) and [positions](grammar.js#L241-L300)
+(`AFTER`, `BEFORE`, `INSIDE` a function, its `BODY`, at the `TOP` or `BOTTOM` of it...)
+
+### Audio overview
 You can listen to a [_podcast_ about **CEDARScript** and AI coding assistants](https://open.spotify.com/show/4JAc8gphNlUspLV0XxjhQB)
 
 ## Key Features:
