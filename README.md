@@ -19,9 +19,9 @@ You can listen to a [_podcast_ about **CEDARScript** and AI coding assistants](h
 
 - **SQL-like syntax** for intuitive code querying and manipulation;
 - Shows **improved results** in **refactoring benchmarks** when compared to standard diff formats
-   - [`Gemini 1.5 PRO` surpassed the performance of Claude 3.5 Sonnet](https://github.com/Aider-AI/aider/pull/1897#issue-2563049442)
-     - Pass rate: **77.5%** (beats Sonnet 3.5 at `64.0%`)
-     - Well-formed cases: **86.5%** (beats Sonnet 3.5 at `76.4%`)
+   - [**Gemini 1.5 _Flash_** surpassed the performance of Claude **3.5 Sonnet**](https://github.com/Aider-AI/aider/pull/1897#issue-2563049442)
+     - Pass rate: **76.4%** (beats Sonnet 3.5 at `64.0%`)
+     - Well-formed cases: **94.4%** (beats Sonnet 3.5 at `76.4%`)
 - **Reduced token usage** via semantic-level code transformations, not character-by-character matching;
     - **Scalable to larger codebases** with minimal token usage;
     - **Project-wide refactorings** can be performed with a single, concise command
