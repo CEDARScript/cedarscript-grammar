@@ -401,6 +401,11 @@ DELETE SEGMENT
     STARTING AT LINE "\"database\": {" OFFSET 1
     ENDING BEFORE LINE "}"
 
+UPDATE CLASS "A"
+  FROM FILE "/lib/helpers.py"
+DELETE SEGMENT
+    STARTING AT FUNCTION "m1"
+    ENDING BEFORE FUNCTION "m2"
 ---
 
 (source_file
@@ -565,6 +570,30 @@ DELETE SEGMENT
               (relpos_beforeafter
                 (marker
                   (lineMarker
+                    (string
+                      (single_quoted_string)))))))))))
+  (update_command
+    (identifier_from_file
+      (identifierMarker
+        (string
+          (single_quoted_string)))
+      (singlefile_clause
+        (string
+          (single_quoted_string))))
+    (update_delete_region_clause
+      (region_field
+        (marker_or_segment
+          (segment
+            (relpos_segment_start
+              (relpos_at
+                (marker
+                  (identifierMarker
+                    (string
+                      (single_quoted_string))))))
+            (relpos_segment_end
+              (relpos_beforeafter
+                (marker
+                  (identifierMarker
                     (string
                       (single_quoted_string))))))))))))
 
