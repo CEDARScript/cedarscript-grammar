@@ -33,7 +33,7 @@ allowing you to focus on the '_what_' while it handles the '_how_' of code analy
 
 ### Overview
 `CEDARScript` (_Concise Examination, Development, And Refactoring Script_) is a **SQL**-like language designed to
-lower costs and improve the efficiency of AI code assistants. It enables offloading low-level code syntax and 
+lower costs and improve the efficiency and accuracy of AI code assistants. It enables offloading low-level code syntax and 
 structure concerns, such as indentation and line counting, from the LLMs.
 It aims to improve how AI coding assistants interact with codebases and communicate their code modification intentions
 by providing a _standardized and concise_ way to express complex code analysis and modification operations, making it easier for
@@ -62,7 +62,14 @@ You can listen to a [_podcast_ about **CEDARScript** and AI coding assistants](h
 
 ## Key Features:
 
-- **SQL-like syntax** for intuitive code querying and manipulation;
+- **Learning Curve**
+  - For _humans_: its **SQL-like syntax** allows for _intuitive_ code querying and manipulation (however, **humans don't
+even need to learn it**, as its **primary purpose** is to offer _LLMs_ an easy language with which they can write simple,
+concise commands to modify code or analyse it);
+  - For _AIs_: some prompt engineering is enough to enable most LLMs (even cheaper ones like **Gemini _Flash_**) to
+learn it well. Other forms of fine-tuning are planned, so that even SLMs (Small Language Models) like 
+[Microsoft's Phi 3](https://azure.microsoft.com/en-us/blog/introducing-phi-3-redefining-whats-possible-with-slms/) could
+be able to learn CEDARScript. This has the potential to unlock locally-deployed SLMs to be used as AI code assistants.
 - Shows **improved results** in **refactoring benchmarks** when compared to standard diff formats
    - [**Gemini 1.5 _Flash_** surpassed the performance of Claude **3.5 Sonnet**](https://github.com/Aider-AI/aider/pull/1897#issue-2563049442)
      - Pass rate: **76.4%** (beats Sonnet 3.5 at `64.0%`)
