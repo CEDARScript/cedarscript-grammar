@@ -75,7 +75,7 @@ learn it well. Other forms of fine-tuning are planned, so that even SLMs (Small 
 [Microsoft's Phi 3](https://azure.microsoft.com/en-us/blog/introducing-phi-3-redefining-whats-possible-with-slms/) could
 be able to learn CEDARScript. This has the potential to unlock locally-deployed SLMs to be used as AI code assistants.
 - Shows **improved results** in **refactoring benchmarks** when compared to standard diff formats
-   - [**Gemini 1.5 _Flash_** surpassed the performance of Claude **3.5 Sonnet**](https://github.com/Aider-AI/aider/pull/1897#issue-2563049442)
+   - [**Gemini 1.5 _Flash_** _outperformed_ Claude **3.5 Sonnet**](https://github.com/Aider-AI/aider/pull/1897#issue-2563049442)
      - Pass rate: **76.4%** (beats Sonnet 3.5 at `64.0%`)
      - Well-formed cases: **94.4%** (beats Sonnet 3.5 at `76.4%`)
 - **Reduced token usage** via semantic-level code transformations, not character-by-character matching;
