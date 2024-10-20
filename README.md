@@ -12,9 +12,7 @@ Imagine a vast _library_ (`your codebase`) with millions of _books_ (`files`) ac
 Traditional code editing is like manually searching through each book, line by line, character by character, to find
 relevant information or make changes.
 
-<details>
-
-<summary>**CEDARScript**, on the other hand, is like having a **magical librarian** with two superpowers:</summary>
+**CEDARScript**, on the other hand, is like having a **magical librarian** with two superpowers:
 
 1. **_TurboKognition_ Boost** (`Code Analysis`):
     - This librarian can act as an _Omniscient Cataloger_ that can instantly tell you where any piece of information is
@@ -29,14 +27,12 @@ located across all books.
       The librarian understands these abstract instructions and makes the precise edits across all relevant books, handling
       details like page layout and consistent formatting.
 
-</details>
-
 This magical librarian (`CEDARScript`) allows you to work with your vast library of code at a _conceptual_ level,
 making both understanding and modifying your codebase faster and more intuitive.
 It bridges the gap between your _**high-level intent**_ and the _nitty-gritty details_ of code structure,
 allowing you to focus on the '_what_' while it handles the '_how_' of code analysis and modification.
 
-### Overview
+### Technical Overview
 `CEDARScript` (_Concise Examination, Development, And Refactoring Script_) is a **SQL**-like language designed to
 lower costs and improve the efficiency and accuracy of AI code assistants. It enables offloading low-level code syntax and 
 structure concerns, such as indentation and line counting, from the LLMs.
@@ -63,7 +59,9 @@ so on, allowing the _CEDARScript commands_ to focus instead on higher levels of 
 (`AFTER`, `BEFORE`, `INSIDE` a function, its `BODY`, at the `TOP` or `BOTTOM` of it...)
 
 ### Audio overview
-You can listen to a [_podcast_ about **CEDARScript** and AI coding assistants](https://open.spotify.com/show/4JAc8gphNlUspLV0XxjhQB)
+There are two 7-minute audio discussions you can listen to:
+1. [CEDARScript and AI coding assistants](https://open.spotify.com/show/4JAc8gphNlUspLV0XxjhQB)
+2. [CEDARScript's _TurboKognition_ and _GanzPunktGenau_ editing](https://open.spotify.com/episode/79xCOfrvMZJPenLdKJiNZj?si=Mo2ofU_lRYKwxRZoCPJn6Q)
 
 ## Key Features:
 

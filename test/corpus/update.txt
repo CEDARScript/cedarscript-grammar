@@ -44,6 +44,15 @@ UPDATE FILE "/app/main.py"
 INSERT INSIDE FUNCTION "func1" OFFSET 1 BOTTOM
 WITH CONTENT "@1:print('Hello, World!')";
 
+UPDATE FILE "my_code.py"
+REPLACE FUNCTION "my_function"
+WITH CONTENT """
+def other_function(x):
+"""
+
+UPDATE FILE "file" REPLACE WHOLE WITH CONTENT "Single line" -- Preferred
+UPDATE FILE "file" REPLACE BODY WITH CONTENT "Single line"  --   Synonym
+
 UPDATE FILE "/config/settings.json"
 REPLACE SEGMENT
     STARTING AT LINE "\"database\": {" OFFSET 1
@@ -80,9 +89,8 @@ DELETE SEGMENT
     STARTING AT LINE "\"database\": {" OFFSET 1
     ENDING BEFORE LINE "}"
 
-UPDATE FILE "my_code.py" REPLACE FUNCTION "my_function" WITH CONTENT """
-def other_function(x):
-"""
+UPDATE FILE "file" DELETE WHOLE -- Preferred
+UPDATE FILE "file" DELETE BODY  --   Synonym
 
 ---
 
@@ -92,12 +100,13 @@ def other_function(x):
     (singlefile_clause
       (string
         (single_quoted_string)))
-    (replace_mos_clause
-      (marker_or_segment
-        (marker
-          (lineMarker
-            (string
-              (single_quoted_string))))))
+    (replace_region_clause
+      (region_field
+        (marker_or_segment
+          (marker
+            (lineMarker
+              (string
+                (single_quoted_string)))))))
     (content_clause
       (string
         (single_quoted_string))))
@@ -138,24 +147,59 @@ def other_function(x):
     (singlefile_clause
       (string
         (single_quoted_string)))
-    (replace_mos_clause
-      (marker_or_segment
-        (segment
-          (relpos_segment_start
-            (relpos_at
-              (lineMarker
-                (string
-                  (single_quoted_string
-                    (escape_sequence)
-                    (escape_sequence)))
-                (offset_clause
-                  (number)))))
-          (relpos_segment_end
-            (relpos_beforeafter
-              (marker
+    (replace_region_clause
+      (region_field
+        (marker_or_segment
+          (marker
+            (identifierMarker
+              (string
+                (single_quoted_string)))))))
+    (content_clause
+      (string
+        (multi_line_string))))
+  (update_command
+    (singlefile_clause
+      (string
+        (single_quoted_string)))
+    (replace_region_clause
+      (region_field))
+    (content_clause
+      (string
+        (single_quoted_string))))
+  (comment)
+  (update_command
+    (singlefile_clause
+      (string
+        (single_quoted_string)))
+    (replace_region_clause
+      (region_field))
+    (content_clause
+      (string
+        (single_quoted_string))))
+  (comment)
+  (update_command
+    (singlefile_clause
+      (string
+        (single_quoted_string)))
+    (replace_region_clause
+      (region_field
+        (marker_or_segment
+          (segment
+            (relpos_segment_start
+              (relpos_at
                 (lineMarker
                   (string
-                    (single_quoted_string)))))))))
+                    (single_quoted_string
+                      (escape_sequence)
+                      (escape_sequence)))
+                  (offset_clause
+                    (number)))))
+            (relpos_segment_end
+              (relpos_beforeafter
+                (marker
+                  (lineMarker
+                    (string
+                      (single_quoted_string))))))))))
     (content_clause
       (string
         (multi_line_string))))
@@ -164,24 +208,25 @@ def other_function(x):
     (singlefile_clause
       (string
         (single_quoted_string)))
-    (replace_mos_clause
-      (marker_or_segment
-        (segment
-          (relpos_segment_start
-            (relpos_at
-              (lineMarker
-                (string
-                  (single_quoted_string
-                    (escape_sequence)
-                    (escape_sequence)))
-                (offset_clause
-                  (number)))))
-          (relpos_segment_end
-            (relpos_beforeafter
-              (marker
+    (replace_region_clause
+      (region_field
+        (marker_or_segment
+          (segment
+            (relpos_segment_start
+              (relpos_at
                 (lineMarker
                   (string
-                    (single_quoted_string)))))))))
+                    (single_quoted_string
+                      (escape_sequence)
+                      (escape_sequence)))
+                  (offset_clause
+                    (number)))))
+            (relpos_segment_end
+              (relpos_beforeafter
+                (marker
+                  (lineMarker
+                    (string
+                      (single_quoted_string))))))))))
     (content_from_segment
       (singlefile_clause
         (string
@@ -210,80 +255,87 @@ def other_function(x):
     (singlefile_clause
       (string
         (single_quoted_string)))
-    (update_delete_mos_clause
-      (marker_or_segment
-        (marker
-          (lineMarker
-            (string
-              (single_quoted_string)))))))
+    (update_delete_region_clause
+      (region_field
+        (marker_or_segment
+          (marker
+            (lineMarker
+              (string
+                (single_quoted_string))))))))
   (update_command
     (singlefile_clause
       (string
         (single_quoted_string)))
-    (update_delete_mos_clause
-      (marker_or_segment
-        (marker
-          (identifierMarker
-            (string
-              (single_quoted_string)))))))
+    (update_delete_region_clause
+      (region_field
+        (marker_or_segment
+          (marker
+            (identifierMarker
+              (string
+                (single_quoted_string))))))))
   (command_separator)
   (update_command
     (singlefile_clause
       (string
         (single_quoted_string)))
-    (update_delete_mos_clause
-      (marker_or_segment
-        (marker
-          (identifierMarker
-            (string
-              (single_quoted_string)))))))
+    (update_delete_region_clause
+      (region_field
+        (marker_or_segment
+          (marker
+            (identifierMarker
+              (string
+                (single_quoted_string))))))))
   (command_separator)
   (update_command
     (singlefile_clause
       (string
         (single_quoted_string)))
-    (update_delete_mos_clause
-      (marker_or_segment
-        (marker
-          (identifierMarker
-            (string
-              (single_quoted_string)))))))
+    (update_delete_region_clause
+      (region_field
+        (marker_or_segment
+          (marker
+            (identifierMarker
+              (string
+                (single_quoted_string))))))))
   (command_separator)
   (update_command
     (singlefile_clause
       (string
         (single_quoted_string)))
-    (update_delete_mos_clause
-      (marker_or_segment
-        (segment
-          (relpos_segment_start
-            (relpos_at
-              (lineMarker
-                (string
-                  (single_quoted_string
-                    (escape_sequence)
-                    (escape_sequence)))
-                (offset_clause
-                  (number)))))
-          (relpos_segment_end
-            (relpos_beforeafter
-              (marker
+    (update_delete_region_clause
+      (region_field
+        (marker_or_segment
+          (segment
+            (relpos_segment_start
+              (relpos_at
                 (lineMarker
                   (string
-                    (single_quoted_string))))))))))
+                    (single_quoted_string
+                      (escape_sequence)
+                      (escape_sequence)))
+                  (offset_clause
+                    (number)))))
+            (relpos_segment_end
+              (relpos_beforeafter
+                (marker
+                  (lineMarker
+                    (string
+                      (single_quoted_string)))))))))))
   (update_command
     (singlefile_clause
       (string
         (single_quoted_string)))
-    (replace_mos_clause
-      (marker_or_segment
-        (marker
-          (identifierMarker
-            (string
-              (single_quoted_string))))))
-    (content_clause
+    (update_delete_region_clause
+      (region_field)))
+  (comment)
+  (update_command
+    (singlefile_clause
       (string
-        (multi_line_string)))))
+        (single_quoted_string)))
+    (update_delete_region_clause
+      (region_field)))
+  (comment))
+
 
 ==================
 UPDATE Function/Class From File w/o WHERE
@@ -652,12 +704,13 @@ ENDING AT LINE "return";
     (singlefile_clause
       (string
         (single_quoted_string)))
-    (replace_mos_clause
-      (marker_or_segment
-        (marker
-          (lineMarker
-            (string
-              (single_quoted_string))))))
+    (replace_region_clause
+      (region_field
+        (marker_or_segment
+          (marker
+            (lineMarker
+              (string
+                (single_quoted_string)))))))
     (content_from_segment
       (singlefile_clause
         (string
@@ -701,6 +754,7 @@ ENDING AT LINE "return";
                   (single_quoted_string)))))))))
   (command_separator))
 
+
 ==================
 UPDATE Edge Cases and Combinations
 ==================
@@ -738,25 +792,26 @@ SEGMENT
     (singlefile_clause
       (string
         (single_quoted_string)))
-    (replace_mos_clause
-      (marker_or_segment
-        (segment
-          (relpos_segment_start
-            (relpos_beforeafter
-              (marker
-                (lineMarker
-                  (string
-                    (single_quoted_string))
-                  (offset_clause
-                    (number))))))
-          (relpos_segment_end
-            (relpos_beforeafter
-              (marker
-                (lineMarker
-                  (string
-                    (single_quoted_string))
-                  (offset_clause
-                    (number)))))))))
+    (replace_region_clause
+      (region_field
+        (marker_or_segment
+          (segment
+            (relpos_segment_start
+              (relpos_beforeafter
+                (marker
+                  (lineMarker
+                    (string
+                      (single_quoted_string))
+                    (offset_clause
+                      (number))))))
+            (relpos_segment_end
+              (relpos_beforeafter
+                (marker
+                  (lineMarker
+                    (string
+                      (single_quoted_string))
+                    (offset_clause
+                      (number))))))))))
     (content_clause
       (string
         (multi_line_string))))
@@ -801,22 +856,23 @@ SEGMENT
     (singlefile_clause
       (string
         (single_quoted_string)))
-    (replace_mos_clause
-      (marker_or_segment
-        (segment
-          (relpos_segment_start
-            (relpos_at
-              (lineMarker
-                (string
-                  (single_quoted_string
-                    (escape_sequence)
-                    (escape_sequence))))))
-          (relpos_segment_end
-            (relpos_beforeafter
-              (marker
+    (replace_region_clause
+      (region_field
+        (marker_or_segment
+          (segment
+            (relpos_segment_start
+              (relpos_at
                 (lineMarker
                   (string
-                    (single_quoted_string)))))))))
+                    (single_quoted_string
+                      (escape_sequence)
+                      (escape_sequence))))))
+            (relpos_segment_end
+              (relpos_beforeafter
+                (marker
+                  (lineMarker
+                    (string
+                      (single_quoted_string))))))))))
     (content_from_segment
       (singlefile_clause
         (string
