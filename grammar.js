@@ -12,6 +12,10 @@ const SELECT_OTHER_TARGETS = choice(
 */
 const BODY_OR_WHOLE = field('bow', choice('BODY', 'WHOLE'))
 
+const DOC_DECORATORS_OR_TYPE = ['DOC', 'DECORATORS', 'TYPE']
+const DOC_DECORATORS_OR_TYPE_FIELD = field('ddort', choice(...DOC_DECORATORS_OR_TYPE))
+const PARAMS_DOC_DECORATORS_OR_TYPE_FIELD = field('pddort', choice('PARAMETERS', ...DOC_DECORATORS_OR_TYPE))
+
 /**
 <about>CEDARScript, SQL-like language used to express code manipulations (via DDL and DML Write commands)
 and to help an LLM examine and understand the codebase (via DML Read-Only command)</about>
@@ -279,9 +283,11 @@ module.exports = grammar({
     marker_or_segment: $ => field('mos', choice($.marker, $.segment)),
     /** region_field:
     - BODY_OR_WHOLE: pre-defined regions
+    - DOC_DECORATORS_OR_TYPE_FIELD: An identifier's docstring/kdoc/javadoc/etc or its decorators, or its type (or return type for functions)
+    - PARAMS_DOC_DECORATORS_OR_TYPE_FIELD: As in DOC_DECORATORS_OR_TYPE_FIELD, but also includes a function or method's parameters
     - marker_or_segment: more flexible region selection
     */
-    region_field: $ => field('region', choice(BODY_OR_WHOLE, $.marker_or_segment)),
+    region_field: $ => field('region', choice(PARAMS_DOC_DECORATORS_OR_TYPE_FIELD, BODY_OR_WHOLE, $.marker_or_segment)),
 
     /**
     Field `offset`: Integer to identify how many matches to skip. *MANDATORY* iff there are 2 or more matching elements.

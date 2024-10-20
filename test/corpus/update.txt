@@ -187,13 +187,14 @@ UPDATE FILE "file" DELETE BODY  --   Synonym
           (segment
             (relpos_segment_start
               (relpos_at
-                (lineMarker
-                  (string
-                    (single_quoted_string
-                      (escape_sequence)
-                      (escape_sequence)))
-                  (offset_clause
-                    (number)))))
+                (marker
+                  (lineMarker
+                    (string
+                      (single_quoted_string
+                        (escape_sequence)
+                        (escape_sequence)))
+                    (offset_clause
+                      (number))))))
             (relpos_segment_end
               (relpos_beforeafter
                 (marker
@@ -214,13 +215,14 @@ UPDATE FILE "file" DELETE BODY  --   Synonym
           (segment
             (relpos_segment_start
               (relpos_at
-                (lineMarker
-                  (string
-                    (single_quoted_string
-                      (escape_sequence)
-                      (escape_sequence)))
-                  (offset_clause
-                    (number)))))
+                (marker
+                  (lineMarker
+                    (string
+                      (single_quoted_string
+                        (escape_sequence)
+                        (escape_sequence)))
+                    (offset_clause
+                      (number))))))
             (relpos_segment_end
               (relpos_beforeafter
                 (marker
@@ -235,13 +237,14 @@ UPDATE FILE "file" DELETE BODY  --   Synonym
         (segment
           (relpos_segment_start
             (relpos_at
-              (lineMarker
-                (string
-                  (single_quoted_string
-                    (escape_sequence)
-                    (escape_sequence)))
-                (offset_clause
-                  (number)))))
+              (marker
+                (lineMarker
+                  (string
+                    (single_quoted_string
+                      (escape_sequence)
+                      (escape_sequence)))
+                  (offset_clause
+                    (number))))))
           (relpos_segment_end
             (relpos_beforeafter
               (marker
@@ -308,13 +311,14 @@ UPDATE FILE "file" DELETE BODY  --   Synonym
           (segment
             (relpos_segment_start
               (relpos_at
-                (lineMarker
-                  (string
-                    (single_quoted_string
-                      (escape_sequence)
-                      (escape_sequence)))
-                  (offset_clause
-                    (number)))))
+                (marker
+                  (lineMarker
+                    (string
+                      (single_quoted_string
+                        (escape_sequence)
+                        (escape_sequence)))
+                    (offset_clause
+                      (number))))))
             (relpos_segment_end
               (relpos_beforeafter
                 (marker
@@ -338,7 +342,7 @@ UPDATE FILE "file" DELETE BODY  --   Synonym
 
 
 ==================
-UPDATE Function/Class From File w/o WHERE
+UPDATE Function/Class From File
 ==================
 
 UPDATE FUNCTION "calculateTotal"
@@ -354,6 +358,24 @@ REPLACE WHOLE
 WITH CONTENT '''
 ...
 ''';
+
+UPDATE FUNCTION "calculateTotal"
+FROM FILE "file.py"
+REPLACE PARAMETERS
+WITH CONTENT '''
+@1:a: int,
+@1:b: str
+''';
+
+UPDATE FUNCTION "calculateTotal"
+FROM FILE "file.py"
+REPLACE TYPE
+WITH CONTENT "list[int]";
+
+UPDATE VARIABLE "my_var"
+FROM FILE "file.py"
+REPLACE TYPE
+WITH CONTENT "list[int]";
 
 UPDATE CLASS "Validate*" OFFSET 2
   FROM FILE "/lib/helpers.py"
@@ -409,6 +431,48 @@ DELETE SEGMENT
     (content_clause
       (string
         (multi_line_string))))
+  (command_separator)
+  (update_command
+    (identifier_from_file
+      (identifierMarker
+        (string
+          (single_quoted_string)))
+      (singlefile_clause
+        (string
+          (single_quoted_string))))
+    (replace_region_clause
+      (region_field))
+    (content_clause
+      (string
+        (multi_line_string))))
+  (command_separator)
+  (update_command
+    (identifier_from_file
+      (identifierMarker
+        (string
+          (single_quoted_string)))
+      (singlefile_clause
+        (string
+          (single_quoted_string))))
+    (replace_region_clause
+      (region_field))
+    (content_clause
+      (string
+        (single_quoted_string))))
+  (command_separator)
+  (update_command
+    (identifier_from_file
+      (identifierMarker
+        (string
+          (single_quoted_string)))
+      (singlefile_clause
+        (string
+          (single_quoted_string))))
+    (replace_region_clause
+      (region_field))
+    (content_clause
+      (string
+        (single_quoted_string))))
   (command_separator)
   (update_command
     (identifier_from_file
@@ -489,19 +553,21 @@ DELETE SEGMENT
           (segment
             (relpos_segment_start
               (relpos_at
-                (lineMarker
-                  (string
-                    (single_quoted_string
-                      (escape_sequence)
-                      (escape_sequence)))
-                  (offset_clause
-                    (number)))))
+                (marker
+                  (lineMarker
+                    (string
+                      (single_quoted_string
+                        (escape_sequence)
+                        (escape_sequence)))
+                    (offset_clause
+                      (number))))))
             (relpos_segment_end
               (relpos_beforeafter
                 (marker
                   (lineMarker
                     (string
                       (single_quoted_string))))))))))))
+
 
 ==================
 UPDATE Move Segment
@@ -532,11 +598,12 @@ INSERT BEFORE LINE "return" OFFSET 1;
         (segment
           (relpos_segment_start
             (relpos_at
-              (lineMarker
-                (string
-                  (single_quoted_string))
-                (offset_clause
-                  (number)))))
+              (marker
+                (lineMarker
+                  (string
+                    (single_quoted_string))
+                  (offset_clause
+                    (number))))))
           (relpos_segment_end
             (relpos_beforeafter
               (marker
@@ -589,6 +656,7 @@ INSERT BEFORE LINE "return" OFFSET 1;
                   (offset_clause
                     (number))))))))))
   (command_separator))
+
 
 ==================
 UPDATE Move BODY / WHOLE / LINE
@@ -719,9 +787,10 @@ ENDING AT LINE "return";
         (segment
           (relpos_segment_start
             (relpos_at
-              (lineMarker
-                (string
-                  (single_quoted_string)))))
+              (marker
+                (lineMarker
+                  (string
+                    (single_quoted_string))))))
           (relpos_segment_end
             (relpos_beforeafter
               (marker
@@ -749,10 +818,12 @@ ENDING AT LINE "return";
                     (single_quoted_string))))))
           (relpos_segment_end
             (relpos_at
-              (lineMarker
-                (string
-                  (single_quoted_string)))))))))
+              (marker
+                (lineMarker
+                  (string
+                    (single_quoted_string))))))))))
   (command_separator))
+
 
 
 ==================
@@ -830,11 +901,12 @@ SEGMENT
           (segment
             (relpos_segment_start
               (relpos_at
-                (lineMarker
-                  (string
-                    (single_quoted_string))
-                  (offset_clause
-                    (number)))))
+                (marker
+                  (lineMarker
+                    (string
+                      (single_quoted_string))
+                    (offset_clause
+                      (number))))))
             (relpos_segment_end
               (relpos_beforeafter
                 (marker
@@ -862,11 +934,12 @@ SEGMENT
           (segment
             (relpos_segment_start
               (relpos_at
-                (lineMarker
-                  (string
-                    (single_quoted_string
-                      (escape_sequence)
-                      (escape_sequence))))))
+                (marker
+                  (lineMarker
+                    (string
+                      (single_quoted_string
+                        (escape_sequence)
+                        (escape_sequence)))))))
             (relpos_segment_end
               (relpos_beforeafter
                 (marker
@@ -881,11 +954,12 @@ SEGMENT
         (segment
           (relpos_segment_start
             (relpos_at
-              (lineMarker
-                (string
-                  (single_quoted_string
-                    (escape_sequence)
-                    (escape_sequence))))))
+              (marker
+                (lineMarker
+                  (string
+                    (single_quoted_string
+                      (escape_sequence)
+                      (escape_sequence)))))))
           (relpos_segment_end
             (relpos_beforeafter
               (marker
