@@ -107,7 +107,8 @@ but only **Python** has been tested so far.
 3. [CEDARScript Prompt Engineering](https://github.com/CEDARScript/cedarscript-llm-prompt-engineering)
    - Provides prompts that teach `CEDARScript` to LLMs
    - Also includes real conversations held via Aider in which an LLM uses this language to propose code modifications
-4. [CEDARScript Integrations](https://github.com/CEDARScript/cedarscript-integrations) - Provides `CEDARScript` [_edit format_](https://aider.chat/docs/llms/editing-format.html) for [Aider](https://aider.chat/)
+4. [CEDARScript Integration: Aider](https://github.com/CEDARScript/cedarscript-integration-aider) - Provides 
+`CEDARScript` [_edit format_](https://aider.chat/docs/llms/editing-format.html) for [Aider](https://aider.chat/)
 
 ## How can CEDARScript be used?
 
