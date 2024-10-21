@@ -5,7 +5,12 @@
 
 version: 2
 updates:
-  - package-ecosystem: "python"
-    directory: "/"
-    schedule:
-      interval: "weekly"
+- package-ecosystem: pip
+  directory: "/"
+  schedule:
+    interval: daily
+    time: "07:00"
+  groups:
+    python-packages:
+      patterns:
+        - "*"
