@@ -1,5 +1,5 @@
 import logging
-import sys
+import platform
 from ctypes import cdll, c_void_p
 from os import fspath
 from pathlib import Path
@@ -19,14 +19,16 @@ def language() -> Language:
     logger.setLevel("DEBUG")
 
     # Determine the appropriate library file based on the current architecture
-    if sys.platform.startswith('darwin'):
-        lib_name = 'libtree-sitter-cedar.dylib'
-    elif sys.platform.startswith('linux'):
-        lib_name = 'libtree-sitter-cedar.so'
-    else:
-        raise OSError(f"Unsupported platform: {sys.platform}")
-
-    language_path = str((_ROOT_DIR / lib_name).absolute())
+    match platform.system().casefold():
+        case x if x.startswith('darwin'):
+            libext = 'dylib'
+        case x if x.startswith('linux'):
+            libext = 'so'
+        case x if x.startswith('win'):
+            libext = 'dll'
+        case _ as invalid:
+            raise OSError(f"Unsupported platform: {invalid}")
+    language_path = str((_ROOT_DIR / f'libtree-sitter-cedarscript.{libext}').absolute())
     logger.warning(f"[{__name__}] Loading native CEDARScript parsing lib from {language_path}")
     lang_name = 'CEDARScript'
     language_function = getattr(cdll.LoadLibrary(fspath(language_path)), f"tree_sitter_{lang_name}")

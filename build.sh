@@ -1,6 +1,10 @@
 #!/usr/bin/env bash
 
-ts() ( cd target && tree-sitter-macos-arm64 "$@" ;)
+LIBRARY_NAME="${LIBRARY_NAME:-tree-sitter-cedarscript}"
+TARGET_DIR="target"
+GRAMMAR_DIR="src/cedarscript_grammar"
+
+ts() ( cd "$TARGET_DIR" && tree-sitter-macos-arm64 "$@" ;)
 
 playground() {
   while true; do
@@ -16,22 +20,29 @@ playground() {
   ts playground
 }
 
-mkdir -p target
-cp grammar.js target/
+mkdir -p "$TARGET_DIR"
+cp grammar.js "$TARGET_DIR"/
 
 ts generate -l -b && \
 ts build --wasm && \
-cp -a test target && \
+cp -a test "$TARGET_DIR" && \
 ts test || { playground; exit 1 ;}
 
-rm -f target/libtree-sitter-cedar.* src/cedarscript_grammar/libtree-sitter-cedar.* && \
-(cd target && cc -c -I./src src/parser.c && cc -dynamiclib -o libtree-sitter-cedar.dylib parser.o) && \
-mv target/libtree-sitter-cedar.dylib src/cedarscript_grammar/ && \
-docker build -t tree-sitter-cedar-builder . && \
-docker cp $(docker create tree-sitter-cedar-builder):/libtree-sitter-cedar.so \
-  src/cedarscript_grammar/libtree-sitter-cedar.so || exit
+# MacOS compilation
+rm -f "$TARGET_DIR"/lib"$LIBRARY_NAME".* "$GRAMMAR_DIR"/lib"$LIBRARY_NAME".* && \
+(cd "$TARGET_DIR" && cc -c -I./src src/parser.c && cc -dynamiclib -o lib"$LIBRARY_NAME".dylib parser.o) && \
+mv "$TARGET_DIR"/lib"$LIBRARY_NAME".dylib "$GRAMMAR_DIR"/ \
+  || exit
 
-ls -Falk src/cedarscript_grammar/lib*
-du -hs src/cedarscript_grammar/lib*
+# Linux and Windows compilation using Docker
+BUILDKIT_PROGRESS=plain docker build -t "$LIBRARY_NAME"-builder --build-arg LIBRARY_NAME="$LIBRARY_NAME" . || exit
+container_id=$(docker create "$LIBRARY_NAME"-builder) || exit
+# Copy both Linux and Windows libraries from the single container
+docker cp "$container_id:/out/lib/lib${LIBRARY_NAME}.so" "$GRAMMAR_DIR/" && \
+docker cp "$container_id:/out/lib/lib${LIBRARY_NAME}.dll" "$GRAMMAR_DIR/" && \
+docker rm "$container_id" > /dev/null || exit
+
+ls -Falk "$GRAMMAR_DIR"/*.{so,dylib,dll}
+du -hs "$GRAMMAR_DIR"/*.{so,dylib,dll}
 
 playground
