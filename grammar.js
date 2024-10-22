@@ -161,7 +161,7 @@ module.exports = grammar({
       'WITH', $.goal_field,
     ),
     update_move_clause_destination: $ => field('move_destination', seq(
-      optional(seq('TO', $.singlefile_clause)),
+      optional(seq('TO', $.singlefile_clause)), // `TO` can ONLY be used if it points to a different file
       $.insert_clause,
       optional($.relative_indentation)
     )),
