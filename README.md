@@ -12,7 +12,7 @@ Imagine a vast _library_ (`your codebase`) with millions of _books_ (`files`) ac
 Traditional code editing is like manually searching through each book, line by line, character by character, to find
 relevant information or make changes.
 
-**CEDARScript**, on the other hand, is like having a **magical librarian** with two superpowers:
+**CEDARScript**, on the other hand, is like having a **magical librarian** with superpowers, like:
 
 1. **_TurboKognition_ Boost** (`Code Analysis`):
     - This librarian can act as an _Omniscient Cataloger_ that can instantly tell you where any piece of information is
@@ -27,10 +27,22 @@ located across all books.
       The librarian understands these abstract instructions and makes the precise edits across all relevant books, handling
       details like page layout and consistent formatting.
 
-This magical librarian (`CEDARScript`) allows you to work with your vast library of code at a _conceptual_ level,
-making both understanding and modifying your codebase faster and more intuitive.
-It bridges the gap between your _**high-level intent**_ and the _nitty-gritty details_ of code structure,
-allowing you to focus on the '_what_' while it handles the '_how_' of code analysis and modification.
+This _magical librarian_ (`CEDARScript`) collaborates with the LLM and allows it to assume the role of an **Architect**
+who can work with your vast library of code at a _higher_ level, making both understanding and modifying your codebase
+faster and more intuitive. It bridges the gap between the LLM's _**high-level intent**_ and the _nitty-gritty details_
+of code structure, allowing the **_architect_** to focus on the '_what_' while it handles the '_how_' of code analysis
+and modification.
+
+This **division of labor** between the architect and CEDARScript is not just _efficient_ - it's _economical_.
+The **Architect** (_LLM_) conserves valuable resources (_tokens_) by focusing on strategic decisions rather than
+character- or line-level editing tasks.
+
+### Audio overview
+There are a few audio discussions you can listen to:
+1. [Aider and the CEDARScript Advantage](https://open.spotify.com/episode/44ojEcwqFDujny82kibKK9?si=DTx_vMfxTpaAtjZULdVFMA) (~18 minutes)
+1. [AI coding assistants and the Magical Librarian](https://open.spotify.com/show/4JAc8gphNlUspLV0XxjhQB)
+2. [CEDARScript's _TurboKognition_ and _GanzPunktGenau_ editing](https://open.spotify.com/episode/79xCOfrvMZJPenLdKJiNZj?si=Mo2ofU_lRYKwxRZoCPJn6Q)
+3. [Discussion of an LLM chat held during a benchmark and some command examples](https://podcasters.spotify.com/pod/show/elifarley/episodes/CEDARScript-chat-during-a-benchmark-test--command-examples-e2ptlq4)
 
 ### Technical Overview
 `CEDARScript` (_Concise Examination, Development, And Refactoring Script_) is a **SQL**-like language designed to
@@ -40,7 +52,17 @@ It aims to improve how AI coding assistants interact with codebases and communic
 by providing a _standardized and concise_ way to express complex code analysis and modification operations, making it easier for
 AI-assisted development tools to understand and execute these tasks.
 
-It offers two primary functions:
+**CEDARScript transforms LLMs from code writers into code _architects_.**
+
+The **Architect** doesn't need to specify every tiny detail - instead of spending expensive tokens writing out
+complete code changes, it simply provides high-level blueprints using **CEDARScript** commands like
+`UPDATE FILE "main.py" MOVE FUNCTION "execute" INSERT AFTER FUNCTION "plan"`.
+
+The CEDARScript runtime then handles all the minute details - precise line numbers, indentation counts, and syntax 
+consistency - at zero token cost.
+
+Let's get to know the two primary functions offered by CEDARScript:
+
 1. **Code Analysis** to quickly get to know a large code base without having to read all contents of all files.
    - The CEDARScript runtime searches through the whole code base and only returns the relevant results,
 thus reducing the token traffic between the LLM and the user;
@@ -57,13 +79,6 @@ so on, allowing the _CEDARScript commands_ to focus instead on higher levels of 
 [identifier](grammar.js#L248-L251) names, [line](grammar.js#L243-L246) markers, relative 
 [indentations](grammar.js#L306-L370) and [positions](grammar.js#L241-L300)
 (`AFTER`, `BEFORE`, `INSIDE` a function, its `BODY`, at the `TOP` or `BOTTOM` of it...)
-
-### Audio overview
-There are a few audio discussions you can listen to:
-1. [Aider and the CEDARScript Advantage](https://open.spotify.com/episode/44ojEcwqFDujny82kibKK9?si=DTx_vMfxTpaAtjZULdVFMA) (~18 minutes)
-1. [AI coding assistants and the Magical Librarian](https://open.spotify.com/show/4JAc8gphNlUspLV0XxjhQB)
-2. [CEDARScript's _TurboKognition_ and _GanzPunktGenau_ editing](https://open.spotify.com/episode/79xCOfrvMZJPenLdKJiNZj?si=Mo2ofU_lRYKwxRZoCPJn6Q)
-3. [Discussion of an LLM chat held during a benchmark and some command examples](https://podcasters.spotify.com/pod/show/elifarley/episodes/CEDARScript-chat-during-a-benchmark-test--command-examples-e2ptlq4)
 
 ## Key Features:
 
