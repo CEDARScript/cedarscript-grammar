@@ -15,7 +15,7 @@ relevant information or make changes.
 **CEDARScript**, on the other hand, is like having a **magical librarian** with superpowers, like:
 
 1. **_TurboKognition_ Boost** (`Code Analysis`):
-    - This librarian can act as an _Omniscient Cataloger_ that can instantly tell you where any piece of information is
+    - This librarian can act as an _Omniscient Cataloger_ who can instantly tell you where any piece of information is
 located across all books.
     - Want to know every place where a specific _protagonist_ (`function`) is mentioned Or where he/she was born?
       Or find all the _chapters_ (`classes`) that discuss a particular _topic_ (`variable usage`)?
