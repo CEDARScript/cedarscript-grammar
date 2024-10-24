@@ -247,7 +247,7 @@ module.exports = grammar({
     identifierMarker: Points to an identifier (variable, function or class).
     Use `OFFSET <n>` to pinpoint which (if there are 2 or more with same name)
     */
-    identifierMarker: $ => seq(field('identifier', choice('VARIABLE', 'FUNCTION', 'CLASS')), field('identifierMarker', $.string), optional($.offset_clause)),
+    identifierMarker: $ => seq(field('identifier', choice('VARIABLE', 'FUNCTION', 'METHOD', 'CLASS')), field('identifierMarker', $.string), optional($.offset_clause)),
     marker: $ => choice($.lineMarker, $.identifierMarker),
     /**
     relpos_beforeafter: Points to region immediately before or after a `marker`
