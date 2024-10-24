@@ -3,6 +3,7 @@ const SELECT_OTHER_TARGETS = choice(
   seq('FILE', 'CONTENTS'),
   seq('CLASS', choice('NAMES', 'CONTENTS')),
   seq('FUNCTION', choice('NAMES', 'SIGNATURES', 'CONTENTS')),
+  seq('METHOD', choice('NAMES', 'SIGNATURES', 'CONTENTS')),
   seq('VARIABLE', choice('NAMES', 'CONTENTS')),
   'IDENTIFIERS'
 );
@@ -47,7 +48,7 @@ module.exports = grammar({
     ),
     invalid_move_command: $ => seq(
       'MOVE',
-      choice('FILE', 'FUNCTION', 'CLASS', 'VARIABLE'),
+      choice('FILE', 'FUNCTION', 'METHOD', 'CLASS', 'VARIABLE'),
     ),
     /**
     Syntax: CREATE FILE "<path/to/new-file>" WITH CONTENT '''<content>''';
