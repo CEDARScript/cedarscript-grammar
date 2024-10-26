@@ -177,7 +177,7 @@ module.exports = grammar({
     // ---
 
     /**
-    Syntax: (VARIABLE|FUNCTION|CLASS) "<name>" [OFFSET <offset>] FROM FILE "<path/to/file>"
+    Syntax: (VARIABLE|FUNCTION|METHOD|CLASS) "<name>" [OFFSET <offset>] FROM FILE "<path/to/file>"
     Use cases: Specify an identifier in a given file.
     <params>
     - `<name>`: Identifies the name of a variable, function or class as the item of interest in the file.
@@ -256,7 +256,7 @@ module.exports = grammar({
     relpos_beforeafter: $ => field('relpos_beforeafter', seq(choice('BEFORE', 'AFTER'), $.marker)),
     /**
     relpos_inside: Points to inside `identifierMarker` (either the body's TOP or BOTTOM region). The reference indentation level is the body's.
-    Syntax: INSIDE (FUNCTION|CLASS) "<name>" [OFFSET <offset>] (TOP|BOTTOM)
+    Syntax: INSIDE (FUNCTION|METHOD|CLASS) "<name>" [OFFSET <offset>] (TOP|BOTTOM)
     Use cases: When inserting content either at the TOP or BOTTOM of a function or class body.
     Examples: <ul>
     <li>INSIDE FUNCTION my_function OFFSET 1 BOTTOM -- at the BOTTOM of the function body</li>
@@ -291,7 +291,8 @@ module.exports = grammar({
     region_field: $ => field('region', choice(PARAMS_DOC_DECORATORS_OR_TYPE_FIELD, BODY_OR_WHOLE, $.marker_or_segment)),
 
     /**
-    Field `offset`: Integer to identify how many matches to skip. *MANDATORY* iff there are 2 or more matching elements.
+    offset_clause: When a reference is ambiguous (multiple matches exist for it), it must be disambiguated. Setting an OFFSET is a way to do that.
+    Field `offset`: An int to set how many matches to skip.
     <examples>
     <li>`OFFSET 0` is the default when there's only one matching element. It means to skip 0 items (so, points to the *1st* match).</li>
     <li>`OFFSET 1` skips 1 matches, so points to the *2nd* matches</li>
@@ -308,8 +309,8 @@ module.exports = grammar({
     /**
     relative_indentation: Helps maintain proper code structure when inserting or replacing code.
     Sets the indentation level relative to the context specified in the command:
-    <li>`INSIDE (FUNCTION|CLASS)`: Reference is the body of the function or class</li>
-    <li>`(BEFORE|AFTER) (LINE|FUNCTION|CLASS)`: Reference is line, function, or class, regardless of whether BEFORE or AFTER is used</li>
+    <li>`INSIDE (FUNCTION|METHOD|CLASS)`: Reference is the body of the function, method or class</li>
+    <li>`(BEFORE|AFTER) (LINE|FUNCTION|METHOD|CLASS)`: Reference is line, function, etc, regardless of whether BEFORE or AFTER is used</li>
     When `rel_indent` is 0, code is put at the same level as the reference.
     */
     relative_indentation: $ => seq('RELATIVE INDENTATION', field('rel_indent', $.number)),
