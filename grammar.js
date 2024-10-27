@@ -238,6 +238,22 @@ module.exports = grammar({
 
     maxdepth_clause: $ => seq('MAX DEPTH', field('depth', $.number)),
 
+/*TODO
+ 1 Add support for line numbers as reference points:
+ UPDATE FILE "file.py"
+ INSERT AFTER LINE 123
+ WITH CONTENT '''...''';
+
+ 2 Add support for regular expressions to match lines:
+ UPDATE FILE "file.py"
+ INSERT AFTER LINE REGEX r'@@\s*={10,}\s*PERFORMANCE\s+METRICS\s*={10,}\s*@@'
+ WITH CONTENT '''...''';
+
+ 3 Add support for "anchored" line markers that must match from start/end of line:
+ UPDATE FILE "file.py"
+ INSERT AFTER LINE START "@@ ============ PERFORMANCE METRICS"
+ WITH CONTENT '''...''';
+*/
     // <specifying-locations-in-code>
     /**
     lineMarker: Points to specific line via its trimmed contents.
@@ -323,13 +339,31 @@ module.exports = grammar({
 
     /**
 <details topic="Relative Indent Strings">
-<summary>A relative indent prefix is used within strings in CONTENT blocks to simplify matching indentation with the existing code being changed</summary>
-<p>Syntax:</p>
-<ol>
-<li>`@N:` is the relative indent prefix</li>
-<li>`N` is an integer representing the relative indent *level* (can be negative)</li>
-<li>`content` is the actual code or text for that line</li>
-</ol>
+<summary>A *relative* indent prefix is used for each line within strings in CONTENT blocks to simplify matching indentation with the existing code being changed</summary>
+<syntax>
+The patter is @N:line where:
+- `@N:` is the *RELATIVE* indent prefix;
+- `N` is an integer representing the relative indent *level* (can be negative) compared to the *reference point*;
+- `line` is the actual content for that line (comes immediately after prefix)
+</syntax>
+<prefix-examples>
+- `@0:` Same level as reference point
+- `@1:` 1 more indent level than reference point
+- `@-1:` 1 less indent level than reference point</li>
+</prefix-examples>
+<reference-point>
+Some reference points:
+- AFTER/BEFORE LINE/FUNCTION/CLASS: The referenced item (rather than one line after or before it)
+- INSERT INSIDE FUNCTION/CLASS TOP/BOTTOM: The function/class body
+- `BODY`: The body of the function/class being modified
+- `WHOLE`: The first line of the block where the function/class etc is defined
+</reference-point>
+<key-points>
+The relative indent level *MUST* change logically with code structure:
+- Increment N when entering a nested block (if/for/while/try etc...)
+- Decrement N when exiting a nested block
+NOTE: If you get `E999 IndentationError` message or any other indentation error, check that your relative indent levels follow these rules.
+</key-points>
 <examples>
 <li>'@7:single-quote-string'</li>
 <li>"@-3:double-quote-string"</li>
@@ -338,21 +372,11 @@ module.exports = grammar({
 @0:multi
 @-1:line
 '''</li>
-<li>"""
+<li>\"\"\"
 @0:multi
 @-1:line
-"""</li>
+\"\"\"</li>
 </examples>
-
-<p>Key points:</p>
-<ol>
-<li>Each line must start with `@N:` where `N` represents the indentation level</li>
-<li>Indentation level *MUST* change logically with code structure:
-   - *MUST* increment N when entering a new block (class body, function body, if statement, loop, etc.)
-   - *MUST* Decrement N when exiting a block
- </li>
-<li>The actual content follows immediately after the prefix (@N:)</li>
-</ol>
 
 <example>
 [...] WITH CONTENT '''
@@ -370,6 +394,7 @@ module.exports = grammar({
 Remember: The relative indentation prefix (@N:) is used to indicate the logical structure
 of the code. The CEDARScript interpreter will handle the actual formatting and indentation
 in the target code file.
+</details>
     */
     content_clause: $ => seq('CONTENT', field('content', $.string)),
 
