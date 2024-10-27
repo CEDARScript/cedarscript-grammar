@@ -256,10 +256,20 @@ module.exports = grammar({
 */
     // <specifying-locations-in-code>
     /**
-    lineMarker: Points to specific line via either its trimmed contents or its line number.
+    lineMarker: Points to specific line via:
+    - its trimmed contents
+    - its line number
+    - a string that matches from start of line (PREFIX)
+    - a string that matches from end of line (SUFFIX)
+    - a regular expression pattern (REGEX)
     *NEVER* use an ambiguous line (one that appears 2 or more times) as reference. Instead, prefer a different, nearby line.
     */
-    lineMarker: $ => seq('LINE', field('lineMarker', choice($.string, $.number)), optional($.offset_clause)),
+    lineMarker: $ => seq('LINE', choice(
+      field('lineMarker', choice($.string, $.number)),
+      seq('REGEX', field('regexMarker', $.string)),
+      seq('PREFIX', field('prefixMarker', $.string)),
+      seq('SUFFIX', field('suffixMarker', $.string))
+    ), optional($.offset_clause)),
     /**
     identifierMarker: Points to an identifier (variable, function or class).
     Use `OFFSET <n>` to pinpoint which (if there are 2 or more with same name)
