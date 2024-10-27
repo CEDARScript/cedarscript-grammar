@@ -256,10 +256,10 @@ module.exports = grammar({
 */
     // <specifying-locations-in-code>
     /**
-    lineMarker: Points to specific line via its trimmed contents.
+    lineMarker: Points to specific line via either its trimmed contents or its line number.
     *NEVER* use an ambiguous line (one that appears 2 or more times) as reference. Instead, prefer a different, nearby line.
     */
-    lineMarker: $ => seq('LINE', field('lineMarker', $.string), optional($.offset_clause)),
+    lineMarker: $ => seq('LINE', field('lineMarker', choice($.string, $.number)), optional($.offset_clause)),
     /**
     identifierMarker: Points to an identifier (variable, function or class).
     Use `OFFSET <n>` to pinpoint which (if there are 2 or more with same name)
