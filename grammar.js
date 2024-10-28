@@ -238,41 +238,28 @@ module.exports = grammar({
 
     maxdepth_clause: $ => seq('MAX DEPTH', field('depth', $.number)),
 
-/*TODO
- 1 Add support for line numbers as reference points:
- UPDATE FILE "file.py"
- INSERT AFTER LINE 123
- WITH CONTENT '''...''';
-
- 2 Add support for regular expressions to match lines:
- UPDATE FILE "file.py"
- INSERT AFTER LINE REGEX r'@@\s*={10,}\s*PERFORMANCE\s+METRICS\s*={10,}\s*@@'
- WITH CONTENT '''...''';
-
- 3 Add support for "anchored" line markers that must match from start/end of line:
- UPDATE FILE "file.py"
- INSERT AFTER LINE START "@@ ============ PERFORMANCE METRICS"
- WITH CONTENT '''...''';
-*/
     // <specifying-locations-in-code>
     /**
     lineMarker: Points to specific line via:
-    - its trimmed contents
-    - its line number
+    - its *context-relative line number* (best method, as this is guaranteed to be unambiguous. Must use this if other types failed)
+    - its *contents*, if it's unambiguous (don't use line content if the line appears multiple times)
     - a string that matches from start of line (PREFIX)
     - a string that matches from end of line (SUFFIX)
     - a regular expression pattern (REGEX)
-    *NEVER* use an ambiguous line (one that appears 2 or more times) as reference. Instead, prefer a different, nearby line.
     */
     lineMarker: $ => seq('LINE', choice(
-      field('lineMarker', choice($.string, $.number)),
-      seq('REGEX', field('regexMarker', $.string)),
-      seq('PREFIX', field('prefixMarker', $.string)),
-      seq('SUFFIX', field('suffixMarker', $.string))
+      field('lineMarker', choice($.string, $.number)), // reference the line content or a context-relative line number
+      seq('REGEX', field('regexMarker', $.string)), // match line by REGEX
+      seq('PREFIX', field('prefixMarker', $.string)), // match line by its prefix
+      seq('SUFFIX', field('suffixMarker', $.string)) // match line by its suffix
     ), optional($.offset_clause)),
     /**
-    identifierMarker: Points to an identifier (variable, function or class).
-    Use `OFFSET <n>` to pinpoint which (if there are 2 or more with same name)
+    identifierMarker: Name of an identifier (variable, function, method or class).
+    If there are 2 or more with same name, prefixed it with its parent chain (names of its parents separated by a dot) to disambiguate it.
+    Another way to disambiguate is to use `OFFSET <n>` to pinpoint one.
+    Example of simple name and parent chains:
+    - "my_method" (just the name, if it's unique. Matches any method with that name, regardless of its parents)
+    - "MyClass.my_method" (matches any `my_method` that has `MyClass` as its direct parent. Also matches if `MyClass` itself has other parents)
     */
     identifierMarker: $ => seq(field('identifier', choice('VARIABLE', 'FUNCTION', 'METHOD', 'CLASS')), field('identifierMarker', $.string), optional($.offset_clause)),
     marker: $ => choice($.lineMarker, $.identifierMarker),
