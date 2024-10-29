@@ -32,7 +32,7 @@ WITH CONTENT "...";
           (marker
             (lineMarker
               (number))))))
-    (content_clause
+    (content_literal
       (string
         (single_quoted_string))))
   (command_separator)
@@ -47,7 +47,7 @@ WITH CONTENT "...";
             (lineMarker
               (string
                 (single_quoted_string)))))))
-    (content_clause
+    (content_literal
       (string
         (single_quoted_string))))
   (command_separator)
@@ -62,7 +62,7 @@ WITH CONTENT "...";
             (lineMarker
               (string
                 (single_quoted_string)))))))
-    (content_clause
+    (content_literal
       (string
         (single_quoted_string))))
   (command_separator)
@@ -77,7 +77,7 @@ WITH CONTENT "...";
             (lineMarker
               (string
                 (single_quoted_string)))))))
-    (content_clause
+    (content_literal
       (string
         (single_quoted_string))))
   (command_separator))
@@ -192,7 +192,7 @@ UPDATE FILE "file" DELETE BODY  --   Synonym
             (lineMarker
               (string
                 (single_quoted_string)))))))
-    (content_clause
+    (content_literal
       (string
         (single_quoted_string))))
   (command_separator)
@@ -209,7 +209,7 @@ UPDATE FILE "file" DELETE BODY  --   Synonym
                 (single_quoted_string))
               (offset_clause
                 (number)))))))
-    (content_clause
+    (content_literal
       (string
         (single_quoted_string))))
   (update_command
@@ -224,7 +224,7 @@ UPDATE FILE "file" DELETE BODY  --   Synonym
               (single_quoted_string))
             (offset_clause
               (number))))))
-    (content_clause
+    (content_literal
       (string
         (single_quoted_string))))
   (command_separator)
@@ -239,7 +239,7 @@ UPDATE FILE "file" DELETE BODY  --   Synonym
             (identifierMarker
               (string
                 (single_quoted_string)))))))
-    (content_clause
+    (content_literal
       (string
         (multi_line_string))))
   (update_command
@@ -248,7 +248,7 @@ UPDATE FILE "file" DELETE BODY  --   Synonym
         (single_quoted_string)))
     (replace_region_clause
       (region_field))
-    (content_clause
+    (content_literal
       (string
         (single_quoted_string))))
   (comment)
@@ -258,7 +258,7 @@ UPDATE FILE "file" DELETE BODY  --   Synonym
         (single_quoted_string)))
     (replace_region_clause
       (region_field))
-    (content_clause
+    (content_literal
       (string
         (single_quoted_string))))
   (comment)
@@ -286,7 +286,7 @@ UPDATE FILE "file" DELETE BODY  --   Synonym
                   (lineMarker
                     (string
                       (single_quoted_string))))))))))
-    (content_clause
+    (content_literal
       (string
         (multi_line_string))))
   (command_separator)
@@ -504,7 +504,7 @@ DELETE SEGMENT
           (single_quoted_string))))
     (replace_region_clause
       (region_field))
-    (content_clause
+    (content_literal
       (string
         (multi_line_string))))
   (command_separator)
@@ -518,7 +518,7 @@ DELETE SEGMENT
           (single_quoted_string))))
     (replace_region_clause
       (region_field))
-    (content_clause
+    (content_literal
       (string
         (multi_line_string))))
   (command_separator)
@@ -532,7 +532,7 @@ DELETE SEGMENT
           (single_quoted_string))))
     (replace_region_clause
       (region_field))
-    (content_clause
+    (content_literal
       (string
         (multi_line_string))))
   (command_separator)
@@ -546,7 +546,7 @@ DELETE SEGMENT
           (single_quoted_string))))
     (replace_region_clause
       (region_field))
-    (content_clause
+    (content_literal
       (string
         (single_quoted_string))))
   (command_separator)
@@ -560,7 +560,7 @@ DELETE SEGMENT
           (single_quoted_string))))
     (replace_region_clause
       (region_field))
-    (content_clause
+    (content_literal
       (string
         (single_quoted_string))))
   (command_separator)
@@ -583,7 +583,7 @@ DELETE SEGMENT
                 (single_quoted_string))
               (offset_clause
                 (number)))))))
-    (content_clause
+    (content_literal
       (string
         (single_quoted_string))))
   (update_command
@@ -997,7 +997,7 @@ SEGMENT
                       (single_quoted_string))
                     (offset_clause
                       (number))))))))))
-    (content_clause
+    (content_literal
       (string
         (multi_line_string))))
   (command_separator)

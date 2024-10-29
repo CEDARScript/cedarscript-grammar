@@ -15,7 +15,7 @@ Log 'a' '' x
     (singlefile_clause
       (string
         (raw_string)))
-    (content_clause
+    (content_literal
       (string
         (single_quoted_string))))
   (create_command
@@ -23,14 +23,14 @@ Log 'a' '' x
       (string
         (single_quoted_string
           (escape_sequence))))
-    (content_clause
+    (content_literal
       (string
         (single_quoted_string))))
   (create_command
     (singlefile_clause
       (string
         (single_quoted_string)))
-    (content_clause
+    (content_literal
       (string
         (multi_line_string))))
   (command_separator))
@@ -63,7 +63,7 @@ Welcome!
     (singlefile_clause
       (string
         (single_quoted_string)))
-    (content_clause
+    (content_literal
       (string
         (multi_line_string))))
   (command_separator)
@@ -71,7 +71,7 @@ Welcome!
     (singlefile_clause
       (string
         (single_quoted_string)))
-    (content_clause
+    (content_literal
       (string
         (multi_line_string))))
   (command_separator)
@@ -79,7 +79,7 @@ Welcome!
     (singlefile_clause
       (string
         (single_quoted_string)))
-    (content_clause
+    (content_literal
       (string
         (multi_line_string))))
   (command_separator))
@@ -99,7 +99,7 @@ CREATE FILE "/root/quotes_file.json" WITH CONTENT "{\"key\": \"value with \\\"qu
     (singlefile_clause
       (string
         (single_quoted_string)))
-    (content_clause
+    (content_literal
       (string
         (single_quoted_string))))
   (command_separator)
@@ -107,7 +107,7 @@ CREATE FILE "/root/quotes_file.json" WITH CONTENT "{\"key\": \"value with \\\"qu
     (singlefile_clause
       (string
         (raw_string)))
-    (content_clause
+    (content_literal
       (string
         (single_quoted_string))))
   (command_separator)
@@ -115,7 +115,7 @@ CREATE FILE "/root/quotes_file.json" WITH CONTENT "{\"key\": \"value with \\\"qu
     (singlefile_clause
       (string
         (single_quoted_string)))
-    (content_clause
+    (content_literal
       (string
         (single_quoted_string
           (escape_sequence)
@@ -154,7 +154,7 @@ The purpose is to test the parser's ability to handle large multiline strings an
     (singlefile_clause
       (string
         (single_quoted_string)))
-    (content_clause
+    (content_literal
       (string
         (single_quoted_string))))
   (command_separator)
@@ -162,7 +162,7 @@ The purpose is to test the parser's ability to handle large multiline strings an
     (singlefile_clause
       (string
         (single_quoted_string)))
-    (content_clause
+    (content_literal
       (string
         (single_quoted_string))))
   (command_separator)
@@ -170,7 +170,7 @@ The purpose is to test the parser's ability to handle large multiline strings an
     (singlefile_clause
       (string
         (single_quoted_string)))
-    (content_clause
+    (content_literal
       (string
         (single_quoted_string))))
   (command_separator)
@@ -178,7 +178,7 @@ The purpose is to test the parser's ability to handle large multiline strings an
     (singlefile_clause
       (string
         (single_quoted_string)))
-    (content_clause
+    (content_literal
       (string
         (single_quoted_string))))
   (command_separator)
@@ -186,7 +186,7 @@ The purpose is to test the parser's ability to handle large multiline strings an
     (singlefile_clause
       (string
         (single_quoted_string)))
-    (content_clause
+    (content_literal
       (string
         (single_quoted_string))))
   (command_separator)
@@ -194,7 +194,7 @@ The purpose is to test the parser's ability to handle large multiline strings an
     (singlefile_clause
       (string
         (single_quoted_string)))
-    (content_clause
+    (content_literal
       (string
         (single_quoted_string))))
   (command_separator)
@@ -202,7 +202,7 @@ The purpose is to test the parser's ability to handle large multiline strings an
     (singlefile_clause
       (string
         (raw_string)))
-    (content_clause
+    (content_literal
       (string
         (multi_line_string
           (escape_sequence)))))

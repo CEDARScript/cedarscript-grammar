@@ -56,7 +56,7 @@ module.exports = grammar({
     */
     create_command: $ => seq(
       'CREATE', $.singlefile_clause,
-      'WITH', $.content_clause
+      'WITH', $.content_literal
     ),
 
     /**
@@ -106,7 +106,7 @@ module.exports = grammar({
                   $.insert_clause,
                   $.replace_region_clause
                 ),
-                seq('WITH', choice($.content_clause, $.content_from_segment))
+                seq('WITH', choice($.content_literal, $.content_from_segment))
               )
             )
           )
@@ -122,7 +122,7 @@ module.exports = grammar({
                   $.insert_clause,
                   $.replace_region_clause
                 ),
-                seq('WITH', choice($.content_clause, $.content_from_segment))
+                seq('WITH', choice($.content_literal, $.content_from_segment))
               )
             )
           )
@@ -393,7 +393,7 @@ of the code. The CEDARScript interpreter will handle the actual formatting and i
 in the target code file.
 </details>
     */
-    content_clause: $ => seq('CONTENT', field('content', $.string)),
+    content_literal: $ => seq('CONTENT', field('content', $.string)),
 
     escape_sequence: $ => token(seq(
       '\\',
