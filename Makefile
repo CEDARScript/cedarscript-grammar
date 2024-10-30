@@ -21,6 +21,6 @@ dist: build test
 	rm -rf dist/
 	python -m build && twine upload dist/*
 clean:
-	rm -rf target/
-	rm -f src/cedarscript_grammar/lib*.{so,dylib,dll}
-	rm -f /dist/
+	rm -rfv dist/cedarscript_*.whl dist/cedarscript_*.tar.gz target/
+	rm -rfv src/cedarscript_*.egg-info src/cedarscript_*/lib*.{so,dylib,dll}
+
