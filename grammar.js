@@ -7,6 +7,112 @@ const SELECT_OTHER_TARGETS = choice(
   seq('VARIABLE', choice('NAMES', 'CONTENTS')),
   'IDENTIFIERS'
 );
+
+/*
+CASE
+    WHEN REGEX r"print\((.*?)\)" THEN REPLACE r"logger.debug(\1)"
+    WHEN REGEX r"raise" THEN DELETE
+    WHEN PREFIX "try" THEN RELINDENT 1
+    WHEN SUFFIX ";" THEN CONTENT '''xxx'''    ELSE CONTENT '''No match'''
+END;
+
+CASE
+    WHEN <matcher> THEN <action>
+    ...
+    [ELSE <action>]
+END;
+
+-- Matchers (WHEN clause):
+WHEN REGEX r"pattern"              -- Regular expression match
+WHEN PREFIX "string"              -- Line starts with
+WHEN SUFFIX "string"              -- Line ends with
+WHEN EMPTY                        -- Empty line
+WHEN INDENT <n>                   -- Line has specific indentation level
+WHEN LINE_NUMBER <n>              -- Specific line number
+WHEN MATCHES_FILE "*.py"          -- File pattern match
+WHEN LENGTH > <n>                 -- Line length condition
+
+-- Actions (THEN clause):
+THEN REPLACE r"pattern"           -- Replace with regex capture groups
+THEN DELETE                       -- Remove the line
+THEN CONTENT '''text'''          -- Replace with specific content
+THEN CONTINUE                        -- Skip this line
+THEN INDENT +/-n                -- Change indentation
+THEN WRAP '''before''' '''after''' -- Wrap line with content
+THEN INSERT_BEFORE '''text'''    -- Add content before
+THEN INSERT_AFTER '''text'''     -- Add content after
+THEN CAPITALIZE                  -- Capitalize line
+THEN LOWERCASE                   -- Convert to lowercase
+THEN MOVE TO <n>                -- Move line to position
+
+Example usage:
+```sql
+-- Complex code transformation
+UPDATE FILE 'main.py'
+REPLACE ALL
+CASE
+-- Remove trailing semicolons
+    WHEN SUFFIX ';'
+    THEN REPLACE r'(.*);$' WITH r'\1'
+
+-- Convert print to logging
+    WHEN REGEX r'print\((.*?)\)'
+    THEN REPLACE r'logger.debug(\1)'
+
+-- Fix indentation
+    WHEN INDENT &gt; 4
+    THEN INDENT -2
+
+-- Add type hints
+    WHEN REGEX r'def (\w+)\((.*?)\):'
+    THEN REPLACE r'def \1(\2) -&gt; None:'
+
+-- Remove empty lines in functions
+    WHEN EMPTY AND INSIDE FUNCTION
+    THEN DELETE
+
+-- Add docstrings
+    WHEN DEFINES 'def'
+    THEN INSERT_AFTER """""""""    '''TODO: Add documentation.'''"""""""""
+
+-- Fix long lines
+    WHEN LENGTH &gt; 80
+    THEN WRAP """""""""(\""""""""" """""""""\)"""""""""
+
+-- Add error handling
+    WHEN CALLS 'api.request'
+    THEN WRAP """""""""try:
+    """"""""" """""""""except RequestError as e:
+    logger.error(f'API call failed: {e}')
+    raise"""""""""
+
+-- Clean up imports
+    WHEN IMPORTS '.*'
+    THEN SORT
+
+-- Fix comments
+    WHEN COMMENT AND NOT PREFIX '# '
+    THEN REPLACE r'#(.*)$' WITH r'# \1'
+
+    ELSE SKIP
+END;
+
+-- File organization
+UPDATE PROJECT
+CASE
+    WHEN MATCHES_FILE 'test_*.py'
+    THEN MOVE TO 'tests/'
+
+    WHEN CONTAINS 'TODO'
+    THEN APPEND TO 'todo.txt'
+
+    WHEN COMPLEXITY &gt; 10
+    THEN APPEND TO 'refactor.txt'
+END;
+
+*/
+
+
 /**
 - WHOLE: the whole chosen item;
 - BODY: Only the function body (its *signature* is *NOT* considered);
@@ -50,48 +156,19 @@ module.exports = grammar({
       'MOVE',
       choice('FILE', 'FUNCTION', 'METHOD', 'CLASS', 'VARIABLE'),
     ),
-    /**
-    Syntax: CREATE FILE "<path/to/new-file>" WITH CONTENT '''<content>''';
-    Only for new files. Fails if file already exists.
-    */
     create_command: $ => seq(
       'CREATE', $.singlefile_clause,
       'WITH', $.content_literal
     ),
 
-    /**
-    Syntax: RM FILE "<path/to/file>";
-    Use cases: Delete file from the codebase
-    */
     rm_file_command: $ => seq(
       'RM', $.singlefile_clause
     ),
 
-    /**
-    Syntax: MV FILE "<source-file>" TO "<target-file>";
-    Use cases: Renaming a file, moving a file to another path (target file is overwritten if existing).
-    <example><goal>Rename "old.js", then move "config.json" to "production" folder</goal>
-    ```CEDARScript
-    -- Rename "old.js"
-    MV FILE "src/old.js" TO "src/new.js";
-    -- Overwrite development config with production config
-    MV FILE "production/config.ini" TO "development/config.ini";
-    ```
-    </example>
-    */
     mv_file_command: $ => seq(
       'MV', $.singlefile_clause, $.to_value_clause
     ),
 
-    /**
-    Syntax (simplified): UPDATE <singlefile or identifier_from_file> <update type>;
-    <use-cases>
-    - Creating or replacing classes, functions or other code in existing files/classes/functions
-    - Replacing specific lines of existing code
-    - Performing complex code transformations using refactoring patterns
-    - etc...
-    </use-cases>
-    */
     update_command: $ => seq(
       'UPDATE',
       choice(
@@ -101,12 +178,13 @@ module.exports = grammar({
             choice(
               $.update_delete_region_clause,
               $.update_move_mos_clause,
-              seq(
-                choice(
-                  $.insert_clause,
-                  $.replace_region_clause
+              choice(
+                seq($.insert_clause, 'WITH',
+                  choice($.content_literal, $.content_from_segment)
                 ),
-                seq('WITH', choice($.content_literal, $.content_from_segment))
+                seq($.replace_region_clause, 'WITH',
+                  choice($.content_literal, $.content_from_segment, $.case_stmt, $.ed_stmt)
+                )
               )
             )
           )
@@ -117,12 +195,13 @@ module.exports = grammar({
             choice(
               $.update_delete_region_clause,
               $.update_move_region_clause,
-              seq(
-                choice(
-                  $.insert_clause,
-                  $.replace_region_clause
+              choice(
+                seq($.insert_clause, 'WITH',
+                  choice($.content_literal, $.content_from_segment)
                 ),
-                seq('WITH', choice($.content_literal, $.content_from_segment))
+                seq($.replace_region_clause, 'WITH',
+                  choice($.content_literal, $.content_from_segment, $.case_stmt, $.ed_stmt)
+                )
               )
             )
           )
@@ -239,45 +318,17 @@ module.exports = grammar({
     maxdepth_clause: $ => seq('MAX DEPTH', field('depth', $.number)),
 
     // <specifying-locations-in-code>
-    /**
-    lineMarker: Points to specific line via:
-    - its *context-relative line number* (best method, as this is guaranteed to be unambiguous. Must use this if other types failed)
-    - its *contents*, if it's unambiguous (don't use line content if the line appears multiple times)
-    - a string that matches from start of line (PREFIX)
-    - a string that matches from end of line (SUFFIX)
-    - a regular expression pattern (REGEX)
-    */
     lineMarker: $ => seq('LINE', choice(
       field('lineMarker', choice($.string, $.number)), // reference the line content or a context-relative line number
       seq('REGEX', field('regexMarker', $.string)), // match line by REGEX
       seq('PREFIX', field('prefixMarker', $.string)), // match line by its prefix
       seq('SUFFIX', field('suffixMarker', $.string)) // match line by its suffix
     ), optional($.offset_clause)),
-    /**
-    identifierMarker: Name of an identifier (variable, function, method or class).
-    If there are 2 or more with same name, prefixed it with its parent chain (names of its parents separated by a dot) to disambiguate it.
-    Another way to disambiguate is to use `OFFSET <n>` to pinpoint one.
-    Example of simple name and parent chains:
-    - "my_method" (just the name, if it's unique. Matches any method with that name, regardless of its parents)
-    - "MyClass.my_method" (matches any `my_method` that has `MyClass` as its direct parent. Also matches if `MyClass` itself has other parents)
-    */
     identifierMarker: $ => seq(field('identifier', choice('VARIABLE', 'FUNCTION', 'METHOD', 'CLASS')), field('identifierMarker', $.string), optional($.offset_clause)),
     marker: $ => choice($.lineMarker, $.identifierMarker),
-    /**
-    relpos_beforeafter: Points to region immediately before or after a `marker`
-    */
     relpos_beforeafter: $ => field('relpos_beforeafter', seq(choice('BEFORE', 'AFTER'), $.marker)),
-    /**
-    relpos_inside: Points to inside `identifierMarker` (either the body's TOP or BOTTOM region). The reference indentation level is the body's.
-    Syntax: INSIDE (FUNCTION|METHOD|CLASS) "<name>" [OFFSET <offset>] (TOP|BOTTOM)
-    Use cases: When inserting content either at the TOP or BOTTOM of a function or class body.
-    Examples: <ul>
-    <li>INSIDE FUNCTION my_function OFFSET 1 BOTTOM -- at the BOTTOM of the function body</li>
-    <li>INSIDE FUNCTION my_function TOP -- at the TOP of the function body</li>
-    </ul>
-    */
-    relpos_inside: $ => seq('INSIDE', field('inside', $.identifierMarker), field('topOrBottom', choice('TOP', 'BOTTOM'))),
-    relpos_bai: $ => field('relpos_bai', choice($.relpos_beforeafter, $.relpos_inside)),
+    relpos_into: $ => seq('INTO', field('into', $.identifierMarker), field('topOrBottom', choice('TOP', 'BOTTOM'))),
+    relpos_bai: $ => field('relpos_bai', choice($.relpos_beforeafter, $.relpos_into)),
     /**
     relpos_at: points to a specific `lineMarker`
     */
@@ -322,7 +373,7 @@ module.exports = grammar({
     /**
     relative_indentation: Helps maintain proper code structure when inserting or replacing code.
     Sets the indentation level relative to the context specified in the command:
-    <li>`INSIDE (FUNCTION|METHOD|CLASS)`: Reference is the body of the function, method or class</li>
+    <li>`INTO (FUNCTION|METHOD|CLASS)`: Reference is the body of the function, method or class</li>
     <li>`(BEFORE|AFTER) (LINE|FUNCTION|METHOD|CLASS)`: Reference is line, function, etc, regardless of whether BEFORE or AFTER is used</li>
     When `rel_indent` is 0, code is put at the same level as the reference.
     */
@@ -334,66 +385,43 @@ module.exports = grammar({
       optional($.relative_indentation)
     ),
 
-    /**
-<details topic="Relative Indent Strings">
-<summary>A *relative* indent prefix is used for each line within strings in CONTENT blocks to simplify matching indentation with the existing code being changed</summary>
-<syntax>
-The patter is @N:line where:
-- `@N:` is the *RELATIVE* indent prefix;
-- `N` is an integer representing the relative indent *level* (can be negative) compared to the *reference point*;
-- `line` is the actual content for that line (comes immediately after prefix)
-</syntax>
-<prefix-examples>
-- `@0:` Same level as reference point
-- `@1:` 1 more indent level than reference point
-- `@-1:` 1 less indent level than reference point</li>
-</prefix-examples>
-<reference-point>
-Some reference points:
-- AFTER/BEFORE LINE/FUNCTION/CLASS: The referenced item (rather than one line after or before it)
-- INSERT INSIDE FUNCTION/CLASS TOP/BOTTOM: The function/class body
-- `BODY`: The body of the function/class being modified
-- `WHOLE`: The first line of the block where the function/class etc is defined
-</reference-point>
-<key-points>
-The relative indent level *MUST* change logically with code structure:
-- Increment N when entering a nested block (if/for/while/try etc...)
-- Decrement N when exiting a nested block
-NOTE: If you get `E999 IndentationError` message or any other indentation error, check that your relative indent levels follow these rules.
-</key-points>
-<examples>
-<li>'@7:single-quote-string'</li>
-<li>"@-3:double-quote-string"</li>
-<li>r"@0:raw-string"</li>
-<li>'''
-@0:multi
-@-1:line
-'''</li>
-<li>\"\"\"
-@0:multi
-@-1:line
-\"\"\"</li>
-</examples>
-
-<example>
-[...] WITH CONTENT '''
-@0:class myClass:
-@1:def myFunction(param):
-@2:if param > 0:
-@3:print("Positive")
-@2:else:
-@3:print("Non-positive")
-@2:return param * 2
-@0:class nextClass:
-'''
-</example>
-
-Remember: The relative indentation prefix (@N:) is used to indicate the logical structure
-of the code. The CEDARScript interpreter will handle the actual formatting and indentation
-in the target code file.
-</details>
-    */
     content_literal: $ => seq('CONTENT', field('content', $.string)),
+
+    loop_break: $ => field('break', 'BREAK'),
+    loop_continue: $ => field('continue', 'CONTINUE'),
+    loop_control: $ => choice($.loop_break, $.loop_continue),
+    // Matchers (WHEN clause):
+    case_when: $ => seq('WHEN', choice(
+      field('empty', 'EMPTY'), // match empty line
+      seq('REGEX', field('regex', $.string)), // match line by REGEX
+      seq('PREFIX', field('prefix', $.string)), // Line starts with
+      seq('SUFFIX', field('suffix', $.string)), // Line ends with
+      seq('INDENT', 'LEVEL', field('indent_level', $.number)), // Line has indent level
+      seq('LINE', 'NUMBER', field('line_number', $.number)) // Specific line number
+    )),
+    // Actions (THEN clause):
+    case_action: $ => choice(
+      $.loop_control,
+      seq(field('remove', 'REMOVE'), optional($.loop_control)), // Remove line
+      seq('REPLACE', field('replace', $.string), optional($.loop_control)), // Replace with regex capture groups
+      seq('INDENT', field('indent', $.number), optional($.loop_control)), // Change indentation
+      seq(choice($.content_literal, $.content_from_segment), optional($.loop_control)) // Replace with specific content
+    ),
+
+    // Filters
+
+    case_stmt: $ => seq(
+      'CASE', repeat(seq(
+        $.case_when,
+        'THEN',
+        $.case_action
+      )),
+      optional(seq('ELSE', field('else', $.case_action))),
+      'END'
+    ),
+    ed_stmt: $ => seq('ED', field('ed', $.string)),
+
+    // /Filters
 
     escape_sequence: $ => token(seq(
       '\\',

@@ -78,7 +78,7 @@ editing_ by locating the exact line numbers and characters to change, which inde
 so on, allowing the _CEDARScript commands_ to focus instead on higher levels of abstraction, like 
 [identifier](grammar.js#L248-L251) names, [line](grammar.js#L243-L246) markers, relative 
 [indentations](grammar.js#L306-L370) and [positions](grammar.js#L241-L300)
-(`AFTER`, `BEFORE`, `INSIDE` a function, its `BODY`, at the `TOP` or `BOTTOM` of it...)
+(`AFTER`, `BEFORE`, `INTO` a function, its `BODY`, at the `TOP` or `BOTTOM` of it...)
 
 ## Key Features:
 
@@ -148,15 +148,55 @@ IDEs can store the local history of files in CEDARScript format, and this can al
 
 ## Examples
 
-Quick example:
+Quick example: turn a method into a top-level function, using `CASE` filter with REGEX:
 
 ```sql
-UPDATE FUNCTION "my_func"
-  FROM FILE "functional.py"
-MOVE WHOLE
-INSERT BEFORE LINE "def get_config(self):"
+UPDATE FILE "baseconverter.py"
+MOVE FUNCTION "convert"
+INSERT BEFORE class "BaseConverter"
   RELATIVE INDENTATION 0;
+
+-- Update the call sites in encode() and decode() methods to use the top-level convert() function
+UPDATE CLASS "BaseConverter"
+  FROM FILE "baseconverter".py
+REPLACE BODY
+WITH CASE -- Filter each line in the function body through this CASE filter
+  WHEN   REGEX r"self\.convert\((.*?)\)"
+  THEN REPLACE r"convert(\1)"
+END;
 ```
+
+Use an ED script to change a function:
+
+```sql
+UPDATE FILE "app/main.py" REPLACE FUNCTION "calculate_total" WITH ED '''
+-- Add type hints to parameters
+1s/calculate_total(base_amount, tax_rate, discount, apply_shipping)/calculate_total(base_amount: float, tax_rate: float, discount: float, apply_shipping: bool) -> float/
+
+-- Add docstring after function definition
+1a
+    """
+    Calculate the total amount including tax, shipping, and discount.
+
+    Args:
+        base_amount: Base price of the item
+        tax_rate: Tax rate as decimal (e.g., 0.1 for 10%)
+        discount: Discount as decimal (e.g., 0.2 for 20%)
+        apply_shipping: Whether to add shipping cost
+
+    Returns:
+        float: Final calculated amount rounded to 2 decimal places
+    """
+.
+
+-- Add logging before return
+/return/i
+    logger.info(f"Calculated total amount: {subtotal:.2f}")
+.
+''';
+```
+
+
 
 There are [many more examples](test/corpus) to look at...
 
@@ -203,10 +243,11 @@ Ideas to explore:
 # Future Work
 
 1. [Tree-Sitter query language](https://cycode.com/blog/tips-for-using-tree-sitter-queries/) integration, which could open up many possibilities;
-2. Create a browser extension that allows web-chat interfaces of Large Language Models to tackle larger file changes;
-3. Select a model to fine-tune so that it natively understands `CEDARScript`;
-4. Provide language extensions that will improve how LLMs interact with other resource types;
-5. Explore using it as an **LLM-Tool Interface**;
+2. [Comby](https://github.com/comby-tools/comby) notation for an alternate syntax to express refactorings on code or data formats;
+3. Create a browser extension that allows web-chat interfaces of Large Language Models to tackle larger file changes;
+4. Select a model to fine-tune so that it natively understands `CEDARScript`;
+5. Provide language extensions that will improve how LLMs interact with other resource types;
+6. Explore using it as an **LLM-Tool Interface**;
 
 ## Tree-Sitter Query Language Integration
 
@@ -281,6 +322,17 @@ PATTERN '''
 WITH LINT
   SEVERITY "WARNING"
   MESSAGE "Direct import of system modules discouraged. Use custom wrappers instead.";
+```
+
+## Comby Notation
+
+To replace 'failUnlessEqual' with 'assertEqual':
+```sql
+UPDATE PROJECT
+REAFCTOR LANGUAGE "comby" 
+WITH PATTERN '''
+comby 'failUnlessEqual(:[a],:[b])' 'assertEqual(:[a],:[b])' example.py
+'''
 ```
 
 ## CEDARScript Browser Extension for LLM Web Interfaces
