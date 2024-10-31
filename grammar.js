@@ -10,7 +10,7 @@ const SELECT_OTHER_TARGETS = choice(
 
 /*
 CASE
-    WHEN REGEX r"print\((.*?)\)" THEN REPLACE r"logger.debug(\1)"
+    WHEN REGEX r"print\((.*?)\)" THEN SUB r"logger.debug(\1)"
     WHEN REGEX r"raise" THEN DELETE
     WHEN PREFIX "try" THEN RELINDENT 1
     WHEN SUFFIX ";" THEN CONTENT '''xxx'''    ELSE CONTENT '''No match'''
@@ -33,7 +33,7 @@ WHEN MATCHES_FILE "*.py"          -- File pattern match
 WHEN LENGTH > <n>                 -- Line length condition
 
 -- Actions (THEN clause):
-THEN REPLACE r"pattern"           -- Replace with regex capture groups
+THEN SUB r"pattern" r"replacement"           -- Replace with regex capture groups
 THEN DELETE                       -- Remove the line
 THEN CONTENT '''text'''          -- Replace with specific content
 THEN CONTINUE                        -- Skip this line
@@ -403,7 +403,7 @@ module.exports = grammar({
     case_action: $ => choice(
       $.loop_control,
       seq(field('remove', 'REMOVE'), optional($.loop_control)), // Remove line
-      seq('REPLACE', field('replace', $.string), optional($.loop_control)), // Replace with regex capture groups
+      seq('SUB', field('pattern', $.string), field('repl', $.string), optional($.loop_control)), // Replace with regex capture groups
       seq('INDENT', field('indent', $.number), optional($.loop_control)), // Change indentation
       seq(choice($.content_literal, $.content_from_segment), optional($.loop_control)) // Replace with specific content
     ),

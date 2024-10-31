@@ -991,10 +991,10 @@ REPLACE SEGMENT STARTING AT LINE 1 ENDING BEFORE LINE REGEX "ASDF"
 WITH CASE
   WHEN EMPTY THEN REMOVE
   WHEN LINE NUMBER 4 THEN CONTINUE
-  WHEN REGEX r"asdf" THEN REPLACE r"asdf" BREAK
+  WHEN REGEX r"asdf" THEN SUB r"pattern" r"replacement" BREAK
   WHEN REGEX r"asdf" THEN INDENT 4
   WHEN REGEX r"asdf" THEN BREAK
-  ELSE REPLACE "af"
+  ELSE SUB r"pattern" r'replacement'
 END;
 
 ---
@@ -1033,6 +1033,8 @@ END;
       (case_action
         (string
           (raw_string))
+        (string
+          (raw_string))
         (loop_control
           (loop_break)))
       (case_when
@@ -1048,7 +1050,9 @@ END;
           (loop_break)))
       (case_action
         (string
-          (single_quoted_string)))))
+          (raw_string))
+        (string
+          (raw_string)))))
   (command_separator))
 
 ==================
