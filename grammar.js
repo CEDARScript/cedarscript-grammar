@@ -318,12 +318,16 @@ module.exports = grammar({
     maxdepth_clause: $ => seq('MAX DEPTH', field('depth', $.number)),
 
     // <specifying-locations-in-code>
-    lineMarker: $ => seq('LINE', choice(
+
+    line_base: $ => seq(optional('LINE'), choice(
       field('lineMarker', choice($.string, $.number)), // reference the line content or a context-relative line number
-      seq('REGEX', field('regexMarker', $.string)), // match line by REGEX
-      seq('PREFIX', field('prefixMarker', $.string)), // match line by its prefix
-      seq('SUFFIX', field('suffixMarker', $.string)) // match line by its suffix
-    ), optional($.offset_clause)),
+      field('empty', 'EMPTY'), // match empty line
+      seq('REGEX', field('regex', $.string)), // match line by REGEX
+      seq('PREFIX', field('prefix', $.string)), // match line by its prefix
+      seq('SUFFIX', field('suffix', $.string)), // match line by its suffix
+      seq('INDENT', 'LEVEL', field('indent_level', $.number)), // Line has indent level
+    )),
+    lineMarker: $ => seq($.line_base, optional($.offset_clause)),
     identifierMarker: $ => seq(field('identifier', choice('VARIABLE', 'FUNCTION', 'METHOD', 'CLASS')), field('identifierMarker', $.string), optional($.offset_clause)),
     marker: $ => choice($.lineMarker, $.identifierMarker),
     relpos_beforeafter: $ => field('relpos_beforeafter', seq(choice('BEFORE', 'AFTER'), $.marker)),
@@ -391,14 +395,7 @@ module.exports = grammar({
     loop_continue: $ => field('continue', 'CONTINUE'),
     loop_control: $ => choice($.loop_break, $.loop_continue),
     // Matchers (WHEN clause):
-    case_when: $ => seq('WHEN', choice(
-      field('empty', 'EMPTY'), // match empty line
-      seq('REGEX', field('regex', $.string)), // match line by REGEX
-      seq('PREFIX', field('prefix', $.string)), // Line starts with
-      seq('SUFFIX', field('suffix', $.string)), // Line ends with
-      seq('INDENT', 'LEVEL', field('indent_level', $.number)), // Line has indent level
-      seq('LINE', 'NUMBER', field('line_number', $.number)) // Specific line number
-    )),
+    case_when: $ => seq('WHEN', $.line_base),
     // Actions (THEN clause):
     case_action: $ => choice(
       $.loop_control,
