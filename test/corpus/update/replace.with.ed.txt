@@ -23,19 +23,20 @@ WITH ED '''
 
 ---
 
-(source_file
-  (update_command
-    (singlefile_clause
-      (string
-        (single_quoted_string)))
-    (replace_region_clause
-      (region_field
-        (marker_or_segment
-          (marker
-            (identifier_matcher
-              (string
-                (single_quoted_string)))))))
-    (ed_stmt
-      (string
-        (multi_line_string))))
-  (command_separator))
+    (source_file
+      (update_command
+        (singlefile_clause
+          (string
+            (single_quoted_string)))
+        (replace_region_clause
+          (region_field
+            (marker_or_segment
+              (marker
+                (identifier_matcher
+                  (string
+                    (single_quoted_string)))))))
+        (line_filter
+          (ed_stmt
+            (string
+              (multi_line_string)))))
+      (command_separator))

@@ -1,6 +1,6 @@
 .PHONY: all version play build test dist clean
 
-all: build test
+all: clean build test
 
 version:
 	git describe --tags

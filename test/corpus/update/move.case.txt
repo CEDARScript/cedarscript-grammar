@@ -47,35 +47,36 @@ END;
                         (number)))))))
             (relative_indentation
               (number))
-            (case_stmt
-              (line_base)
-              (case_action)
-              (line_base
-                (string
-                  (single_quoted_string)))
-              (case_action
-                (loop_control
-                  (loop_break)))
-              (line_base
-                (string
-                  (single_quoted_string)))
-              (case_action
-                (loop_control
-                  (loop_break)))
-              (line_base
-                (number))
-              (case_action
-                (string
-                  (raw_string))
-                (string
-                  (raw_string))
-                (loop_control
-                  (loop_break)))
-              (case_action
-                (string
-                  (raw_string))
-                (string
-                  (raw_string)))))))
+            (line_filter
+              (case_stmt
+                (line_base)
+                (case_action)
+                (line_base
+                  (string
+                    (single_quoted_string)))
+                (case_action
+                  (loop_control
+                    (loop_break)))
+                (line_base
+                  (string
+                    (single_quoted_string)))
+                (case_action
+                  (loop_control
+                    (loop_break)))
+                (line_base
+                  (number))
+                (case_action
+                  (string
+                    (raw_string))
+                  (string
+                    (raw_string))
+                  (loop_control
+                    (loop_break)))
+                (case_action
+                  (string
+                    (raw_string))
+                  (string
+                    (raw_string))))))))
       (command_separator))
 
 ==================
@@ -117,35 +118,36 @@ END;
                         (number)))))))
             (relative_indentation
               (number))
-            (case_stmt
-              (line_base)
-              (case_action)
-              (line_base
-                (string
-                  (single_quoted_string)))
-              (case_action
-                (loop_control
-                  (loop_break)))
-              (line_base
-                (string
-                  (single_quoted_string)))
-              (case_action
-                (loop_control
-                  (loop_break)))
-              (line_base
-                (number))
-              (case_action
-                (string
-                  (raw_string))
-                (string
-                  (raw_string))
-                (loop_control
-                  (loop_break)))
-              (case_action
-                (string
-                  (raw_string))
-                (string
-                  (raw_string)))))))
+            (line_filter
+              (case_stmt
+                (line_base)
+                (case_action)
+                (line_base
+                  (string
+                    (single_quoted_string)))
+                (case_action
+                  (loop_control
+                    (loop_break)))
+                (line_base
+                  (string
+                    (single_quoted_string)))
+                (case_action
+                  (loop_control
+                    (loop_break)))
+                (line_base
+                  (number))
+                (case_action
+                  (string
+                    (raw_string))
+                  (string
+                    (raw_string))
+                  (loop_control
+                    (loop_break)))
+                (case_action
+                  (string
+                    (raw_string))
+                  (string
+                    (raw_string))))))))
       (command_separator))
 
 ==================
@@ -186,33 +188,34 @@ END;
                         (single_quoted_string)))))))
             (relative_indentation
               (number))
-            (case_stmt
-              (line_base)
-              (case_action)
-              (line_base
-                (string
-                  (single_quoted_string)))
-              (case_action
-                (loop_control
-                  (loop_break)))
-              (line_base
-                (string
-                  (single_quoted_string)))
-              (case_action
-                (loop_control
-                  (loop_break)))
-              (line_base
-                (number))
-              (case_action
-                (string
-                  (raw_string))
-                (string
-                  (raw_string))
-                (loop_control
-                  (loop_break)))
-              (case_action
-                (string
-                  (raw_string))
-                (string
-                  (raw_string)))))))
+            (line_filter
+              (case_stmt
+                (line_base)
+                (case_action)
+                (line_base
+                  (string
+                    (single_quoted_string)))
+                (case_action
+                  (loop_control
+                    (loop_break)))
+                (line_base
+                  (string
+                    (single_quoted_string)))
+                (case_action
+                  (loop_control
+                    (loop_break)))
+                (line_base
+                  (number))
+                (case_action
+                  (string
+                    (raw_string))
+                  (string
+                    (raw_string))
+                  (loop_control
+                    (loop_break)))
+                (case_action
+                  (string
+                    (raw_string))
+                  (string
+                    (raw_string))))))))
       (command_separator))

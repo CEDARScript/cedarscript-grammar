@@ -183,7 +183,7 @@ module.exports = grammar({
                   choice($.content_literal, $.content_from_segment)
                 ),
                 seq($.replace_region_clause, 'WITH',
-                  choice($.content_literal, $.content_from_segment, $.case_stmt, $.ed_stmt)
+                  choice($.content_literal, $.content_from_segment, $.line_filter)
                 )
               )
             )
@@ -200,7 +200,7 @@ module.exports = grammar({
                   choice($.content_literal, $.content_from_segment)
                 ),
                 seq($.replace_region_clause, 'WITH',
-                  choice($.content_literal, $.content_from_segment, $.case_stmt, $.ed_stmt)
+                  choice($.content_literal, $.content_from_segment, $.line_filter)
                 )
               )
             )
@@ -243,7 +243,8 @@ module.exports = grammar({
     update_move_clause_destination: $ => field('move_destination', seq(
       optional(seq('TO', $.singlefile_clause)), // `TO` can ONLY be used if it points to a different file
       $.insert_clause,
-      optional($.relative_indentation)
+      optional($.relative_indentation),
+      optional($.line_filter)
     )),
 
     // update_move_mos_clause, update_move_region_clause
@@ -386,7 +387,8 @@ module.exports = grammar({
     content_from_segment: $ => seq(
       optional($.singlefile_clause),
       $.marker_or_segment,
-      optional($.relative_indentation)
+      optional($.relative_indentation),
+      optional($.line_filter)
     ),
 
     content_literal: $ => seq('CONTENT', field('content', $.string)),
@@ -405,6 +407,7 @@ module.exports = grammar({
 
     // Filters
 
+    line_filter: $ => choice($.case_stmt, $.ed_stmt),
     case_stmt: $ => seq(
       'CASE', repeat1(seq(
         'WHEN', $.line_base,
