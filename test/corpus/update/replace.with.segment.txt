@@ -1,0 +1,81 @@
+==================
+UPDATE Replace With Segment
+==================
+
+UPDATE FILE "/src/index.js"
+REPLACE "SS"
+WITH FILE "/src/template.js"
+SEGMENT
+STARTING AT LINE "// START TEMPLATE"
+ENDING BEFORE LINE "// END TEMPLATE"
+
+UPDATE FUNCTION "calculate_average"
+FROM FILE "/lib/math.py"
+REPLACE BODY
+WITH SEGMENT
+STARTING AFTER "def efficient_average(numbers):"
+ENDING AT LINE "return";
+
+---
+
+(source_file
+  (update_command
+    (singlefile_clause
+      (string
+        (single_quoted_string)))
+    (replace_region_clause
+      (region_field
+        (marker_or_segment
+          (marker
+            (line_matcher
+              (line_base
+                (string
+                  (single_quoted_string))))))))
+    (content_from_segment
+      (singlefile_clause
+        (string
+          (single_quoted_string)))
+      (marker_or_segment
+        (segment
+          (relpos_segment_start
+            (relpos_at
+              (marker
+                (line_matcher
+                  (line_base
+                    (string
+                      (single_quoted_string)))))))
+          (relpos_segment_end
+            (relpos_beforeafter
+              (marker
+                (line_matcher
+                  (line_base
+                    (string
+                      (single_quoted_string)))))))))))
+  (update_command
+    (identifier_from_file
+      (identifier_matcher
+        (string
+          (single_quoted_string)))
+      (singlefile_clause
+        (string
+          (single_quoted_string))))
+    (replace_region_clause
+      (region_field))
+    (content_from_segment
+      (marker_or_segment
+        (segment
+          (relpos_segment_start
+            (relpos_beforeafter
+              (marker
+                (line_matcher
+                  (line_base
+                    (string
+                      (single_quoted_string)))))))
+          (relpos_segment_end
+            (relpos_at
+              (marker
+                (line_matcher
+                  (line_base
+                    (string
+                      (single_quoted_string)))))))))))
+  (command_separator))

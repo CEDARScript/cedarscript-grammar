@@ -1,0 +1,150 @@
+==================
+UPDATE Edge Cases and Combinations
+==================
+
+UPDATE FILE "/very/long/path/to/file/with/many/directories/example.txt"
+REPLACE SEGMENT
+STARTING BEFORE LINE "Section 1" OFFSET 5
+ENDING AFTER LINE "End of Section 1" OFFSET 10
+WITH CONTENT '''
+@0:This is a very long
+@1:multiline content
+@-1:with "quotes" and other 'special' chars
+@2:like backslashes and   multiple   spaces
+''';
+
+UPDATE FUNCTION "*Controller" FROM FILE "/src/complex_file.js"
+MOVE SEGMENT
+STARTING AT LINE "constructor(" OFFSET 0
+ENDING BEFORE LINE "}"
+INSERT AFTER LINE "methods: {" OFFSET 1;
+
+UPDATE FILE "/config.json"
+REPLACE SEGMENT
+STARTING AT LINE "\"environment\": {"
+ENDING AFTER LINE "}"
+WITH FILE "/default_config.json"
+SEGMENT
+  STARTING AT LINE "\"environment\": {"
+  ENDING AFTER LINE"}";
+
+---
+
+    (source_file
+      (update_command
+        (singlefile_clause
+          (string
+            (single_quoted_string)))
+        (replace_region_clause
+          (region_field
+            (marker_or_segment
+              (segment
+                (relpos_segment_start
+                  (relpos_beforeafter
+                    (marker
+                      (line_matcher
+                        (line_base
+                          (string
+                            (single_quoted_string)))
+                        (offset_clause
+                          (number))))))
+                (relpos_segment_end
+                  (relpos_beforeafter
+                    (marker
+                      (line_matcher
+                        (line_base
+                          (string
+                            (single_quoted_string)))
+                        (offset_clause
+                          (number))))))))))
+        (content_literal
+          (string
+            (multi_line_string))))
+      (command_separator)
+      (update_command
+        (identifier_from_file
+          (identifier_matcher
+            (string
+              (single_quoted_string)))
+          (singlefile_clause
+            (string
+              (single_quoted_string))))
+        (update_move_region_clause
+          (region_field
+            (marker_or_segment
+              (segment
+                (relpos_segment_start
+                  (relpos_at
+                    (marker
+                      (line_matcher
+                        (line_base
+                          (string
+                            (single_quoted_string)))
+                        (offset_clause
+                          (number))))))
+                (relpos_segment_end
+                  (relpos_beforeafter
+                    (marker
+                      (line_matcher
+                        (line_base
+                          (string
+                            (single_quoted_string))))))))))
+          (update_move_clause_destination
+            (insert_clause
+              (relpos_bai
+                (relpos_beforeafter
+                  (marker
+                    (line_matcher
+                      (line_base
+                        (string
+                          (single_quoted_string)))
+                      (offset_clause
+                        (number))))))))))
+      (command_separator)
+      (update_command
+        (singlefile_clause
+          (string
+            (single_quoted_string)))
+        (replace_region_clause
+          (region_field
+            (marker_or_segment
+              (segment
+                (relpos_segment_start
+                  (relpos_at
+                    (marker
+                      (line_matcher
+                        (line_base
+                          (string
+                            (single_quoted_string
+                              (escape_sequence)
+                              (escape_sequence))))))))
+                (relpos_segment_end
+                  (relpos_beforeafter
+                    (marker
+                      (line_matcher
+                        (line_base
+                          (string
+                            (single_quoted_string)))))))))))
+        (content_from_segment
+          (singlefile_clause
+            (string
+              (single_quoted_string)))
+          (marker_or_segment
+            (segment
+              (relpos_segment_start
+                (relpos_at
+                  (marker
+                    (line_matcher
+                      (line_base
+                        (string
+                          (single_quoted_string
+                            (escape_sequence)
+                            (escape_sequence))))))))
+              (relpos_segment_end
+                (relpos_beforeafter
+                  (marker
+                    (line_matcher
+                      (line_base
+                        (string
+                          (single_quoted_string)))))))))))
+      (command_separator))

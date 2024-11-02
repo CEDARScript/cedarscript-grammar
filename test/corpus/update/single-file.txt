@@ -1,0 +1,327 @@
+==================
+UPDATE Single File
+==================
+
+-- Remarks
+UPDATE FILE "/path/to/file.js"
+REPLACE LINE "old" WITH CONTENT "new line content";
+
+UPDATE FILE "/app/main.py"
+INSERT AFTER LINE "def main():" OFFSET 1
+WITH CONTENT "@1:print('Hello, World!')";
+
+UPDATE FILE "/app/main.py"
+INSERT INTO FUNCTION "func1" OFFSET 1 BOTTOM
+WITH CONTENT "@1:print('Hello, World!')"
+
+UPDATE FILE "my_code.py"
+REPLACE FUNCTION "my_function"
+WITH CONTENT """
+def other_function(x):
+"""
+
+UPDATE FILE "file" REPLACE WHOLE WITH CONTENT "Single line"; -- Preferred
+UPDATE FILE "file" REPLACE BODY WITH CONTENT "Single line"; --   Synonym
+
+UPDATE FILE "/config/settings.json"
+REPLACE SEGMENT
+    STARTING AT LINE "\"database\": {" OFFSET 1
+    ENDING BEFORE LINE "}"
+WITH CONTENT '''
+    "host": "localhost",
+    "port": 5432,
+    "user": "admin"
+''';
+
+UPDATE FILE "/config/settings.json"
+REPLACE SEGMENT
+    STARTING AT LINE "\"database\": {" OFFSET 1
+    ENDING BEFORE LINE "}"
+WITH FILE "my/file" SEGMENT
+    STARTING AT LINE "\"database\": {" OFFSET 1
+    ENDING BEFORE LINE "}"
+    RELATIVE INDENTATION 2;
+
+UPDATE FILE "file"
+DELETE LINE "line";
+
+UPDATE FILE "file"
+DELETE VARIABLE "var1";
+
+UPDATE FILE "file"
+DELETE FUNCTION "fun";
+
+UPDATE FILE "file"
+DELETE CLASS "cls1";
+
+UPDATE FILE "file"
+DELETE SEGMENT
+    STARTING AT LINE "\"database\": {" OFFSET 1
+    ENDING BEFORE LINE "}";
+
+UPDATE FILE "file" DELETE WHOLE -- Preferred;
+UPDATE FILE "file" DELETE BODY  --   Synonym;
+
+---
+
+(source_file
+  (comment)
+  (update_command
+    (singlefile_clause
+      (string
+        (single_quoted_string)))
+    (replace_region_clause
+      (region_field
+        (marker_or_segment
+          (marker
+            (line_matcher
+              (line_base
+                (string
+                  (single_quoted_string))))))))
+    (content_literal
+      (string
+        (single_quoted_string))))
+  (command_separator)
+  (update_command
+    (singlefile_clause
+      (string
+        (single_quoted_string)))
+    (insert_clause
+      (relpos_bai
+        (relpos_beforeafter
+          (marker
+            (line_matcher
+              (line_base
+                (string
+                  (single_quoted_string)))
+              (offset_clause
+                (number)))))))
+    (content_literal
+      (string
+        (single_quoted_string))))
+  (command_separator)
+  (update_command
+    (singlefile_clause
+      (string
+        (single_quoted_string)))
+    (insert_clause
+      (relpos_bai
+        (relpos_into
+          (identifier_matcher
+            (string
+              (single_quoted_string))
+            (offset_clause
+              (number))))))
+    (content_literal
+      (string
+        (single_quoted_string))))
+  (update_command
+    (singlefile_clause
+      (string
+        (single_quoted_string)))
+    (replace_region_clause
+      (region_field
+        (marker_or_segment
+          (marker
+            (identifier_matcher
+              (string
+                (single_quoted_string)))))))
+    (content_literal
+      (string
+        (multi_line_string))))
+  (update_command
+    (singlefile_clause
+      (string
+        (single_quoted_string)))
+    (replace_region_clause
+      (region_field))
+    (content_literal
+      (string
+        (single_quoted_string))))
+  (command_separator)
+  (comment)
+  (update_command
+    (singlefile_clause
+      (string
+        (single_quoted_string)))
+    (replace_region_clause
+      (region_field))
+    (content_literal
+      (string
+        (single_quoted_string))))
+  (command_separator)
+  (comment)
+  (update_command
+    (singlefile_clause
+      (string
+        (single_quoted_string)))
+    (replace_region_clause
+      (region_field
+        (marker_or_segment
+          (segment
+            (relpos_segment_start
+              (relpos_at
+                (marker
+                  (line_matcher
+                    (line_base
+                      (string
+                        (single_quoted_string
+                          (escape_sequence)
+                          (escape_sequence))))
+                    (offset_clause
+                      (number))))))
+            (relpos_segment_end
+              (relpos_beforeafter
+                (marker
+                  (line_matcher
+                    (line_base
+                      (string
+                        (single_quoted_string)))))))))))
+    (content_literal
+      (string
+        (multi_line_string))))
+  (command_separator)
+  (update_command
+    (singlefile_clause
+      (string
+        (single_quoted_string)))
+    (replace_region_clause
+      (region_field
+        (marker_or_segment
+          (segment
+            (relpos_segment_start
+              (relpos_at
+                (marker
+                  (line_matcher
+                    (line_base
+                      (string
+                        (single_quoted_string
+                          (escape_sequence)
+                          (escape_sequence))))
+                    (offset_clause
+                      (number))))))
+            (relpos_segment_end
+              (relpos_beforeafter
+                (marker
+                  (line_matcher
+                    (line_base
+                      (string
+                        (single_quoted_string)))))))))))
+    (content_from_segment
+      (singlefile_clause
+        (string
+          (single_quoted_string)))
+      (marker_or_segment
+        (segment
+          (relpos_segment_start
+            (relpos_at
+              (marker
+                (line_matcher
+                  (line_base
+                    (string
+                      (single_quoted_string
+                        (escape_sequence)
+                        (escape_sequence))))
+                  (offset_clause
+                    (number))))))
+          (relpos_segment_end
+            (relpos_beforeafter
+              (marker
+                (line_matcher
+                  (line_base
+                    (string
+                      (single_quoted_string)))))))))
+      (relative_indentation
+        (number))))
+  (command_separator)
+  (update_command
+    (singlefile_clause
+      (string
+        (single_quoted_string)))
+    (update_delete_region_clause
+      (region_field
+        (marker_or_segment
+          (marker
+            (line_matcher
+              (line_base
+                (string
+                  (single_quoted_string)))))))))
+  (command_separator)
+  (update_command
+    (singlefile_clause
+      (string
+        (single_quoted_string)))
+    (update_delete_region_clause
+      (region_field
+        (marker_or_segment
+          (marker
+            (identifier_matcher
+              (string
+                (single_quoted_string))))))))
+  (command_separator)
+  (update_command
+    (singlefile_clause
+      (string
+        (single_quoted_string)))
+    (update_delete_region_clause
+      (region_field
+        (marker_or_segment
+          (marker
+            (identifier_matcher
+              (string
+                (single_quoted_string))))))))
+  (command_separator)
+  (update_command
+    (singlefile_clause
+      (string
+        (single_quoted_string)))
+    (update_delete_region_clause
+      (region_field
+        (marker_or_segment
+          (marker
+            (identifier_matcher
+              (string
+                (single_quoted_string))))))))
+  (command_separator)
+  (update_command
+    (singlefile_clause
+      (string
+        (single_quoted_string)))
+    (update_delete_region_clause
+      (region_field
+        (marker_or_segment
+          (segment
+            (relpos_segment_start
+              (relpos_at
+                (marker
+                  (line_matcher
+                    (line_base
+                      (string
+                        (single_quoted_string
+                          (escape_sequence)
+                          (escape_sequence))))
+                    (offset_clause
+                      (number))))))
+            (relpos_segment_end
+              (relpos_beforeafter
+                (marker
+                  (line_matcher
+                    (line_base
+                      (string
+                        (single_quoted_string))))))))))))
+  (command_separator)
+  (update_command
+    (singlefile_clause
+      (string
+        (single_quoted_string)))
+    (update_delete_region_clause
+      (region_field)))
+  (comment)
+  (update_command
+    (singlefile_clause
+      (string
+        (single_quoted_string)))
+    (update_delete_region_clause
+      (region_field)))
+  (comment))
+

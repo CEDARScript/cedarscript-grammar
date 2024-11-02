@@ -1,0 +1,218 @@
+==================
+UPDATE FILE MOVE SEGMENT CASE filter
+==================
+
+UPDATE FILE "/app/views.py"
+MOVE SEGMENT
+  STARTING AT 1
+  ENDING BEFORE 5000
+INSERT BEFORE 1
+  RELATIVE INDENTATION 2 CASE
+  WHEN EMPTY THEN REMOVE
+  WHEN LINE "asdf" THEN BREAK
+  WHEN "asdf" THEN BREAK
+  WHEN 5 THEN SUB r"pattern" r"replacement" BREAK
+  ELSE SUB r"pattern" r'replacement'
+END;
+
+---
+
+    (source_file
+      (update_command
+        (singlefile_clause
+          (string
+            (single_quoted_string)))
+        (update_move_mos_clause
+          (marker_or_segment
+            (segment
+              (relpos_segment_start
+                (relpos_at
+                  (marker
+                    (line_matcher
+                      (line_base
+                        (number))))))
+              (relpos_segment_end
+                (relpos_beforeafter
+                  (marker
+                    (line_matcher
+                      (line_base
+                        (number))))))))
+          (update_move_clause_destination
+            (insert_clause
+              (relpos_bai
+                (relpos_beforeafter
+                  (marker
+                    (line_matcher
+                      (line_base
+                        (number)))))))
+            (relative_indentation
+              (number))
+            (case_stmt
+              (line_base)
+              (case_action)
+              (line_base
+                (string
+                  (single_quoted_string)))
+              (case_action
+                (loop_control
+                  (loop_break)))
+              (line_base
+                (string
+                  (single_quoted_string)))
+              (case_action
+                (loop_control
+                  (loop_break)))
+              (line_base
+                (number))
+              (case_action
+                (string
+                  (raw_string))
+                (string
+                  (raw_string))
+                (loop_control
+                  (loop_break)))
+              (case_action
+                (string
+                  (raw_string))
+                (string
+                  (raw_string)))))))
+      (command_separator))
+
+==================
+UPDATE Identifier Move WHOLE CASE filter
+==================
+
+UPDATE FUNCTION "index"
+FROM FILE "/app/views.py"
+MOVE WHOLE
+INSERT BEFORE 1
+RELATIVE INDENTATION 2 CASE
+  WHEN EMPTY THEN REMOVE
+  WHEN LINE "asdf" THEN BREAK
+  WHEN "asdf" THEN BREAK
+  WHEN 5 THEN SUB r"pattern" r"replacement" BREAK
+  ELSE SUB r"pattern" r'replacement'
+END;
+
+---
+
+    (source_file
+      (update_command
+        (identifier_from_file
+          (identifier_matcher
+            (string
+              (single_quoted_string)))
+          (singlefile_clause
+            (string
+              (single_quoted_string))))
+        (update_move_region_clause
+          (region_field)
+          (update_move_clause_destination
+            (insert_clause
+              (relpos_bai
+                (relpos_beforeafter
+                  (marker
+                    (line_matcher
+                      (line_base
+                        (number)))))))
+            (relative_indentation
+              (number))
+            (case_stmt
+              (line_base)
+              (case_action)
+              (line_base
+                (string
+                  (single_quoted_string)))
+              (case_action
+                (loop_control
+                  (loop_break)))
+              (line_base
+                (string
+                  (single_quoted_string)))
+              (case_action
+                (loop_control
+                  (loop_break)))
+              (line_base
+                (number))
+              (case_action
+                (string
+                  (raw_string))
+                (string
+                  (raw_string))
+                (loop_control
+                  (loop_break)))
+              (case_action
+                (string
+                  (raw_string))
+                (string
+                  (raw_string)))))))
+      (command_separator))
+
+==================
+UPDATE File Move Identifier CASE filter
+==================
+
+UPDATE FILE "/app/views.py"
+MOVE CLASS "index"
+INSERT BEFORE CLASS "TopClass"
+RELATIVE INDENTATION 2 CASE
+  WHEN EMPTY THEN REMOVE
+  WHEN LINE "asdf" THEN BREAK
+  WHEN "asdf" THEN BREAK
+  WHEN 5 THEN SUB r"pattern" r"replacement" BREAK
+  ELSE SUB r"pattern" r'replacement'
+END;
+
+---
+
+    (source_file
+      (update_command
+        (singlefile_clause
+          (string
+            (single_quoted_string)))
+        (update_move_mos_clause
+          (marker_or_segment
+            (marker
+              (identifier_matcher
+                (string
+                  (single_quoted_string)))))
+          (update_move_clause_destination
+            (insert_clause
+              (relpos_bai
+                (relpos_beforeafter
+                  (marker
+                    (identifier_matcher
+                      (string
+                        (single_quoted_string)))))))
+            (relative_indentation
+              (number))
+            (case_stmt
+              (line_base)
+              (case_action)
+              (line_base
+                (string
+                  (single_quoted_string)))
+              (case_action
+                (loop_control
+                  (loop_break)))
+              (line_base
+                (string
+                  (single_quoted_string)))
+              (case_action
+                (loop_control
+                  (loop_break)))
+              (line_base
+                (number))
+              (case_action
+                (string
+                  (raw_string))
+                (string
+                  (raw_string))
+                (loop_control
+                  (loop_break)))
+              (case_action
+                (string
+                  (raw_string))
+                (string
+                  (raw_string)))))))
+      (command_separator))

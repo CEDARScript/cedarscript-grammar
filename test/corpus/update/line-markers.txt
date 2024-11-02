@@ -1,0 +1,125 @@
+==================
+UPDATE with line markers
+==================
+
+UPDATE FILE "/app/main.py"
+INSERT AFTER LINE 5
+WITH CONTENT "...";
+
+UPDATE FILE "/app/main.py"
+INSERT AFTER 5
+WITH CONTENT "...";
+
+UPDATE FILE "/app/main.py"
+INSERT AFTER LINE REGEX ".."
+WITH CONTENT "...";
+
+UPDATE FILE "/app/main.py"
+INSERT AFTER REGEX ".."
+WITH CONTENT "...";
+
+UPDATE FILE "/app/main.py"
+INSERT AFTER LINE PREFIX ".."
+WITH CONTENT "...";
+
+UPDATE FILE "/app/main.py"
+INSERT AFTER LINE SUFFIX ".."
+WITH CONTENT "...";
+
+ ---
+
+(source_file
+  (update_command
+    (singlefile_clause
+      (string
+        (single_quoted_string)))
+    (insert_clause
+      (relpos_bai
+        (relpos_beforeafter
+          (marker
+            (line_matcher
+              (line_base
+                (number)))))))
+    (content_literal
+      (string
+        (single_quoted_string))))
+  (command_separator)
+  (update_command
+    (singlefile_clause
+      (string
+        (single_quoted_string)))
+    (insert_clause
+      (relpos_bai
+        (relpos_beforeafter
+          (marker
+            (line_matcher
+              (line_base
+                (number)))))))
+    (content_literal
+      (string
+        (single_quoted_string))))
+  (command_separator)
+  (update_command
+    (singlefile_clause
+      (string
+        (single_quoted_string)))
+    (insert_clause
+      (relpos_bai
+        (relpos_beforeafter
+          (marker
+            (line_matcher
+              (line_base
+                (string
+                  (single_quoted_string))))))))
+    (content_literal
+      (string
+        (single_quoted_string))))
+  (command_separator)
+  (update_command
+    (singlefile_clause
+      (string
+        (single_quoted_string)))
+    (insert_clause
+      (relpos_bai
+        (relpos_beforeafter
+          (marker
+            (line_matcher
+              (line_base
+                (string
+                  (single_quoted_string))))))))
+    (content_literal
+      (string
+        (single_quoted_string))))
+  (command_separator)
+  (update_command
+    (singlefile_clause
+      (string
+        (single_quoted_string)))
+    (insert_clause
+      (relpos_bai
+        (relpos_beforeafter
+          (marker
+            (line_matcher
+              (line_base
+                (string
+                  (single_quoted_string))))))))
+    (content_literal
+      (string
+        (single_quoted_string))))
+  (command_separator)
+  (update_command
+    (singlefile_clause
+      (string
+        (single_quoted_string)))
+    (insert_clause
+      (relpos_bai
+        (relpos_beforeafter
+          (marker
+            (line_matcher
+              (line_base
+                (string
+                  (single_quoted_string))))))))
+    (content_literal
+      (string
+        (single_quoted_string))))
+  (command_separator))

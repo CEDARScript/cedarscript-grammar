@@ -1,0 +1,177 @@
+==================
+UPDATE REPLACE WITH CASE
+==================
+
+UPDATE FILE "/app/main.py"
+REPLACE SEGMENT STARTING AT LINE 1 ENDING BEFORE LINE REGEX "ASDF"
+WITH CASE
+  WHEN EMPTY THEN REMOVE
+  WHEN LINE EMPTY THEN REMOVE
+  WHEN LINE 4 THEN SUB r"pattern" r"replacement" CONTINUE
+  WHEN 5 THEN CONTINUE
+  WHEN LINE "asdf" THEN BREAK
+  WHEN "asdf" THEN BREAK
+  WHEN LINE REGEX r"asdf" THEN SUB r"pattern" r"replacement" BREAK
+  WHEN PREFIX r"asdf" THEN INDENT 4
+  WHEN LINE PREFIX r"asdf" THEN INDENT 4
+  WHEN REGEX r"asdf" THEN BREAK
+  ELSE SUB r"pattern" r'replacement'
+END;
+
+---
+
+(source_file
+  (update_command
+    (singlefile_clause
+      (string
+        (single_quoted_string)))
+    (replace_region_clause
+      (region_field
+        (marker_or_segment
+          (segment
+            (relpos_segment_start
+              (relpos_at
+                (marker
+                  (line_matcher
+                    (line_base
+                      (number))))))
+            (relpos_segment_end
+              (relpos_beforeafter
+                (marker
+                  (line_matcher
+                    (line_base
+                      (string
+                        (single_quoted_string)))))))))))
+    (case_stmt
+      (line_base)
+      (case_action)
+      (line_base)
+      (case_action)
+      (line_base
+        (number))
+      (case_action
+        (string
+          (raw_string))
+        (string
+          (raw_string))
+        (loop_control
+          (loop_continue)))
+      (line_base
+        (number))
+      (case_action
+        (loop_control
+          (loop_continue)))
+      (line_base
+        (string
+          (single_quoted_string)))
+      (case_action
+        (loop_control
+          (loop_break)))
+      (line_base
+        (string
+          (single_quoted_string)))
+      (case_action
+        (loop_control
+          (loop_break)))
+      (line_base
+        (string
+          (raw_string)))
+      (case_action
+        (string
+          (raw_string))
+        (string
+          (raw_string))
+        (loop_control
+          (loop_break)))
+      (line_base
+        (string
+          (raw_string)))
+      (case_action
+        (number))
+      (line_base
+        (string
+          (raw_string)))
+      (case_action
+        (number))
+      (line_base
+        (string
+          (raw_string)))
+      (case_action
+        (loop_control
+          (loop_break)))
+      (case_action
+        (string
+          (raw_string))
+        (string
+          (raw_string)))))
+  (command_separator))
+
+==================
+UPDATE REPLACE WITH filtered SEGMENT
+==================
+
+UPDATE FILE "/src/index.js"
+REPLACE LINE 5
+WITH SEGMENT
+STARTING AT LINE "// START TEMPLATE"
+ENDING BEFORE LINE "// END TEMPLATE" CASE
+  WHEN LINE EMPTY THEN REMOVE
+  WHEN LINE 4 THEN SUB r"pattern" r"replacement" CONTINUE
+  WHEN 5 THEN CONTINUE
+  ELSE SUB r"pattern" r'replacement'
+END;
+
+---
+
+    (source_file
+      (update_command
+        (singlefile_clause
+          (string
+            (single_quoted_string)))
+        (replace_region_clause
+          (region_field
+            (marker_or_segment
+              (marker
+                (line_matcher
+                  (line_base
+                    (number)))))))
+        (content_from_segment
+          (marker_or_segment
+            (segment
+              (relpos_segment_start
+                (relpos_at
+                  (marker
+                    (line_matcher
+                      (line_base
+                        (string
+                          (single_quoted_string)))))))
+              (relpos_segment_end
+                (relpos_beforeafter
+                  (marker
+                    (line_matcher
+                      (line_base
+                        (string
+                          (single_quoted_string)))))))))
+          (case_stmt
+            (line_base)
+            (case_action)
+            (line_base
+              (number))
+            (case_action
+              (string
+                (raw_string))
+              (string
+                (raw_string))
+              (loop_control
+                (loop_continue)))
+            (line_base
+              (number))
+            (case_action
+              (loop_control
+                (loop_continue)))
+            (case_action
+              (string
+                (raw_string))
+              (string
+                (raw_string))))))
+      (command_separator))

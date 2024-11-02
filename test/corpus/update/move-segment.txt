@@ -1,0 +1,93 @@
+==================
+UPDATE Move Segment
+==================
+
+UPDATE FILE "/src/component.tsx"
+MOVE SEGMENT
+STARTING AT LINE "import React" OFFSET 0
+ENDING BEFORE LINE "function Component"
+INSERT AFTER LINE "export default Component;";
+
+UPDATE FUNCTION "index"
+FROM FILE "/app/views.py"
+MOVE SEGMENT
+STARTING AFTER LINE "def index():" OFFSET 1
+ENDING BEFORE LINE "return"
+INSERT BEFORE LINE "return" OFFSET 1;
+
+---
+
+(source_file
+  (update_command
+    (singlefile_clause
+      (string
+        (single_quoted_string)))
+    (update_move_mos_clause
+      (marker_or_segment
+        (segment
+          (relpos_segment_start
+            (relpos_at
+              (marker
+                (line_matcher
+                  (line_base
+                    (string
+                      (single_quoted_string)))
+                  (offset_clause
+                    (number))))))
+          (relpos_segment_end
+            (relpos_beforeafter
+              (marker
+                (line_matcher
+                  (line_base
+                    (string
+                      (single_quoted_string)))))))))
+      (update_move_clause_destination
+        (insert_clause
+          (relpos_bai
+            (relpos_beforeafter
+              (marker
+                (line_matcher
+                  (line_base
+                    (string
+                      (single_quoted_string)))))))))))
+  (command_separator)
+  (update_command
+    (identifier_from_file
+      (identifier_matcher
+        (string
+          (single_quoted_string)))
+      (singlefile_clause
+        (string
+          (single_quoted_string))))
+    (update_move_region_clause
+      (region_field
+        (marker_or_segment
+          (segment
+            (relpos_segment_start
+              (relpos_beforeafter
+                (marker
+                  (line_matcher
+                    (line_base
+                      (string
+                        (single_quoted_string)))
+                    (offset_clause
+                      (number))))))
+            (relpos_segment_end
+              (relpos_beforeafter
+                (marker
+                  (line_matcher
+                    (line_base
+                      (string
+                        (single_quoted_string))))))))))
+      (update_move_clause_destination
+        (insert_clause
+          (relpos_bai
+            (relpos_beforeafter
+              (marker
+                (line_matcher
+                  (line_base
+                    (string
+                      (single_quoted_string)))
+                  (offset_clause
+                    (number))))))))))
+  (command_separator))

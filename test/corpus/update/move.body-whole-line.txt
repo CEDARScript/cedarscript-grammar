@@ -1,0 +1,171 @@
+==================
+UPDATE Identifier Move BODY / WHOLE / LINE
+==================
+
+UPDATE FUNCTION "index"
+FROM FILE "/app/views.py"
+MOVE WHOLE
+INSERT BEFORE CLASS "TopClass" OFFSET 1
+RELATIVE INDENTATION 2;
+
+UPDATE FUNCTION "index"
+FROM FILE "/app/views.py"
+MOVE BODY
+INSERT INTO FUNCTION "otherFunc" OFFSET 2 BOTTOM
+
+UPDATE FUNCTION "index"
+FROM FILE "/app/views.py"
+MOVE LINE "a line"
+INSERT AFTER 4
+
+---
+
+(source_file
+  (update_command
+    (identifier_from_file
+      (identifier_matcher
+        (string
+          (single_quoted_string)))
+      (singlefile_clause
+        (string
+          (single_quoted_string))))
+    (update_move_region_clause
+      (region_field)
+      (update_move_clause_destination
+        (insert_clause
+          (relpos_bai
+            (relpos_beforeafter
+              (marker
+                (identifier_matcher
+                  (string
+                    (single_quoted_string))
+                  (offset_clause
+                    (number)))))))
+        (relative_indentation
+          (number)))))
+  (command_separator)
+  (update_command
+    (identifier_from_file
+      (identifier_matcher
+        (string
+          (single_quoted_string)))
+      (singlefile_clause
+        (string
+          (single_quoted_string))))
+    (update_move_region_clause
+      (region_field)
+      (update_move_clause_destination
+        (insert_clause
+          (relpos_bai
+            (relpos_into
+              (identifier_matcher
+                (string
+                  (single_quoted_string))
+                (offset_clause
+                  (number)))))))))
+  (update_command
+    (identifier_from_file
+      (identifier_matcher
+        (string
+          (single_quoted_string)))
+      (singlefile_clause
+        (string
+          (single_quoted_string))))
+    (update_move_region_clause
+      (region_field
+        (marker_or_segment
+          (marker
+            (line_matcher
+              (line_base
+                (string
+                  (single_quoted_string)))))))
+      (update_move_clause_destination
+        (insert_clause
+          (relpos_bai
+            (relpos_beforeafter
+              (marker
+                (line_matcher
+                  (line_base
+                    (number)))))))))))
+
+==================
+UPDATE File Move Identifier
+==================
+
+UPDATE FILE "/app/views.py"
+MOVE FUNCTION "index"
+INSERT BEFORE CLASS "TopClass" OFFSET 1
+RELATIVE INDENTATION 2;
+
+UPDATE FILE "/app/views.py"
+MOVE METHOD "index"
+INSERT INTO CLASS "otherFunc" OFFSET 2 BOTTOM
+
+UPDATE FILE "/app/views.py"
+MOVE CLASS "index"
+INSERT AFTER FUNCTION "x"
+
+
+---
+
+    (source_file
+      (update_command
+        (singlefile_clause
+          (string
+            (single_quoted_string)))
+        (update_move_mos_clause
+          (marker_or_segment
+            (marker
+              (identifier_matcher
+                (string
+                  (single_quoted_string)))))
+          (update_move_clause_destination
+            (insert_clause
+              (relpos_bai
+                (relpos_beforeafter
+                  (marker
+                    (identifier_matcher
+                      (string
+                        (single_quoted_string))
+                      (offset_clause
+                        (number)))))))
+            (relative_indentation
+              (number)))))
+      (command_separator)
+      (update_command
+        (singlefile_clause
+          (string
+            (single_quoted_string)))
+        (update_move_mos_clause
+          (marker_or_segment
+            (marker
+              (identifier_matcher
+                (string
+                  (single_quoted_string)))))
+          (update_move_clause_destination
+            (insert_clause
+              (relpos_bai
+                (relpos_into
+                  (identifier_matcher
+                    (string
+                      (single_quoted_string))
+                    (offset_clause
+                      (number)))))))))
+      (update_command
+        (singlefile_clause
+          (string
+            (single_quoted_string)))
+        (update_move_mos_clause
+          (marker_or_segment
+            (marker
+              (identifier_matcher
+                (string
+                  (single_quoted_string)))))
+          (update_move_clause_destination
+            (insert_clause
+              (relpos_bai
+                (relpos_beforeafter
+                  (marker
+                    (identifier_matcher
+                      (string
+                        (single_quoted_string)))))))))))

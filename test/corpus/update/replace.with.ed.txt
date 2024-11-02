@@ -1,0 +1,41 @@
+==================
+UPDATE REPLACE WITH ED
+==================
+
+UPDATE FILE "/app/main.py"
+REPLACE FUNCTION "calculate_total"
+WITH ED '''
+-- Add type hints to parameters
+1s/calculate_total(base_amount, tax_rate, discount, apply_shipping)/calculate_total(base_amount: float, tax_rate: float, discount: float, apply_shipping: bool) -> float/
+
+-- Add docstring after function definition
+1a
+    """
+    Calculate the total amount including tax, shipping, and discount.
+    """
+.
+
+-- Add logging before return
+/return/i
+    logger.info(f"Calculated total amount: {subtotal:.2f}")
+.
+''';
+
+---
+
+(source_file
+  (update_command
+    (singlefile_clause
+      (string
+        (single_quoted_string)))
+    (replace_region_clause
+      (region_field
+        (marker_or_segment
+          (marker
+            (identifier_matcher
+              (string
+                (single_quoted_string)))))))
+    (ed_stmt
+      (string
+        (multi_line_string))))
+  (command_separator))

@@ -1,0 +1,28 @@
+==================
+UPDATE PROJECT
+==================
+
+UPDATE PROJECT
+  REFACTOR LANGUAGE "rope"
+  WITH PATTERN '''
+<rope-line pattern expression>
+'''
+  WITH GOAL '''
+<rope-like goal expression>
+''';
+
+---
+
+(source_file
+  (update_command
+    (update_project_clause
+      (refactor_language_field
+        (string
+          (single_quoted_string)))
+      (pattern_field
+        (string
+          (multi_line_string)))
+      (goal_field
+        (string
+          (multi_line_string)))))
+  (command_separator))
