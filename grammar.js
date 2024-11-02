@@ -131,8 +131,8 @@ module.exports = grammar({
   name: 'CEDARScript',
 
   extras: $ => [
-    /\s|\r?\n/,
-    $.comment
+    $.comment,
+    /[\s\f\uFEFF\u2060\u200B]|\\\r?\n/
   ],
 
   rules: {
@@ -264,7 +264,7 @@ module.exports = grammar({
     </params>
     */
     identifier_from_file: $ => seq(
-      $.identifierMarker, 'FROM', $.singlefile_clause,
+      $.identifier_matcher, 'FROM', $.singlefile_clause,
       optional($.where_clause)
     ),
 
@@ -320,21 +320,21 @@ module.exports = grammar({
     // <specifying-locations-in-code>
 
     line_base: $ => seq(optional('LINE'), choice(
-      field('lineMarker', choice($.string, $.number)), // reference the line content or a context-relative line number
+      field('line_matcher', choice($.string, $.number)), // match the line content or a context-relative line number
       field('empty', 'EMPTY'), // match empty line
       seq('REGEX', field('regex', $.string)), // match line by REGEX
       seq('PREFIX', field('prefix', $.string)), // match line by its prefix
       seq('SUFFIX', field('suffix', $.string)), // match line by its suffix
       seq('INDENT', 'LEVEL', field('indent_level', $.number)), // Line has indent level
     )),
-    lineMarker: $ => seq($.line_base, optional($.offset_clause)),
-    identifierMarker: $ => seq(field('identifier', choice('VARIABLE', 'FUNCTION', 'METHOD', 'CLASS')), field('identifierMarker', $.string), optional($.offset_clause)),
-    marker: $ => choice($.lineMarker, $.identifierMarker),
+    line_matcher: $ => seq($.line_base, optional($.offset_clause)),
+    identifier_matcher: $ => seq(field('identifier', choice('VARIABLE', 'FUNCTION', 'METHOD', 'CLASS')), field('identifier_matcher', $.string), optional($.offset_clause)),
+    marker: $ => choice($.line_matcher, $.identifier_matcher),
     relpos_beforeafter: $ => field('relpos_beforeafter', seq(choice('BEFORE', 'AFTER'), $.marker)),
-    relpos_into: $ => seq('INTO', field('into', $.identifierMarker), field('topOrBottom', choice('TOP', 'BOTTOM'))),
+    relpos_into: $ => seq('INTO', field('into', $.identifier_matcher), field('topOrBottom', choice('TOP', 'BOTTOM'))),
     relpos_bai: $ => field('relpos_bai', choice($.relpos_beforeafter, $.relpos_into)),
     /**
-    relpos_at: points to a specific `lineMarker`
+    relpos_at: points to a specific `line_matcher`
     */
     relpos_at: $ => seq('AT', field('at', $.marker)),
     /**
@@ -394,8 +394,6 @@ module.exports = grammar({
     loop_break: $ => field('break', 'BREAK'),
     loop_continue: $ => field('continue', 'CONTINUE'),
     loop_control: $ => choice($.loop_break, $.loop_continue),
-    // Matchers (WHEN clause):
-    case_when: $ => seq('WHEN', $.line_base),
     // Actions (THEN clause):
     case_action: $ => choice(
       $.loop_control,
@@ -408,10 +406,9 @@ module.exports = grammar({
     // Filters
 
     case_stmt: $ => seq(
-      'CASE', repeat(seq(
-        $.case_when,
-        'THEN',
-        $.case_action
+      'CASE', repeat1(seq(
+        'WHEN', $.line_base,
+        'THEN', $.case_action
       )),
       optional(seq('ELSE', field('else', $.case_action))),
       'END'
@@ -509,9 +506,9 @@ module.exports = grammar({
 
     number: $ => seq(optional('-'), /\d+/),
 
-    comment: $ => token(prec(-1, seq(
-      '--',
-      optional(/[^\n]+/)
+    comment: $ => token(prec(-1, choice(
+      seq("--", /.*/),
+      seq("/*", /[^*]*\*+([^/*][^*]*\*+)*/, "/")
     ))),
 
     command_separator: $ => ';'

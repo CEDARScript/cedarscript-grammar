@@ -37,7 +37,7 @@ WITH CONTENT "...";
       (relpos_bai
         (relpos_beforeafter
           (marker
-            (lineMarker
+            (line_matcher
               (line_base
                 (number)))))))
     (content_literal
@@ -52,7 +52,7 @@ WITH CONTENT "...";
       (relpos_bai
         (relpos_beforeafter
           (marker
-            (lineMarker
+            (line_matcher
               (line_base
                 (number)))))))
     (content_literal
@@ -67,7 +67,7 @@ WITH CONTENT "...";
       (relpos_bai
         (relpos_beforeafter
           (marker
-            (lineMarker
+            (line_matcher
               (line_base
                 (string
                   (single_quoted_string))))))))
@@ -83,7 +83,7 @@ WITH CONTENT "...";
       (relpos_bai
         (relpos_beforeafter
           (marker
-            (lineMarker
+            (line_matcher
               (line_base
                 (string
                   (single_quoted_string))))))))
@@ -99,7 +99,7 @@ WITH CONTENT "...";
       (relpos_bai
         (relpos_beforeafter
           (marker
-            (lineMarker
+            (line_matcher
               (line_base
                 (string
                   (single_quoted_string))))))))
@@ -115,7 +115,7 @@ WITH CONTENT "...";
       (relpos_bai
         (relpos_beforeafter
           (marker
-            (lineMarker
+            (line_matcher
               (line_base
                 (string
                   (single_quoted_string))))))))
@@ -231,7 +231,7 @@ UPDATE FILE "file" DELETE BODY  --   Synonym;
       (region_field
         (marker_or_segment
           (marker
-            (lineMarker
+            (line_matcher
               (line_base
                 (string
                   (single_quoted_string))))))))
@@ -247,7 +247,7 @@ UPDATE FILE "file" DELETE BODY  --   Synonym;
       (relpos_bai
         (relpos_beforeafter
           (marker
-            (lineMarker
+            (line_matcher
               (line_base
                 (string
                   (single_quoted_string)))
@@ -264,7 +264,7 @@ UPDATE FILE "file" DELETE BODY  --   Synonym;
     (insert_clause
       (relpos_bai
         (relpos_into
-          (identifierMarker
+          (identifier_matcher
             (string
               (single_quoted_string))
             (offset_clause
@@ -280,7 +280,7 @@ UPDATE FILE "file" DELETE BODY  --   Synonym;
       (region_field
         (marker_or_segment
           (marker
-            (identifierMarker
+            (identifier_matcher
               (string
                 (single_quoted_string)))))))
     (content_literal
@@ -319,7 +319,7 @@ UPDATE FILE "file" DELETE BODY  --   Synonym;
             (relpos_segment_start
               (relpos_at
                 (marker
-                  (lineMarker
+                  (line_matcher
                     (line_base
                       (string
                         (single_quoted_string
@@ -330,7 +330,7 @@ UPDATE FILE "file" DELETE BODY  --   Synonym;
             (relpos_segment_end
               (relpos_beforeafter
                 (marker
-                  (lineMarker
+                  (line_matcher
                     (line_base
                       (string
                         (single_quoted_string)))))))))))
@@ -349,7 +349,7 @@ UPDATE FILE "file" DELETE BODY  --   Synonym;
             (relpos_segment_start
               (relpos_at
                 (marker
-                  (lineMarker
+                  (line_matcher
                     (line_base
                       (string
                         (single_quoted_string
@@ -360,7 +360,7 @@ UPDATE FILE "file" DELETE BODY  --   Synonym;
             (relpos_segment_end
               (relpos_beforeafter
                 (marker
-                  (lineMarker
+                  (line_matcher
                     (line_base
                       (string
                         (single_quoted_string)))))))))))
@@ -373,7 +373,7 @@ UPDATE FILE "file" DELETE BODY  --   Synonym;
           (relpos_segment_start
             (relpos_at
               (marker
-                (lineMarker
+                (line_matcher
                   (line_base
                     (string
                       (single_quoted_string
@@ -384,7 +384,7 @@ UPDATE FILE "file" DELETE BODY  --   Synonym;
           (relpos_segment_end
             (relpos_beforeafter
               (marker
-                (lineMarker
+                (line_matcher
                   (line_base
                     (string
                       (single_quoted_string)))))))))
@@ -399,7 +399,7 @@ UPDATE FILE "file" DELETE BODY  --   Synonym;
       (region_field
         (marker_or_segment
           (marker
-            (lineMarker
+            (line_matcher
               (line_base
                 (string
                   (single_quoted_string)))))))))
@@ -412,7 +412,7 @@ UPDATE FILE "file" DELETE BODY  --   Synonym;
       (region_field
         (marker_or_segment
           (marker
-            (identifierMarker
+            (identifier_matcher
               (string
                 (single_quoted_string))))))))
   (command_separator)
@@ -424,7 +424,7 @@ UPDATE FILE "file" DELETE BODY  --   Synonym;
       (region_field
         (marker_or_segment
           (marker
-            (identifierMarker
+            (identifier_matcher
               (string
                 (single_quoted_string))))))))
   (command_separator)
@@ -436,7 +436,7 @@ UPDATE FILE "file" DELETE BODY  --   Synonym;
       (region_field
         (marker_or_segment
           (marker
-            (identifierMarker
+            (identifier_matcher
               (string
                 (single_quoted_string))))))))
   (command_separator)
@@ -451,7 +451,7 @@ UPDATE FILE "file" DELETE BODY  --   Synonym;
             (relpos_segment_start
               (relpos_at
                 (marker
-                  (lineMarker
+                  (line_matcher
                     (line_base
                       (string
                         (single_quoted_string
@@ -462,7 +462,7 @@ UPDATE FILE "file" DELETE BODY  --   Synonym;
             (relpos_segment_end
               (relpos_beforeafter
                 (marker
-                  (lineMarker
+                  (line_matcher
                     (line_base
                       (string
                         (single_quoted_string))))))))))))
@@ -555,7 +555,7 @@ DELETE SEGMENT
 (source_file
   (update_command
     (identifier_from_file
-      (identifierMarker
+      (identifier_matcher
         (string
           (single_quoted_string)))
       (singlefile_clause
@@ -569,7 +569,7 @@ DELETE SEGMENT
   (command_separator)
   (update_command
     (identifier_from_file
-      (identifierMarker
+      (identifier_matcher
         (string
           (single_quoted_string)))
       (singlefile_clause
@@ -583,7 +583,7 @@ DELETE SEGMENT
   (command_separator)
   (update_command
     (identifier_from_file
-      (identifierMarker
+      (identifier_matcher
         (string
           (single_quoted_string)))
       (singlefile_clause
@@ -597,7 +597,7 @@ DELETE SEGMENT
   (command_separator)
   (update_command
     (identifier_from_file
-      (identifierMarker
+      (identifier_matcher
         (string
           (single_quoted_string)))
       (singlefile_clause
@@ -611,7 +611,7 @@ DELETE SEGMENT
   (command_separator)
   (update_command
     (identifier_from_file
-      (identifierMarker
+      (identifier_matcher
         (string
           (single_quoted_string)))
       (singlefile_clause
@@ -625,7 +625,7 @@ DELETE SEGMENT
   (command_separator)
   (update_command
     (identifier_from_file
-      (identifierMarker
+      (identifier_matcher
         (string
           (single_quoted_string))
         (offset_clause
@@ -637,7 +637,7 @@ DELETE SEGMENT
       (relpos_bai
         (relpos_beforeafter
           (marker
-            (lineMarker
+            (line_matcher
               (line_base
                 (string
                   (single_quoted_string)))
@@ -648,7 +648,7 @@ DELETE SEGMENT
         (single_quoted_string))))
   (update_command
     (identifier_from_file
-      (identifierMarker
+      (identifier_matcher
         (string
           (single_quoted_string))
         (offset_clause
@@ -660,7 +660,7 @@ DELETE SEGMENT
       (region_field)))
   (update_command
     (identifier_from_file
-      (identifierMarker
+      (identifier_matcher
         (string
           (single_quoted_string))
         (offset_clause
@@ -672,7 +672,7 @@ DELETE SEGMENT
       (region_field)))
   (update_command
     (identifier_from_file
-      (identifierMarker
+      (identifier_matcher
         (string
           (single_quoted_string))
         (offset_clause
@@ -684,13 +684,13 @@ DELETE SEGMENT
       (region_field
         (marker_or_segment
           (marker
-            (lineMarker
+            (line_matcher
               (line_base
                 (string
                   (single_quoted_string)))))))))
   (update_command
     (identifier_from_file
-      (identifierMarker
+      (identifier_matcher
         (string
           (single_quoted_string))
         (offset_clause
@@ -705,7 +705,7 @@ DELETE SEGMENT
             (relpos_segment_start
               (relpos_at
                 (marker
-                  (lineMarker
+                  (line_matcher
                     (line_base
                       (string
                         (single_quoted_string
@@ -716,13 +716,13 @@ DELETE SEGMENT
             (relpos_segment_end
               (relpos_beforeafter
                 (marker
-                  (lineMarker
+                  (line_matcher
                     (line_base
                       (string
                         (single_quoted_string))))))))))))
   (update_command
     (identifier_from_file
-      (identifierMarker
+      (identifier_matcher
         (string
           (single_quoted_string)))
       (singlefile_clause
@@ -735,13 +735,13 @@ DELETE SEGMENT
             (relpos_segment_start
               (relpos_at
                 (marker
-                  (identifierMarker
+                  (identifier_matcher
                     (string
                       (single_quoted_string))))))
             (relpos_segment_end
               (relpos_beforeafter
                 (marker
-                  (identifierMarker
+                  (identifier_matcher
                     (string
                       (single_quoted_string))))))))))))
 
@@ -776,7 +776,7 @@ INSERT BEFORE LINE "return" OFFSET 1;
           (relpos_segment_start
             (relpos_at
               (marker
-                (lineMarker
+                (line_matcher
                   (line_base
                     (string
                       (single_quoted_string)))
@@ -785,7 +785,7 @@ INSERT BEFORE LINE "return" OFFSET 1;
           (relpos_segment_end
             (relpos_beforeafter
               (marker
-                (lineMarker
+                (line_matcher
                   (line_base
                     (string
                       (single_quoted_string)))))))))
@@ -794,14 +794,14 @@ INSERT BEFORE LINE "return" OFFSET 1;
           (relpos_bai
             (relpos_beforeafter
               (marker
-                (lineMarker
+                (line_matcher
                   (line_base
                     (string
                       (single_quoted_string)))))))))))
   (command_separator)
   (update_command
     (identifier_from_file
-      (identifierMarker
+      (identifier_matcher
         (string
           (single_quoted_string)))
       (singlefile_clause
@@ -814,7 +814,7 @@ INSERT BEFORE LINE "return" OFFSET 1;
             (relpos_segment_start
               (relpos_beforeafter
                 (marker
-                  (lineMarker
+                  (line_matcher
                     (line_base
                       (string
                         (single_quoted_string)))
@@ -823,7 +823,7 @@ INSERT BEFORE LINE "return" OFFSET 1;
             (relpos_segment_end
               (relpos_beforeafter
                 (marker
-                  (lineMarker
+                  (line_matcher
                     (line_base
                       (string
                         (single_quoted_string))))))))))
@@ -832,7 +832,7 @@ INSERT BEFORE LINE "return" OFFSET 1;
           (relpos_bai
             (relpos_beforeafter
               (marker
-                (lineMarker
+                (line_matcher
                   (line_base
                     (string
                       (single_quoted_string)))
@@ -867,7 +867,7 @@ INSERT AFTER 4
 (source_file
   (update_command
     (identifier_from_file
-      (identifierMarker
+      (identifier_matcher
         (string
           (single_quoted_string)))
       (singlefile_clause
@@ -880,7 +880,7 @@ INSERT AFTER 4
           (relpos_bai
             (relpos_beforeafter
               (marker
-                (identifierMarker
+                (identifier_matcher
                   (string
                     (single_quoted_string))
                   (offset_clause
@@ -890,7 +890,7 @@ INSERT AFTER 4
   (command_separator)
   (update_command
     (identifier_from_file
-      (identifierMarker
+      (identifier_matcher
         (string
           (single_quoted_string)))
       (singlefile_clause
@@ -902,14 +902,14 @@ INSERT AFTER 4
         (insert_clause
           (relpos_bai
             (relpos_into
-              (identifierMarker
+              (identifier_matcher
                 (string
                   (single_quoted_string))
                 (offset_clause
                   (number)))))))))
   (update_command
     (identifier_from_file
-      (identifierMarker
+      (identifier_matcher
         (string
           (single_quoted_string)))
       (singlefile_clause
@@ -919,7 +919,7 @@ INSERT AFTER 4
       (region_field
         (marker_or_segment
           (marker
-            (lineMarker
+            (line_matcher
               (line_base
                 (string
                   (single_quoted_string)))))))
@@ -928,7 +928,7 @@ INSERT AFTER 4
           (relpos_bai
             (relpos_beforeafter
               (marker
-                (lineMarker
+                (line_matcher
                   (line_base
                     (number)))))))))))
 
@@ -961,7 +961,7 @@ ENDING AT LINE "return";
       (region_field
         (marker_or_segment
           (marker
-            (lineMarker
+            (line_matcher
               (line_base
                 (string
                   (single_quoted_string))))))))
@@ -974,20 +974,20 @@ ENDING AT LINE "return";
           (relpos_segment_start
             (relpos_at
               (marker
-                (lineMarker
+                (line_matcher
                   (line_base
                     (string
                       (single_quoted_string)))))))
           (relpos_segment_end
             (relpos_beforeafter
               (marker
-                (lineMarker
+                (line_matcher
                   (line_base
                     (string
                       (single_quoted_string)))))))))))
   (update_command
     (identifier_from_file
-      (identifierMarker
+      (identifier_matcher
         (string
           (single_quoted_string)))
       (singlefile_clause
@@ -1001,14 +1001,14 @@ ENDING AT LINE "return";
           (relpos_segment_start
             (relpos_beforeafter
               (marker
-                (lineMarker
+                (line_matcher
                   (line_base
                     (string
                       (single_quoted_string)))))))
           (relpos_segment_end
             (relpos_at
               (marker
-                (lineMarker
+                (line_matcher
                   (line_base
                     (string
                       (single_quoted_string)))))))))))
@@ -1049,7 +1049,7 @@ WITH ED '''
       (region_field
         (marker_or_segment
           (marker
-            (identifierMarker
+            (identifier_matcher
               (string
                 (single_quoted_string)))))))
     (ed_stmt
@@ -1066,7 +1066,7 @@ REPLACE SEGMENT STARTING AT LINE 1 ENDING BEFORE LINE REGEX "ASDF"
 WITH CASE
   WHEN EMPTY THEN REMOVE
   WHEN LINE EMPTY THEN REMOVE
-  WHEN LINE 4 THEN CONTINUE
+  WHEN LINE 4 THEN SUB r"pattern" r"replacement" CONTINUE
   WHEN 5 THEN CONTINUE
   WHEN LINE "asdf" THEN BREAK
   WHEN "asdf" THEN BREAK
@@ -1091,53 +1091,50 @@ END;
             (relpos_segment_start
               (relpos_at
                 (marker
-                  (lineMarker
+                  (line_matcher
                     (line_base
                       (number))))))
             (relpos_segment_end
               (relpos_beforeafter
                 (marker
-                  (lineMarker
+                  (line_matcher
                     (line_base
                       (string
                         (single_quoted_string)))))))))))
     (case_stmt
-      (case_when
-        (line_base))
+      (line_base)
       (case_action)
-      (case_when
-        (line_base))
+      (line_base)
       (case_action)
-      (case_when
-        (line_base
-          (number)))
+      (line_base
+        (number))
+      (case_action
+        (string
+          (raw_string))
+        (string
+          (raw_string))
+        (loop_control
+          (loop_continue)))
+      (line_base
+        (number))
       (case_action
         (loop_control
           (loop_continue)))
-      (case_when
-        (line_base
-          (number)))
-      (case_action
-        (loop_control
-          (loop_continue)))
-      (case_when
-        (line_base
-          (string
-            (single_quoted_string))))
+      (line_base
+        (string
+          (single_quoted_string)))
       (case_action
         (loop_control
           (loop_break)))
-      (case_when
-        (line_base
-          (string
-            (single_quoted_string))))
+      (line_base
+        (string
+          (single_quoted_string)))
       (case_action
         (loop_control
           (loop_break)))
-      (case_when
-        (line_base
-          (string
-            (raw_string))))
+      (line_base
+        (string
+          (raw_string)))
       (case_action
         (string
           (raw_string))
@@ -1145,22 +1142,19 @@ END;
           (raw_string))
         (loop_control
           (loop_break)))
-      (case_when
-        (line_base
-          (string
-            (raw_string))))
+      (line_base
+        (string
+          (raw_string)))
       (case_action
         (number))
-      (case_when
-        (line_base
-          (string
-            (raw_string))))
+      (line_base
+        (string
+          (raw_string)))
       (case_action
         (number))
-      (case_when
-        (line_base
-          (string
-            (raw_string))))
+      (line_base
+        (string
+          (raw_string)))
       (case_action
         (loop_control
           (loop_break)))
@@ -1170,6 +1164,7 @@ END;
         (string
           (raw_string)))))
   (command_separator))
+
 
 ==================
 UPDATE Edge Cases and Combinations
@@ -1215,7 +1210,7 @@ SEGMENT
                 (relpos_segment_start
                   (relpos_beforeafter
                     (marker
-                      (lineMarker
+                      (line_matcher
                         (line_base
                           (string
                             (single_quoted_string)))
@@ -1224,7 +1219,7 @@ SEGMENT
                 (relpos_segment_end
                   (relpos_beforeafter
                     (marker
-                      (lineMarker
+                      (line_matcher
                         (line_base
                           (string
                             (single_quoted_string)))
@@ -1236,7 +1231,7 @@ SEGMENT
       (command_separator)
       (update_command
         (identifier_from_file
-          (identifierMarker
+          (identifier_matcher
             (string
               (single_quoted_string)))
           (singlefile_clause
@@ -1249,7 +1244,7 @@ SEGMENT
                 (relpos_segment_start
                   (relpos_at
                     (marker
-                      (lineMarker
+                      (line_matcher
                         (line_base
                           (string
                             (single_quoted_string)))
@@ -1258,7 +1253,7 @@ SEGMENT
                 (relpos_segment_end
                   (relpos_beforeafter
                     (marker
-                      (lineMarker
+                      (line_matcher
                         (line_base
                           (string
                             (single_quoted_string))))))))))
@@ -1267,7 +1262,7 @@ SEGMENT
               (relpos_bai
                 (relpos_beforeafter
                   (marker
-                    (lineMarker
+                    (line_matcher
                       (line_base
                         (string
                           (single_quoted_string)))
@@ -1285,7 +1280,7 @@ SEGMENT
                 (relpos_segment_start
                   (relpos_at
                     (marker
-                      (lineMarker
+                      (line_matcher
                         (line_base
                           (string
                             (single_quoted_string
@@ -1294,7 +1289,7 @@ SEGMENT
                 (relpos_segment_end
                   (relpos_beforeafter
                     (marker
-                      (lineMarker
+                      (line_matcher
                         (line_base
                           (string
                             (single_quoted_string)))))))))))
@@ -1307,7 +1302,7 @@ SEGMENT
               (relpos_segment_start
                 (relpos_at
                   (marker
-                    (lineMarker
+                    (line_matcher
                       (line_base
                         (string
                           (single_quoted_string
@@ -1316,7 +1311,7 @@ SEGMENT
               (relpos_segment_end
                 (relpos_beforeafter
                   (marker
-                    (lineMarker
+                    (line_matcher
                       (line_base
                         (string
                           (single_quoted_string)))))))))))

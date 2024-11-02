@@ -1,0 +1,38 @@
+==================
+Comments
+==================
+
+/* Comment
+still
+*/ UPDATE FILE '' DELETE 1
+
+-- Comment
+CREATE FILE 'a--b'
+WITH CONTENT '''
+/* content */
+a --  content --
+'''
+
+---
+
+    (source_file
+      (comment)
+      (update_command
+        (singlefile_clause
+          (string
+            (single_quoted_string)))
+        (update_delete_region_clause
+          (region_field
+            (marker_or_segment
+              (marker
+                (line_matcher
+                  (line_base
+                    (number))))))))
+      (comment)
+      (create_command
+        (singlefile_clause
+          (string
+            (single_quoted_string)))
+        (content_literal
+          (string
+            (multi_line_string)))))
