@@ -7,6 +7,7 @@
 
 ## Table of Contents
 - [What is CEDARScript?](#what-is-cedarscript)
+- [How to use it?](#how-to-use-it)
 - [CEDARScript ELI5'ed](#cedarscript-eli5ed)
 - [Technical Overview](#technical-overview)
 - [Key Features](#key-features)
@@ -22,6 +23,13 @@
 A SQL-like language for efficient code analysis and transformations.
 
 Most useful for AI code assistants.
+
+## How to use it
+
+1. You can easily [install a tool that supports CEDARScript](https://github.com/CEDARScript/cedarscript-integration-aider/blob/main/README.md#installation).
+2. Then, just ask the AI assistant to fix a bug or something in your codebase.
+
+The assistant will write `CEDARSCript` commands that will be executed by the CEDARScript runtime editor.
 
 ## CEDARScript ELI5'ed
 <details>
