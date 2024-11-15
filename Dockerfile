@@ -1,4 +1,4 @@
-FROM debian:12-slim
+FROM --platform=linux/amd64 debian:12-slim
 
 ARG LIBRARY_NAME=tree-sitter-cedarscript
 

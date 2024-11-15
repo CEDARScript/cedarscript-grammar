@@ -10,12 +10,12 @@ play p:
 	echo y | ./build.sh
 
 install i:
-	pip install -e .
+	pip install --upgrade --force-reinstall -e .
 
 build b:
 	echo n | ./build.sh
 	# SETUPTOOLS_SCM_PRETEND_VERSION=0.0.1
-	python -m setuptools_scm
+	python -m build
 
 test t:
 	pytest --cov=src/cedarscript_grammar tests/ --cov-report term-missing
