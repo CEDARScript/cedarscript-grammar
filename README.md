@@ -5,11 +5,9 @@
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-## A SQL-like language for efficient code analysis and transformations
-
 ## Table of Contents
 - [What is CEDARScript?](#what-is-cedarscript)
-- [CEDARScript ELI5'ed](#cedarscript-eli5-ed)
+- [CEDARScript ELI5'ed](#cedarscript-eli5ed)
 - [Technical Overview](#technical-overview)
 - [Key Features](#key-features)
 - [Supported Languages](#supported-languages)
@@ -19,7 +17,16 @@
 - [Future Enhancements](#future-enhancements)
 - [Related](#related)
 
+## What is CEDARScript?
+
+A SQL-like language for efficient code analysis and transformations.
+
+Most useful for AI code assistants.
+
 ## CEDARScript ELI5'ed
+<details>
+    <summary>The Magical Librarian analogy</summary>
+
 Imagine a vast _library_ (`your codebase`) with millions of _books_ (`files`) across thousands of _shelves_ (`directories`).
 Traditional code editing is like manually searching through each book, line by line, character by character, to find
 relevant information or make changes.
@@ -45,16 +52,14 @@ faster and more intuitive. It bridges the gap between the LLM's _**high-level in
 of code structure, allowing the **_architect_** to focus on the '_what_' while it handles the '_how_' of code analysis
 and modification.
 
-This **division of labor** between the architect and CEDARScript is not just _efficient_ - it's _economical_.
-The **Architect** (_LLM_) conserves valuable resources (_tokens_) by focusing on strategic decisions rather than
-character- or line-level editing tasks.
-
-### Audio overview / Podcasts
+Audio overview / Podcasts
 There are a few podcasts discussing CEDARScript you can listen to:
 1. [Aider and the CEDARScript Advantage](https://open.spotify.com/episode/44ojEcwqFDujny82kibKK9?si=DTx_vMfxTpaAtjZULdVFMA) (~18 minutes)
 1. [AI coding assistants and the Magical Librarian](https://open.spotify.com/show/4JAc8gphNlUspLV0XxjhQB)
 2. [CEDARScript's _TurboKognition_ and _GanzPunktGenau_ editing](https://open.spotify.com/episode/79xCOfrvMZJPenLdKJiNZj?si=Mo2ofU_lRYKwxRZoCPJn6Q)
 3. [Discussion of an LLM chat held during a benchmark and some command examples](https://podcasters.spotify.com/pod/show/elifarley/episodes/CEDARScript-chat-during-a-benchmark-test--command-examples-e2ptlq4)
+
+</details>
 
 ## Technical Overview
 `CEDARScript` (_Concise Examination, Development, And Refactoring Script_) is a **SQL**-like language designed to
@@ -69,6 +74,10 @@ AI-assisted development tools to understand and execute these tasks.
 The **Architect** doesn't need to specify every tiny detail - instead of spending expensive tokens writing out
 complete code changes, it simply provides high-level blueprints using **CEDARScript** commands like
 `UPDATE FILE "main.py" MOVE FUNCTION "execute" INSERT AFTER FUNCTION "plan"`.
+
+This **division of labor** between the architect and CEDARScript is not just _efficient_ - it's _economical_.
+The **Architect** (_LLM_) conserves valuable resources (_tokens_) by focusing on strategic decisions rather than
+character- or line-level editing tasks.
 
 The CEDARScript runtime then handles all the minute details - precise line numbers, indentation counts, and syntax 
 consistency - at zero token cost.
@@ -219,7 +228,7 @@ There are [many more examples](test/corpus) to look at...
 This capability is designed to help developers, AI assistants, and other tools quickly gain a comprehensive understanding of a project's structure, conventions, and context.
 
 ### Key Onboarding Features
-
+<details>
 1. **Convention Discovery**:
    CEDARScript can automatically extract coding conventions from designated files like `CONVENTIONS.md`:
 
@@ -243,16 +252,19 @@ This capability is designed to help developers, AI assistants, and other tools q
    SELECT *
    FROM ONBOARDING;
    ```
+</details>
 
-### Future Enhancements
+# Future Work
 
-Ideas to explore:
+## Future Enhancements
+
+<details>
+<summary>Ideas to explore:</summary>
 
 - Automatic generation of project structure visualizations
 - Integration with version control history for context-aware onboarding
 - Customizable onboarding queries for specific project needs
 
-# Future Work
 
 1. [Tree-Sitter query language](https://cycode.com/blog/tips-for-using-tree-sitter-queries/) integration, which could open up many possibilities;
 2. [Comby](https://github.com/comby-tools/comby) notation for an alternate syntax to express refactorings on code or data formats;
@@ -401,6 +413,8 @@ This browser extension would expand the capabilities of web-based LLM interfaces
 - **Abstraction of API Complexity**: CEDARScript could hide the underlying complexity of diverse tool APIs behind a simpler, unified interface.
 
 This approach could potentially enhance LLMs' ability to leverage external tools and capabilities, making it easier to deploy them in diverse real-world applications. Future work could explore the feasibility and implementation of this concept, aiming to create a more seamless integration between LLMs and the tools they use to interact with the world.
+
+</details>
 
 </details>
 
