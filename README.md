@@ -7,7 +7,19 @@
 
 ## A SQL-like language for efficient code analysis and transformations
 
-### CEDARScript ELI5'ed
+## Table of Contents
+- [What is CEDARScript?](#what-is-cedarscript)
+- [CEDARScript ELI5'ed](#cedarscript-eli5-ed)
+- [Technical Overview](#technical-overview)
+- [Key Features](#key-features)
+- [Supported Languages](#supported-languages)
+- [How can CEDARScript be used](#how-can-cedarscript-be-used)
+- [Examples](#examples)
+- [Planned Features](#planned-features)
+- [Future Enhancements](#future-enhancements)
+- [Related](#related)
+
+## CEDARScript ELI5'ed
 Imagine a vast _library_ (`your codebase`) with millions of _books_ (`files`) across thousands of _shelves_ (`directories`).
 Traditional code editing is like manually searching through each book, line by line, character by character, to find
 relevant information or make changes.
@@ -44,7 +56,7 @@ There are a few podcasts discussing CEDARScript you can listen to:
 2. [CEDARScript's _TurboKognition_ and _GanzPunktGenau_ editing](https://open.spotify.com/episode/79xCOfrvMZJPenLdKJiNZj?si=Mo2ofU_lRYKwxRZoCPJn6Q)
 3. [Discussion of an LLM chat held during a benchmark and some command examples](https://podcasters.spotify.com/pod/show/elifarley/episodes/CEDARScript-chat-during-a-benchmark-test--command-examples-e2ptlq4)
 
-### Technical Overview
+## Technical Overview
 `CEDARScript` (_Concise Examination, Development, And Refactoring Script_) is a **SQL**-like language designed to
 lower costs and improve the efficiency and accuracy of AI code assistants. It enables offloading low-level code syntax and 
 structure concerns, such as indentation and line counting, from the LLMs.
@@ -118,13 +130,13 @@ but only **Python** has been tested so far.
 
 ## Projects using the CEDARScript Language
 
-1. [CEDARScript AST Parser (Python)](https://github.com/CEDARScript/cedarscript-ast-parser-python)
-2. [CEDARScript Editor](https://github.com/CEDARScript/cedarscript-editor-python)
-3. [CEDARScript Prompt Engineering](https://github.com/CEDARScript/cedarscript-llm-prompt-engineering)
+1. [CEDARScript Integration: Aider](https://github.com/CEDARScript/cedarscript-integration-aider) - Provides 
+`CEDARScript` [_edit format_](https://aider.chat/docs/llms/editing-format.html) for [Aider](https://aider.chat/)
+2. [CEDARScript AST Parser (Python)](https://github.com/CEDARScript/cedarscript-ast-parser-python)
+3. [CEDARScript Editor](https://github.com/CEDARScript/cedarscript-editor-python)
+4. [CEDARScript Prompt Engineering](https://github.com/CEDARScript/cedarscript-llm-prompt-engineering)
    - Provides prompts that teach `CEDARScript` to LLMs
    - Also includes real conversations held via Aider in which an LLM uses this language to propose code modifications
-4. [CEDARScript Integration: Aider](https://github.com/CEDARScript/cedarscript-integration-aider) - Provides 
-`CEDARScript` [_edit format_](https://aider.chat/docs/llms/editing-format.html) for [Aider](https://aider.chat/)
 
 ## How can CEDARScript be used?
 
