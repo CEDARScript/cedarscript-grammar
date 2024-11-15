@@ -24,6 +24,10 @@ A SQL-like language for efficient code analysis and transformations.
 
 Most useful for AI code assistants.
 
+It's a domain-specific language designed to improve how AI coding assistants interact with codebases and communicate their code modification intentions.
+It provides a standardized way to express complex code modification and analysis operations, making it easier for
+AI-assisted development tools to understand and execute these tasks.
+
 ## How to use it
 
 1. You can easily [install a tool that supports CEDARScript](https://github.com/CEDARScript/cedarscript-integration-aider/blob/main/README.md#installation).
