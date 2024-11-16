@@ -10,11 +10,11 @@ authors = [
     {name = "Elifarley", email = "cedarscript@orgecc.com"},
 ]
 readme = "README.md"
-license = {text = "MIT"}
+license = {text = "AGPL-3.0"}
 classifiers = [
     "Development Status :: 3 - Alpha",
     "Intended Audience :: Developers",
-    "License :: OSI Approved :: MIT License",
+    "License :: OSI Approved :: GNU Affero General Public License v3",
     "Programming Language :: Python :: 3",
     "Topic :: Software Development :: Compilers",
     "Topic :: Text Processing :: Linguistic",
@@ -23,7 +23,9 @@ classifiers = [
 keywords = ["parser", "tree-sitter", "ast", "cedarscript", "code-editing", "refactoring", "code-analysis", "sql-like", "ai-assisted-development", "python-binding"]
 requires-python = ">=3.8"
 dependencies = [
-    "tree-sitter~=0.21",
+    # https://github.com/tree-sitter/py-tree-sitter/issues/303
+    # https://github.com/grantjenks/py-tree-sitter-languages/issues/64
+    "tree-sitter<0.22", # 0.22 breaks tree-sitter-languages
 ]
 
 [project.urls]

@@ -6,7 +6,7 @@ Most useful for AI code assistants.
 [![PyPI version](https://badge.fury.io/py/cedarscript-grammar.svg)](https://pypi.org/project/cedarscript-grammar/)
 [![Python Versions](https://img.shields.io/pypi/pyversions/cedarscript-grammar.svg)](https://pypi.org/project/cedarscript-grammar/)
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![AGPL v3](https://img.shields.io/badge/License-AGPL%20v3-blue.svg)](https://www.gnu.org/licenses/agpl-3.0)
 
 ## Table of Contents
 - [What is CEDARScript?](#what-is-cedarscript)
