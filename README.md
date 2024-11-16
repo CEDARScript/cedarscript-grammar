@@ -16,6 +16,7 @@
 - [Examples](#examples)
 - [Planned Features](#planned-features)
 - [Future Enhancements](#future-enhancements)
+- [Proposals](#proposals)
 - [Related](#related)
 
 ## What is CEDARScript?
@@ -429,6 +430,9 @@ This approach could potentially enhance LLMs' ability to leverage external tools
 </details>
 
 </details>
+
+# Proposals
+See [current proposals](proposals/)
 
 # Related
 
