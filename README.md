@@ -1,5 +1,8 @@
 # CEDARScript
 
+A SQL-like language for efficient code analysis, transformations, and tool use.
+Most useful for AI code assistants.
+
 [![PyPI version](https://badge.fury.io/py/cedarscript-grammar.svg)](https://pypi.org/project/cedarscript-grammar/)
 [![Python Versions](https://img.shields.io/pypi/pyversions/cedarscript-grammar.svg)](https://pypi.org/project/cedarscript-grammar/)
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
@@ -13,19 +16,25 @@
 - [Key Features](#key-features)
 - [Supported Languages](#supported-languages)
 - [How can CEDARScript be used](#how-can-cedarscript-be-used)
-- [Examples](#examples)
+   - [Improving LLM <-> codebase interactions](#improving-llm---codebase-interactions)
+      - [Examples](#codebase-interaction-examples)
+   - [Use as a refactoring language / _diff_ format](#use-as-a-refactoring-language--_diff_-format)
+   - [Tool Use](#tool-use)
+      - [Run Python scripts to find the correct answer for certain types of problems](#run-python-scripts-to-find-the-correct-answer-for-certain-types-of-problems)
+      - [Obtain the current local weather](#obtaining-the-current-local-weather)
+      - [Get a list of image files in the current working dir](#get-a-list-of-image-files-in-the-current-working-dir)
+      - [Take a peek at the user's screen and right-click on the user's clock widget](#take-a-peek-at-the-users-screen-and-right-click-on-the-users-clock-widget)
 - [Proposals](#proposals)
 - [Related](#related)
 
 ## What is CEDARScript?
 
-A SQL-like language for efficient code analysis and transformations.
-
-Most useful for AI code assistants.
-
 It's a domain-specific language designed to improve how AI coding assistants interact with codebases and communicate their code modification intentions.
+
 It provides a standardized way to express complex code modification and analysis operations, making it easier for
 AI-assisted development tools to understand and execute these tasks.
+
+It also works as a gateway to external tools, so that the LLM can easily call local shell commands, external HTTP API endpoints, etc
 
 ## How to use it
 
@@ -93,7 +102,7 @@ character- or line-level editing tasks.
 The CEDARScript runtime then handles all the minute details - precise line numbers, indentation counts, and syntax 
 consistency - at zero token cost.
 
-Let's get to know the two primary functions offered by CEDARScript:
+Let's get to know the 3 primary functions offered by CEDARScript:
 
 1. **Code Analysis** to quickly get to know a large code base without having to read all contents of all files.
    - The CEDARScript runtime searches through the whole code base and only returns the relevant results,
@@ -111,6 +120,8 @@ so on, allowing the _CEDARScript commands_ to focus instead on higher levels of 
 [identifier](grammar.js#L248-L251) names, [line](grammar.js#L243-L246) markers, relative 
 [indentations](grammar.js#L306-L370) and [positions](grammar.js#L241-L300)
 (`AFTER`, `BEFORE`, `INTO` a function, its `BODY`, at the `TOP` or `BOTTOM` of it...)
+3. **[Tool Use](#tool-use)**: The runtime acts as a gateway through which the LLM can send and receive information.
+This opens up many possibilities.
 
 ## Key Features:
 
@@ -167,18 +178,7 @@ This efficiency allows for more complex operations within token limits.
 
 It provides a concise way to express complex code modification and analysis operations, making it easier for AI-assisted development tools to understand and perform these tasks.
 
-### Use as a refactoring language / _diff_ format
-
-One can use `CEDARScript` to concisely and unambiguously represent code modifications at a higher level than a standard diff format can.
-
-IDEs can store the local history of files in CEDARScript format, and this can also be used for searches.
-
-### Other Ideas to Explore
-- Code review systems for automated, in-depth code assessments
-- Automated code documentation and explanation tools
-- ...
-
-## Examples
+#### Codebase Interaction Examples
 
 Quick example: turn a method into a top-level function, using `CASE` filter with REGEX:
 
@@ -229,6 +229,123 @@ UPDATE FILE "app/main.py" REPLACE FUNCTION "calculate_total" WITH ED '''
 ```
 
 There are [many more examples](test/corpus) to look at...
+
+### Use as a refactoring language / _diff_ format
+
+One can use `CEDARScript` to concisely and unambiguously represent code modifications at a higher level than a standard diff format can.
+
+IDEs can store the local history of files in CEDARScript format, and this can also be used for searches.
+
+### Tool Use
+If **explicit** configuration is set, the [**CEDARScript runtime**](https://github.com/CEDARScript/cedarscript-editor-python) can act as
+a gateway through which an LLM can:
+1. Call local commands (`ls`, `grep`, `find`, `open`)
+2. Run scripts
+3. Call external HTTP API services
+4. See the user's screen and take control of the mouse and keyboard
+5. Possibilities are numerous...
+
+The output from the external tool is captured and sent back to the LLM.
+
+#### Tool Use Examples
+
+#### Run Python scripts to find the correct answer for certain types of problems
+
+```sql
+-- Suppose the LLM has difficulty counting letters...
+-- It can delegate the counting to a Python script:
+CALL LANGUAGE "python" WITH CONTENT '''
+print("Refrigerator".lower().count('r'))
+''';
+```
+
+```sql
+-- Using env var
+CALL LANGUAGE "python"
+ENV CONTENT '''WORD=Refrigerator'''
+WITH CONTENT '''
+import os
+print(os.environ['WORD'].count('r'))
+''';
+```
+
+```sql
+-- Using env var from the host computer
+CALL LANGUAGE "python"
+ENV INHERIT ONLY 'WORD'
+WITH CONTENT '''
+import os
+print(os.environ['WORD'].count('r'))
+''';
+```
+
+#### Obtain the current local weather
+
+```sql
+CALL COMMAND
+ENV INHERIT ONLY 'LOCATION' -- Get the current location from the host env var
+WITH CONTENT r'''
+#!/bin/bash
+curl -s "wttr.in/$LOCATION?format=%l:+%C+%t,+feels+like+%f,+%h+humidity"
+''';
+```
+
+#### Get a list of image files in the current working dir
+
+```sql
+CALL LANGUAGE "bash"
+WITH CONTENT r'''
+    find . -type f -name "*.jpg"
+''';
+```
+
+#### Take a peek at the user's screen and right-click on the user's clock widget
+
+```sql
+CALL LANGUAGE "python"
+WITH CONTENT r'''
+import pyautogui
+import time
+from datetime import datetime
+import os
+
+# Take screenshot and save it
+timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+screenshot_path = f"screen_{timestamp}.png"
+pyautogui.screenshot(screenshot_path)
+
+# Print the path so the LLM can analyze the image
+print(f"IMAGE_PATH={screenshot_path}")
+''';
+```
+
+After the LLM takes a look at the screenshot, it finds the clock and sends a mouse click:
+
+```sql
+CALL LANGUAGE "python"
+ENV r'''
+X=1850  # Coordinates provided by LLM after image analysis
+Y=12    # Coordinates provided by LLM after image analysis
+'''
+WITH CONTENT r'''
+import pyautogui
+import os
+
+# Get coordinates from environment
+x = int(os.environ['X'])
+y = int(os.environ['Y'])
+
+# Move and click
+pyautogui.moveTo(x, y, duration=1.0)
+pyautogui.click()
+print(f"Clicked at ({x}, {y})")
+''';
+```
+
+### Other Ideas to Explore
+- Code review systems for automated, in-depth code assessments
+- Automated code documentation and explanation tools
+- ...
 
 # Proposals
 See [current proposals](proposals/)

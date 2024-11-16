@@ -14,6 +14,19 @@ when solving complex mathematical challenges, e. g. https://epoch.ai/frontiermat
 ```sql
 -- Capturing script output
 
+-- Suppose the LLM has difficulty counting letters...
+-- It can delegate the counting to a Python script:
+CALL LANGUAGE "python" WITH CONTENT '''
+print("refrigerator".lower().count('r'))
+''';
+
+CALL LANGUAGE "python"
+ENV CONTENT '''WORD=rrrrrrrracer'''
+WITH CONTENT '''
+import os
+print(os.environ['WORD'].count('r'))
+''';
+
 CALL LANGUAGE "python"
 WITH CONTENT r'''
 import os
@@ -28,14 +41,14 @@ print(sys.version)
 ''';
 
 CALL COMMAND
--- ENV MODE (ISOLATED* | INHERIT ONLY | INHERIT ALL)
+-- ENV INHERIT (NONE* | ONLY '<vars>' | ALL)
 ENV MODE INHERIT ONLY 'PATH, HOME, API_KEY'
 -- ENV (r'''<env-spec>''' | FILE "<path>")
-ENV r'''
+ENV CONTENT r'''
 OUTPUT_FORMAT=xml
 MAX_RESULTS=20
 '''
-CAPTURE STDOUT -- CAPTURE (*ALL | STDOUT | STDERR)
+CAPTURE STDOUT -- CAPTURE (ALL* | STDOUT | STDERR)
 -- WITH (CONTENT r'''<string>''' | FILE "<path>") 
 WITH CONTENT r'''
 #!/bin/bash

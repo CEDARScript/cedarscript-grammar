@@ -150,12 +150,45 @@ module.exports = grammar({
       $.update_command,
       // DML (Read-Only)
       $.select_command,
+      $.call_command,
       prec(-1, alias($.invalid_move_command, $.error))
     ),
     invalid_move_command: $ => seq(
       'MOVE',
       choice('FILE', 'FUNCTION', 'METHOD', 'CLASS', 'VARIABLE'),
     ),
+
+    call_command: $ => seq(
+      'CALL',
+      field('call_type', choice('COMMAND', seq('LANGUAGE', field('language', $.string)))),
+      optional($.env_inherit_clause),
+      repeat($.env_clause),
+      'WITH', field('command_source', choice($.content_literal, $.singlefile_clause)),
+      optional($.capture_clause)
+    ),
+    env_inherit_clause: $ => prec.right(seq(
+      'ENV',
+      'INHERIT',
+      field('inherit_mode', choice(
+        'NONE', 'ALL', seq('ONLY', field('inherit_vars', $.string))
+      ))
+    )),
+
+    env_clause: $ => seq(
+      'ENV',
+      field('env_vars', choice($.content_literal, $.singlefile_clause))
+    ),
+
+    // No precedence needed for capture_clause as it's straightforward
+    capture_clause: $ => seq(
+      'CAPTURE',
+      field('capture_mode', choice(
+        'ALL',
+        'STDOUT',
+        'STDERR'
+      ))
+    ),
+
     create_command: $ => seq(
       'CREATE', $.singlefile_clause,
       'WITH', $.content_literal
