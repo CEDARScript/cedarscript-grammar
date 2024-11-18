@@ -29,16 +29,16 @@ Most useful for AI code assistants.
 
 ## What is CEDARScript?
 
-It's a domain-specific language designed to improve how AI coding assistants interact with codebases and communicate their code modification intentions.
+[CEDARScript](https://bit.ly/cedarscript): a domain-specific language designed to improve how AI coding assistants interact with codebases and communicate their code modification intentions.
 
 It provides a standardized way to express complex code modification and analysis operations, making it easier for
 AI-assisted development tools to understand and execute these tasks.
 
-It also works as a gateway to external tools, so that the LLM can easily call local shell commands, external HTTP API endpoints, etc
+It also helps with [tool use](#tool-use): it works as a gateway to external tools, so that the LLM can easily call local shell commands, external HTTP API endpoints, etc
 
 ## How to use it
 
-1. You can easily [install a tool that supports CEDARScript](https://github.com/CEDARScript/cedarscript-integration-aider/blob/main/README.md#installation).
+1. You can easily [install an assistent that supports CEDARScript](https://github.com/CEDARScript/cedarscript-integration-aider/blob/main/README.md#installation).
 2. Then, just ask the AI assistant to fix a bug or something in your codebase.
 
 The assistant will write `CEDARSCript` commands that will be executed by the CEDARScript runtime editor.
