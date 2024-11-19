@@ -4,7 +4,19 @@ LIBRARY_NAME="${LIBRARY_NAME:-tree-sitter-cedarscript}"
 TARGET_DIR="target"
 GRAMMAR_DIR="src/cedarscript_grammar"
 
-ts() ( cd "$TARGET_DIR" && tree-sitter-macos-arm64 "$@" ;)
+ ts() (
+     cd "$TARGET_DIR" || exit
+     if [ -n "$GITHUB_ACTIONS" ] || [ "$(uname)" = "Linux" ]; then
+         # On GitHub Actions or Linux, install and use tree-sitter from npm
+         if ! command -v tree-sitter &> /dev/null; then
+             npm install --global tree-sitter-cli
+         fi
+         tree-sitter "$@"
+         return
+     fi
+     # Local development on macOS ARM64
+     tree-sitter-macos-arm64 "$@"
+ )
 
 playground() {
   while true; do

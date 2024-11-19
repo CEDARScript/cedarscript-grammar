@@ -1,6 +1,8 @@
 .PHONY: all dist d play p clean c version v install i test t build b
 
-all: clean build install test version
+ci: clean build install test
+
+all: ci version
 
 dist d: all
 	scripts/check-version.sh
