@@ -232,17 +232,23 @@ There are [many more examples](test/corpus) to look at...
 
 ### Use as a refactoring language / _diff_ format
 
-One can use `CEDARScript` to concisely and unambiguously represent code modifications at a higher level than a standard diff format can.
+One can use `CEDARScript` to _concisely_ and _unambiguously_ represent code modifications at a _higher_ level than a standard `diff` format can.
 
-IDEs can store the local history of files in CEDARScript format, and this can also be used for searches.
+IDEs can store the local history of files in `CEDARScript` format, and this can also be used for searches.
 
 ### Tool Use
-If **explicit** configuration is set, the [**CEDARScript runtime**](https://github.com/CEDARScript/cedarscript-editor-python) can act as
-a gateway through which an LLM can:
-1. Call local commands (`ls`, `grep`, `find`, `open`)
-2. Run scripts
-3. Call external HTTP API services
-4. See the user's screen and take control of the mouse and keyboard
+If **explicit** configuration is set, the [**CEDARScript runtime**](https://github.com/CEDARScript/cedarscript-editor-python)
+can act as a **unified gateway** through which _any_ LLM can call external commands and obtain their output
+(a.k.a. **Tool Use** support).
+
+This includes:
+1. **Web browsing**
+2. **Code Interpreter**
+   - Run scripts written in Python, Bash, Javascript, Lua, etc
+3. **Function Calling**
+    - Call local commands (`ls`, `grep`, `find`, `open`)
+    - Call external HTTP API services
+4. **Computer Use**: See the user's screen and take control of the mouse and keyboard
 5. Possibilities are numerous...
 
 The output from the external tool is captured and sent back to the LLM.

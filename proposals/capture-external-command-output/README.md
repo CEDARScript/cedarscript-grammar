@@ -1,13 +1,23 @@
 # External command calls to allow LLMs to experiment and learn
 
 ## Summary
-I propose a language extension to `CEDARScript` to allow arbitrary command execution.
+I propose a language extension to `CEDARScript` to allow arbitrary command execution, a.k.a. **Tool Use** support.
 It would work as an escape hatch that connects the LLM to the external environment.
+
+This includes:
+1. **Web browsing**
+2. **Code Interpreter**
+    - Run scripts written in Python, Bash, Javascript, Lua, etc
+3. **Function Calling**
+    - Call local commands (`ls`, `grep`, `find`, `open`)
+    - Call external HTTP API services
+4. **Computer Use**: See the user's screen and take control of the mouse and keyboard
+5. Possibilities are numerous...
 
 Security implications aside, it holds a lot of potential.
 
-The firs application could be a benchmark to see if the LLM would be able to perform better than the baseline
-when solving complex mathematical challenges, e. g. https://epoch.ai/frontiermath
+The first application could be a benchmark to see if the LLM would be able to perform better than the baseline
+when solving complex mathematical challenges, e.g. https://epoch.ai/frontiermath
 
 ## Examples
 
