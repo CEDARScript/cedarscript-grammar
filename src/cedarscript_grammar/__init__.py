@@ -30,7 +30,13 @@ def language() -> Language:
         case x if x.startswith('darwin'):
             libext = 'dylib'
         case x if x.startswith('linux'):
-            libext = 'so'
+            arch = platform.machine().lower()
+            if arch == 'x86_64':
+                libext = 'amd64.so'
+            elif arch in ('aarch64', 'arm64'):
+                libext = 'arm64.so'
+            else:
+                raise OSError(f"Unsupported Linux architecture: {arch}")
         case x if x.startswith('win'):
             libext = 'dll'
         case _ as invalid:
