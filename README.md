@@ -38,7 +38,7 @@ It also helps with [tool use](#tool-use): it works as a gateway to external tool
 
 ## How to use it
 
-1. You can easily [install an assistent that supports CEDARScript](https://github.com/CEDARScript/cedarscript-integration-aider/blob/main/README.md#installation).
+1. You can easily [install an assistant that supports CEDARScript](https://github.com/CEDARScript/cedarscript-integration-aider/blob/main/README.md#installation).
 2. Then, just ask the AI assistant to fix a bug or something in your codebase.
 
 The assistant will write `CEDARSCript` commands that will be executed by the CEDARScript runtime editor.
