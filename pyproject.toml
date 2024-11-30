@@ -10,7 +10,7 @@ authors = [
     {name = "Elifarley", email = "cedarscript@orgecc.com"},
 ]
 readme = "README.md"
-license = {text = "AGPL-3.0"}
+license = {text = "Apache-2.0"}
 classifiers = [
     "Development Status :: 3 - Alpha",
     "Intended Audience :: Developers",
