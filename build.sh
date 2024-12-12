@@ -6,16 +6,16 @@ GRAMMAR_DIR="src/cedarscript_grammar"
 
  ts() (
      cd "$TARGET_DIR" || exit
-     if [ -n "$GITHUB_ACTIONS" ] || [ "$(uname)" = "Linux" ]; then
+     command -v tree-sitter &> /dev/null && {
+       set -x
+       tree-sitter "$@"
+       return
+     }
+     if test "$GITHUB_ACTIONS" || uname | grep -Eq '^(MSYS|Linux)'; then
          # On GitHub Actions or Linux, install and use tree-sitter from npm
-         if ! command -v tree-sitter &> /dev/null; then
-             npm install --global tree-sitter-cli
-         fi
-         tree-sitter "$@"
-         return
+         npm install --global tree-sitter-cli
      fi
-     # Local development on macOS ARM64
-     tree-sitter-macos-arm64 "$@"
+     tree-sitter "$@"
  )
 
 playground() {

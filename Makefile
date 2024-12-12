@@ -20,7 +20,8 @@ version v:
 	python -m setuptools_scm
 
 install i:
-	pip install --upgrade --force-reinstall -e .
+	pip install --upgrade --force-reinstall -e .\
+	&& pip show cedarscript-grammar
 
 test t:
 	pytest --cov=src/cedarscript_grammar tests/ --cov-report term-missing
