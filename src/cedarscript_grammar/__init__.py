@@ -6,7 +6,7 @@ from pathlib import Path
 from typing import Optional
 
 from tree_sitter import Language
-from ._version import __version__
+from version import __version__
 
 __all__ = ("language","__version__")
 
