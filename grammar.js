@@ -497,7 +497,6 @@ module.exports = grammar({
         "'",
         repeat(choice(
           /[^'\\\n]/,
-          '--',
           $.escape_sequence
         )),
         "'"
@@ -506,7 +505,6 @@ module.exports = grammar({
         '"',
         repeat(choice(
           /[^"\\\n]/,
-          '--',
           $.escape_sequence
         )),
         '"'
@@ -522,7 +520,6 @@ module.exports = grammar({
           /[^"\\]/,
           '"',
           '""',
-          '--',
           $.escape_sequence
         )),
         '"""'
@@ -533,7 +530,6 @@ module.exports = grammar({
           /[^'\\]/,
           "'",
           "''",
-          '--',
           $.escape_sequence
         )),
         "'''"
@@ -543,7 +539,7 @@ module.exports = grammar({
     number: $ => seq(optional('-'), /\d+/),
 
     comment: $ => token(prec(-1, choice(
-      seq("--", /.*/),
+      /#[^\r\n]*/,
       seq("/*", /[^*]*\*+([^/*][^*]*\*+)*/, "/")
     ))),
 
