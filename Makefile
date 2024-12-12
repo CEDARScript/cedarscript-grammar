@@ -13,7 +13,7 @@ play p:
 
 clean c:
 	rm -rfv dist/cedarscript_*.whl dist/cedarscript_*.tar.gz target/
-	rm -rfv src/cedarscript_*.egg-info src/cedarscript_*/lib*.{so,dylib,dll}
+	rm -rfv src/*.egg-info src/cedarscript_*/lib*.{so,dylib,dll}
 
 version v:
 	git describe --tags ||:
