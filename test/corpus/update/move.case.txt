@@ -11,73 +11,81 @@ INSERT BEFORE 1
   WHEN EMPTY THEN REMOVE
   WHEN LINE "asdf" THEN BREAK
   WHEN "asdf" THEN BREAK
-  WHEN 5 THEN SUB r"pattern" r"replacement" BREAK
-  ELSE SUB r"pattern" r'replacement'
+  WHEN 5 THEN SUB
+    r"pattern" # Comment
+    r"replacement"
+    BREAK
+  ELSE SUB
+    r"pattern" # Comment
+    r'replacement' # Comments
 END;
 
 ---
 
-    (source_file
-      (update_command
-        (singlefile_clause
-          (string
-            (single_quoted_string)))
-        (update_move_mos_clause
-          (marker_or_segment
-            (segment
-              (relpos_segment_start
-                (relpos_at
-                  (marker
-                    (line_matcher
-                      (line_base
-                        (number))))))
-              (relpos_segment_end
-                (relpos_beforeafter
-                  (marker
-                    (line_matcher
-                      (line_base
-                        (number))))))))
-          (update_move_clause_destination
-            (insert_clause
-              (relpos_bai
-                (relpos_beforeafter
-                  (marker
-                    (line_matcher
-                      (line_base
-                        (number)))))))
-            (relative_indentation
+(source_file
+  (update_command
+    (singlefile_clause
+      (string
+        (single_quoted_string)))
+    (update_move_mos_clause
+      (marker_or_segment
+        (segment
+          (relpos_segment_start
+            (relpos_at
+              (marker
+                (line_matcher
+                  (line_base
+                    (number))))))
+          (relpos_segment_end
+            (relpos_beforeafter
+              (marker
+                (line_matcher
+                  (line_base
+                    (number))))))))
+      (update_move_clause_destination
+        (insert_clause
+          (relpos_bai
+            (relpos_beforeafter
+              (marker
+                (line_matcher
+                  (line_base
+                    (number)))))))
+        (relative_indentation
+          (number))
+        (line_filter
+          (case_stmt
+            (line_base)
+            (case_action)
+            (line_base
+              (string
+                (single_quoted_string)))
+            (case_action
+              (loop_control
+                (loop_break)))
+            (line_base
+              (string
+                (single_quoted_string)))
+            (case_action
+              (loop_control
+                (loop_break)))
+            (line_base
               (number))
-            (line_filter
-              (case_stmt
-                (line_base)
-                (case_action)
-                (line_base
-                  (string
-                    (single_quoted_string)))
-                (case_action
-                  (loop_control
-                    (loop_break)))
-                (line_base
-                  (string
-                    (single_quoted_string)))
-                (case_action
-                  (loop_control
-                    (loop_break)))
-                (line_base
-                  (number))
-                (case_action
-                  (string
-                    (raw_string))
-                  (string
-                    (raw_string))
-                  (loop_control
-                    (loop_break)))
-                (case_action
-                  (string
-                    (raw_string))
-                  (string
-                    (raw_string))))))))
-      (command_separator))
+            (case_action
+              (string
+                (raw_string))
+              (comment)
+              (string
+                (raw_string))
+              (loop_control
+                (loop_break)))
+            (case_action
+              (string
+                (raw_string))
+              (comment)
+              (string
+                (raw_string)))
+            (comment))))))
+  (command_separator))
 
 ==================
 UPDATE Identifier Move WHOLE CASE filter

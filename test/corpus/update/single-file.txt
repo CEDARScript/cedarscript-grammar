@@ -2,7 +2,7 @@
 UPDATE Single File
 ==================
 
--- Remarks
+# Remarks
 UPDATE FILE "/path/to/file.js"
 REPLACE LINE "old" WITH CONTENT "new line content";
 
@@ -20,8 +20,8 @@ WITH CONTENT """
 def other_function(x):
 """
 
-UPDATE FILE "file" REPLACE WHOLE WITH CONTENT "Single line"; -- Preferred
-UPDATE FILE "file" REPLACE BODY WITH CONTENT "Single line"; --   Synonym
+UPDATE FILE "file" REPLACE WHOLE WITH CONTENT "Single line"; # Preferred
+UPDATE FILE "file" REPLACE BODY WITH CONTENT "Single line"; #   Synonym
 
 UPDATE FILE "/config/settings.json"
 REPLACE SEGMENT
@@ -59,8 +59,8 @@ DELETE SEGMENT
     STARTING AT LINE "\"database\": {" OFFSET 1
     ENDING BEFORE LINE "}";
 
-UPDATE FILE "file" DELETE WHOLE -- Preferred;
-UPDATE FILE "file" DELETE BODY  --   Synonym;
+UPDATE FILE "file" DELETE WHOLE # Preferred;
+UPDATE FILE "file" DELETE BODY  #   Synonym;
 
 ---
 

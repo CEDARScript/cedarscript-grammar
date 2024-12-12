@@ -6,11 +6,12 @@ Comments
 still
 */ UPDATE FILE '' DELETE 1
 
--- Comment
-CREATE FILE 'a--b'
+# Comment
+CREATE FILE 'a--b#c##d'
 WITH CONTENT '''
 /* content */
-a --  content --
+a -- content --
+b # content #
 '''
 
 ---
