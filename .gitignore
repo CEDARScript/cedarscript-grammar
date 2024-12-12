@@ -1,3 +1,13 @@
+/src/version/_version.py
+src/*.egg-info
+src/*.json
+src/tree_sitter
+src/parser.c
+tree-sitter.json
+.coverage
+.*.history*
+*.tags.cache*
+
 .DS_*
 */.DS_*
 

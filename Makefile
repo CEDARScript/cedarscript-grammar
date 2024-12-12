@@ -6,14 +6,14 @@ all: ci version
 
 dist d: all
 	scripts/check-version.sh
-	twine upload --config-file ~/.pypirc dist/*
+	# Win MSYS2 support: force config file location
+	twine upload $$(test -e ~/.pypirc && echo '--config-file ~/.pypirc') dist/*
 
 play p:
 	echo y | ./build.sh
 
 clean c:
-	rm -rfv dist/cedarscript_*.whl dist/cedarscript_*.tar.gz target/
-	rm -rfv src/*.egg-info src/cedarscript_*/lib*.{so,dylib,dll}
+	rm -rfv out dist target build/bdist.* src/*.egg-info src/cedarscript_*/lib*.{so,dylib,dll}
 
 version v:
 	git describe --tags ||:
