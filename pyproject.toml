@@ -25,7 +25,7 @@ requires-python = ">=3.8"
 dependencies = [
     # https://github.com/tree-sitter/py-tree-sitter/issues/303
     # https://github.com/grantjenks/py-tree-sitter-languages/issues/64
-    "tree-sitter<0.22", # 0.22 breaks tree-sitter-languages
+    "tree-sitter<0.24", # 0.22 breaks tree-sitter-languages
 ]
 
 [project.urls]
